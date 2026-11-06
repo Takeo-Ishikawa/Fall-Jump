@@ -16,7 +16,8 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
       const plan = generator.generateLevel(level, (level * 7919 + i * 104729) >>> 0);
       assert.ok(generator.validateLevel(plan), 'nível inválido: ' + level + ', seed ' + plan.seed);
       assert.ok(generator.simulateRoute(plan).ok, 'sem rota válida');
-      assert.equal(plan.platforms.length, 10 + Math.min(4, Math.floor((level - 1) / 3)));
+      assert.equal(plan.platforms.length, 24 + Math.min(24, 4 * Math.floor((level - 1) / 2)));
+      assert.ok(plan.platforms.length >= 24 && plan.platforms.length <= 48);
       assert.ok(plan.platforms.every((p, j) => p.y === j * 137));
       assert.equal(plan.platforms[0].danger, 0);
       for (let j = 1; j < plan.platforms.length; j++) {
@@ -25,6 +26,23 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
         assert.ok(!(p.special && previous.special), 'especiais consecutivas');
       }
     }
+  }
+});
+
+test('torres maiores combinam trechos longos, com diferentes identidades de desafio', () => {
+  for (const level of [1, 2, 3, 4, 5, 10, 13]) {
+    const plan = generator.generateLevel(level, 424242);
+    const segmentLength = s => s.to - s.from + 1;
+    assert.ok(plan.segments.length >= 4, 'fase inteira não pode ser um padrão único');
+    assert.ok(plan.segments.every(s => segmentLength(s) >= 1));
+    assert.equal(plan.segments[0].from, 0);
+    assert.equal(plan.segments.at(-1).to, plan.count - 1);
+    assert.ok(plan.segments.some(s => segmentLength(s) >= 4), 'deve conter sequência prolongada');
+    assert.ok(new Set(plan.segments.map(s => s.type)).size >= 2, 'variação modular insuficiente');
+  }
+  for (let phase = 0; phase < 5; phase++) {
+    const plan = generator.generateLevel(phase + 1, 333);
+    assert.equal(plan.phase, phase);
   }
 });
 
