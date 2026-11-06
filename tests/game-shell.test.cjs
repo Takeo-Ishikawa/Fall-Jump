@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, '..');
 test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
   const html = fs.readFileSync(path.join(root, 'www/index.html'), 'utf8');
   const tags = [...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)];
-  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js']);
+  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js', 'skins.js']);
   const inline = tags.find(x => !x[1])?.[2];
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
@@ -39,7 +39,8 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   const browser = {
     innerWidth: 390, innerHeight: 780, location: { protocol: 'file:', search: '' },
     addEventListener() {}, FallJumpLevelGenerator: require('../www/level-generator.js'),
-    FallJumpFever: require('../www/fever.js')
+    FallJumpFever: require('../www/fever.js'),
+    FallJumpSkins: require('../www/skins.js')
   };
   const sandbox = {
     document: { querySelector: node, documentElement: { clientWidth: 390 }, addEventListener() {} },
@@ -53,7 +54,15 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(typeof scheduledFrame, 'function');
   assert.ok(node('#feverAmount').textContent.includes('/5'));
   assert.equal(typeof node('#restart').onclick, 'function');
-  node('#restart').onclick();
+  assert.equal(node('#coinCount').textContent,'0');
+  assert.equal(typeof node('#skinsButton').onclick,'function');
+  node('#skinsButton').onclick();
+  assert.equal(node('#shopSection').hidden,false);
+  node('#skin-lemon').onclick();
+  assert.ok(node('#shopFeedback').textContent.includes('Faltam 60'));
+  node('#restart').onclick(); // Voltar do catálogo ao menu
+  assert.equal(node('#shopSection').hidden,true);
+  node('#restart').onclick(); // Iniciar a partida
   assert.equal(typeof canvasEvents.pointerdown, 'function');
   canvasEvents.pointerdown({ clientX: 170, pointerId: 1 });
   for (let i = 0; i < 80; i++) scheduledFrame(i * 1000 / 60);

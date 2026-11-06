@@ -1,5 +1,5 @@
-const CACHE_NAME='fall-jump-v131';
-const FILES=['./index.html','./level-generator.js','./fever.js'];
+const CACHE_NAME='fall-jump-v14';
+const FILES=['./index.html','./level-generator.js','./fever.js','./skins.js'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(FILES)));
   self.skipWaiting();

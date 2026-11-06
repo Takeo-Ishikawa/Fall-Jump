@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.3.1), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.4), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -10,6 +10,8 @@ Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda 
 - `www/index.html`: código do jogo, mantido independente do Android.
 - `www/level-generator.js`: geração modular determinística de níveis com validação de rotas.
 - `www/fever.js`: regras da habilidade Fever, ativação, temporizador e pontuação em dobro.
+- `www/skins.js`: coleção local de aparências, moedas e persistência entre sessões.
+- `tests/skins.test.cjs`: testes de recompensas, compras cosméticas e dados salvos.
 - `tests/fever.test.cjs`: testes de ativação, duração e prioridade das colisões.
 - `tests/level-generator.test.cjs`: testes automatizados de variedade, segurança e reprodutibilidade.
 - `scripts/generate_android_icons.py`: gera ícones Android e fixa a orientação vertical durante a compilação.
@@ -51,6 +53,13 @@ Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compi
 Ao atravessar **5 aberturas sem quicar**, a bola entra em Fever durante **1,5 segundo de simulação**. Nesse intervalo, discos comuns e frágeis podem ser quebrados no contato e os pontos recebidos são dobrados. As partes escuras permanecem perigosas; Fever não concede invulnerabilidade.
 
 A barra no HUD mostra as passagens que faltam e, após a ativação, o tempo restante. Quicar antes da ativação zera a carga. O temporizador não avança quando o jogo está pausado. A partir da versão 1.3.1, os níveis têm de 40 a 80 plataformas: 40 nos níveis 1–2, aumentando 6 a cada dois níveis, até o máximo de 80 no nível 15.
+
+## Moedas e aparências — versão 1.4
+Cada quatro plataformas concluídas concedem **2 moedas**; finalizar uma fase concede **mais 12 moedas**. As moedas ficam salvas localmente entre partidas e são independentes dos pontos/recorde. Os ganhos não são multiplicados pelo Fever.
+
+No menu inicial, toque em **Aparências** para equipar a Melancia gratuita ou desbloquear Limão (60 moedas), Mirtilo (140) e Morango (260). As aparências mudam exclusivamente a cor e o desenho da bola: não alteram gravidade, colisões, velocidade ou vantagens competitivas. Não existem compras com dinheiro real.
+
+O progresso é salvo em `localStorage` na chave `fall-jump-skins-v1`, separada do recorde anterior `melon-helix-v06-best`. Desinstalar o jogo ou limpar os dados do aplicativo pode apagar esse progresso.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.

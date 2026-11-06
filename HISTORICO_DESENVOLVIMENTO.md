@@ -106,6 +106,15 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Identidade Android, assinatura e versionCode crescente preservados.
 - **Validação:** execução nº 41 concluída com sucesso; testes do gerador e do Fever aprovados, APK e AAB assinados e publicados em Releases como v1.3.1.41. Resta validar o ritmo da nova duração e das torres maiores no celular.
 
+## Fall Jump 1.4 — Coleção de bolas e moedas persistentes (2026-11-06)
+- Implementado `www/skins.js` com dados das quatro aparências, armazenamento local e lógica de desbloqueio/equipamento sem compras reais.
+- Ganhos: duas moedas por cada quatro plataformas ultrapassadas, mais doze moedas ao concluir a fase. Ganhos independentes dos pontos e sem multiplicação pelo Fever.
+- Aparências: Melancia padrão (gratuita), Limão (60 moedas), Mirtilo (140) e Morango (260). Apenas cores e padrões gráficos da bola mudam; física, colisão, raio de contato e demais mecânicas são preservadas.
+- Menu com botão de Aparências, catálogo acessível, indicação de moeda disponível, estado de seleção e mensagens de compra/equipamento. HUD indica a quantidade atual de moedas.
+- Estado salvo em `localStorage` sob `fall-jump-skins-v1`, separado do recorde existente, com tratamento de dados inválidos e ausência de acesso ao armazenamento.
+- Novos testes de loja, persistência, custos e recompensas em `tests/skins.test.cjs`, além da ampliação do teste de inicialização e cache offline do PWA.
+- Atualizados o número de versão, o APK/AAB assinado via GitHub Actions e a documentação. **Ainda é necessário testar a aparência e o desbloqueio no dispositivo Android.**
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
