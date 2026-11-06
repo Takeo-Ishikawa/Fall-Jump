@@ -1,11 +1,14 @@
 # Fall Jump — Android e HTML5
 
-Jogo casual HTML5 (base 0.7 aprovada), preparado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.1), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
+Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda necessários antes de uma eventual publicação na Google Play.
+
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
+- `scripts/generate_android_icons.py`: gera ícones Android e fixa a orientação vertical durante a compilação.
 - `capacitor.config.json`: identidade fixa do aplicativo (`com.takeoishikawa.falljump`).
 - `.github/workflows/android-apk.yml`: cria APK de **release assinado** no GitHub Actions.
 - `package.json`: dependências do Capacitor.
