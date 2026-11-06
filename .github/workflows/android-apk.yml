@@ -102,7 +102,7 @@ jobs:
           source, n = re.subn(r'(?m)^(\s*)versionCode\s+\d+', lambda m: m.group(1)+f'versionCode {code}', source, count=1)
           if n != 1:
               raise RuntimeError("versionCode nao encontrado")
-          source, n = re.subn(r'(?m)^(\s*)versionName\s+["\'][^"\']+["\']', lambda m: m.group(1)+f'versionName "1.5.{code}"', source, count=1)
+          source, n = re.subn(r'(?m)^(\s*)versionName\s+["\'][^"\']+["\']', lambda m: m.group(1)+f'versionName "1.5.1.{code}"', source, count=1)
           if n != 1:
               raise RuntimeError("versionName nao encontrado")
           signing = """
@@ -146,7 +146,7 @@ jobs:
           BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
           mkdir -p dist
-          cp "$APK" "dist/Fall-Jump-v1.5.${{ github.run_number }}.apk"
+          cp "$APK" "dist/Fall-Jump-v1.5.1.${{ github.run_number }}.apk"
           # O AAB usa assinatura JAR; verificar antes de publicar.
           jarsigner -verify -verbose -certs "$AAB" > "$RUNNER_TEMP/aab-verification.txt"
           if ! grep -q "jar verified" "$RUNNER_TEMP/aab-verification.txt"; then
@@ -154,7 +154,7 @@ jobs:
             echo "::error::A assinatura do AAB nao foi validada."
             exit 1
           fi
-          cp "$AAB" "dist/Fall-Jump-v1.5.${{ github.run_number }}.aab"
+          cp "$AAB" "dist/Fall-Jump-v1.5.1.${{ github.run_number }}.aab"
           echo "APK e AAB assinados e verificados."
 
       - name: Publicar APK e AAB diretamente em Releases
@@ -164,20 +164,20 @@ jobs:
           BUILD_NUMBER: ${{ github.run_number }}
         shell: bash
         run: |
-          TAG="v1.5.${BUILD_NUMBER}"
-          APK="dist/Fall-Jump-v1.5.${BUILD_NUMBER}.apk"
-          AAB="dist/Fall-Jump-v1.5.${BUILD_NUMBER}.aab"
+          TAG="v1.5.1.${BUILD_NUMBER}"
+          APK="dist/Fall-Jump-v1.5.1.${BUILD_NUMBER}.apk"
+          AAB="dist/Fall-Jump-v1.5.1.${BUILD_NUMBER}.aab"
           gh release create "$TAG" "$APK" "$AAB" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
-            --title "Fall Jump 1.5.${BUILD_NUMBER} (APK + AAB Android)" \
+            --title "Fall Jump 1.5.1.${BUILD_NUMBER} (APK + AAB Android)" \
             --notes "APK para testes e instalacao direta. AAB assinado para futuro envio ao Google Play Console (nao instalavel diretamente). Planejar a assinatura da loja para manter atualizacoes compativeis com os APKs ja instalados." \
             --prerelease
 
       - name: Disponibilizar APK e AAB como artefatos
         uses: actions/upload-artifact@v4
         with:
-          name: Fall-Jump-Android-v1.5.${{ github.run_number }}
+          name: Fall-Jump-Android-v1.5.1.${{ github.run_number }}
           path: |
             dist/*.apk
             dist/*.aab

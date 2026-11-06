@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#edf0f4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg"><title>Fall Jump — Versão 1.5</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf0f4;font-family:system-ui,Arial,sans-serif;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}#panel{max-height:calc(100dvh - 38px);overflow-y:auto} @media(max-height:540px){#panel{padding:14px 18px}#panel p{margin:7px 0}#panel h2{font-size:20px}#hint{bottom:calc(8px + env(safe-area-inset-bottom))}}#hud{position:absolute;top:max(12px,env(safe-area-inset-top));left:14px;right:66px;text-align:left;pointer-events:none;color:#29303a}#bestHud{font-size:11px;font-weight:750;color:#657181;margin-top:5px}#hud small{font-weight:800;letter-spacing:.15em;font-size:12px}#progress{height:5px;width:145px;margin:6px 0 0;border-radius:10px;background:#cdd3dc;overflow:hidden}#progressFill{height:100%;width:0;background:#f14e70;transition:width .2s}#score{font-size:34px;font-weight:850;line-height:1.05}#comboBadge{position:absolute;top:80px;right:14px;color:#268044;font-weight:900;font-size:17px;text-align:right;pointer-events:none;opacity:0;transition:opacity .18s}#comboBadge.on{opacity:1}#hint{position:absolute;bottom:calc(32px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#56606e;font-size:14px;pointer-events:none}#overlay{position:absolute;inset:0;background:#12192799;display:none;align-items:center;justify-content:center;padding:24px}#panel{background:white;border-radius:22px;padding:28px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 60px #0003}#panel h2{margin:0 0 8px}#panel .subline{font-size:13px;margin:5px 0 16px;color:#6e7885}#panel p{color:#5c6471;line-height:1.5}.secondary{background:#e8ecf1;color:#36404e;margin-top:10px}#panel button{width:100%}button{border:0;border-radius:14px;background:#f14e70;color:white;padding:14px 30px;font-weight:800;font-size:17px;cursor:pointer}#sound{position:absolute;top:max(15px,env(safe-area-inset-top));right:59px;background:#ffffffc9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:17px;color:#424957;padding:0}#pause{position:absolute;top:max(55px,calc(env(safe-area-inset-top) + 42px));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:16px;color:#424957;padding:0}#help{position:absolute;top:max(15px,env(safe-area-inset-top));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:18px;color:#424957}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#edf0f4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg"><title>Fall Jump — Versão 1.5.1</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf0f4;font-family:system-ui,Arial,sans-serif;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}#panel{max-height:calc(100dvh - 38px);overflow-y:auto} @media(max-height:540px){#panel{padding:14px 18px}#panel p{margin:7px 0}#panel h2{font-size:20px}#hint{bottom:calc(8px + env(safe-area-inset-bottom))}}#hud{position:absolute;top:max(12px,env(safe-area-inset-top));left:14px;right:66px;text-align:left;pointer-events:none;color:#29303a}#bestHud{font-size:11px;font-weight:750;color:#657181;margin-top:5px}#hud small{font-weight:800;letter-spacing:.15em;font-size:12px}#progress{height:5px;width:145px;margin:6px 0 0;border-radius:10px;background:#cdd3dc;overflow:hidden}#progressFill{height:100%;width:0;background:#f14e70;transition:width .2s}#score{font-size:34px;font-weight:850;line-height:1.05}#comboBadge{position:absolute;top:80px;right:14px;color:#268044;font-weight:900;font-size:17px;text-align:right;pointer-events:none;opacity:0;transition:opacity .18s}#comboBadge.on{opacity:1}#hint{position:absolute;bottom:calc(32px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#56606e;font-size:14px;pointer-events:none}#overlay{position:absolute;inset:0;background:#12192799;display:none;align-items:center;justify-content:center;padding:24px}#panel{background:white;border-radius:22px;padding:28px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 60px #0003}#panel h2{margin:0 0 8px}#panel .subline{font-size:13px;margin:5px 0 16px;color:#6e7885}#panel p{color:#5c6471;line-height:1.5}.secondary{background:#e8ecf1;color:#36404e;margin-top:10px}#panel button{width:100%}button{border:0;border-radius:14px;background:#f14e70;color:white;padding:14px 30px;font-weight:800;font-size:17px;cursor:pointer}#sound{position:absolute;top:max(15px,env(safe-area-inset-top));right:59px;background:#ffffffc9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:17px;color:#424957;padding:0}#pause{position:absolute;top:max(55px,calc(env(safe-area-inset-top) + 42px));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:16px;color:#424957;padding:0}#help{position:absolute;top:max(15px,env(safe-area-inset-top));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:18px;color:#424957}
 /* Interface 1.1: melhor legibilidade, hierarquia e alvos de toque no Android */
 :root{--fj-ink:#283543;--fj-pink:#ef4e76;--fj-soft:#eef6f3}
 #hud{top:max(14px,env(safe-area-inset-top));left:14px;right:auto;width:min(190px,calc(100vw - 126px));padding:12px 14px 13px;border-radius:18px;background:rgba(255,255,255,.83);border:1px solid rgba(255,255,255,.9);box-shadow:0 9px 28px #23324815;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);color:var(--fj-ink)}
@@ -56,7 +56,12 @@
 #goalsSection[hidden]{display:none!important}
 #goalsSection{text-align:left}
 #goalsSection h3{font-size:14px;color:#34485a;margin:15px 0 9px}
-#goalsDay{font-size:11px;color:#71808d;margin:3px 0 7px}
+#goalsDay{font-size:11px;color:#71808d;margin:3px 0 4px}
+#goalsCountdown{font-size:12px;color:#3a6c72;font-weight:850;margin:0 0 10px;font-variant-numeric:tabular-nums}
+#panel .claimReward{margin-top:9px;padding:9px 13px;min-height:39px;font-size:12px;border-radius:10px;background:#eeb33e;color:#583e0e}
+#panel .claimReward:disabled{cursor:default;background:#e6eaee;color:#8c9aa4}
+#panel .claimReward.ready{background:#33a76c;color:white}
+.goalRow.ready{background:#fff9e8;border-color:#edce77}
 .goalsList{display:flex;flex-direction:column;gap:7px}
 .goalRow{background:#f5f7fa;border-radius:12px;padding:10px 12px;border:1px solid #e6eaf0}
 .goalRow.complete{background:#eaf8ef;border-color:#b5e5c6}
@@ -81,41 +86,65 @@
  </div>
  <p id="shopFeedback" role="status">Todas as aparências são cosméticas.</p>
 </div>
-<div id="goalsSection" hidden><h3>Missões diárias</h3><div id="goalsDay"></div><div class="goalsList" id="dailyGoals"><div class="goalRow" id="daily-row-0"><div class="goalTop"><span class="goalName" id="daily-name-0"></span><span class="goalReward" id="daily-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-0"></div></div><div class="goalMeta"><span id="daily-progress-0"></span><span id="daily-status-0"></span></div></div><div class="goalRow" id="daily-row-1"><div class="goalTop"><span class="goalName" id="daily-name-1"></span><span class="goalReward" id="daily-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-1"></div></div><div class="goalMeta"><span id="daily-progress-1"></span><span id="daily-status-1"></span></div></div><div class="goalRow" id="daily-row-2"><div class="goalTop"><span class="goalName" id="daily-name-2"></span><span class="goalReward" id="daily-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-2"></div></div><div class="goalMeta"><span id="daily-progress-2"></span><span id="daily-status-2"></span></div></div></div><h3>Conquistas permanentes</h3><div class="goalsList" id="achievementGoals"><div class="goalRow" id="ach-row-0"><div class="goalTop"><span class="goalName" id="ach-name-0"></span><span class="goalReward" id="ach-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-0"></div></div><div class="goalMeta"><span id="ach-progress-0"></span><span id="ach-status-0"></span></div></div><div class="goalRow" id="ach-row-1"><div class="goalTop"><span class="goalName" id="ach-name-1"></span><span class="goalReward" id="ach-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-1"></div></div><div class="goalMeta"><span id="ach-progress-1"></span><span id="ach-status-1"></span></div></div><div class="goalRow" id="ach-row-2"><div class="goalTop"><span class="goalName" id="ach-name-2"></span><span class="goalReward" id="ach-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-2"></div></div><div class="goalMeta"><span id="ach-progress-2"></span><span id="ach-status-2"></span></div></div><div class="goalRow" id="ach-row-3"><div class="goalTop"><span class="goalName" id="ach-name-3"></span><span class="goalReward" id="ach-reward-3"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-3"></div></div><div class="goalMeta"><span id="ach-progress-3"></span><span id="ach-status-3"></span></div></div><div class="goalRow" id="ach-row-4"><div class="goalTop"><span class="goalName" id="ach-name-4"></span><span class="goalReward" id="ach-reward-4"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-4"></div></div><div class="goalMeta"><span id="ach-progress-4"></span><span id="ach-status-4"></span></div></div><div class="goalRow" id="ach-row-5"><div class="goalTop"><span class="goalName" id="ach-name-5"></span><span class="goalReward" id="ach-reward-5"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-5"></div></div><div class="goalMeta"><span id="ach-progress-5"></span><span id="ach-status-5"></span></div></div></div></div>
+<div id="goalsSection" hidden><h3>Missões diárias</h3><div id="goalsDay"></div><div id="goalsCountdown" role="timer">Renovação em --:--:--</div><div class="goalsList" id="dailyGoals"><div class="goalRow" id="daily-row-0"><div class="goalTop"><span class="goalName" id="daily-name-0"></span><span class="goalReward" id="daily-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-0"></div></div><div class="goalMeta"><span id="daily-progress-0"></span><span id="daily-status-0"></span></div><button type="button" class="claimReward" id="daily-claim-0" disabled>Em andamento</button></div><div class="goalRow" id="daily-row-1"><div class="goalTop"><span class="goalName" id="daily-name-1"></span><span class="goalReward" id="daily-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-1"></div></div><div class="goalMeta"><span id="daily-progress-1"></span><span id="daily-status-1"></span></div><button type="button" class="claimReward" id="daily-claim-1" disabled>Em andamento</button></div><div class="goalRow" id="daily-row-2"><div class="goalTop"><span class="goalName" id="daily-name-2"></span><span class="goalReward" id="daily-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-2"></div></div><div class="goalMeta"><span id="daily-progress-2"></span><span id="daily-status-2"></span></div><button type="button" class="claimReward" id="daily-claim-2" disabled>Em andamento</button></div></div><h3>Conquistas permanentes</h3><div class="goalsList" id="achievementGoals"><div class="goalRow" id="ach-row-0"><div class="goalTop"><span class="goalName" id="ach-name-0"></span><span class="goalReward" id="ach-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-0"></div></div><div class="goalMeta"><span id="ach-progress-0"></span><span id="ach-status-0"></span></div><button type="button" class="claimReward" id="ach-claim-0" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-1"><div class="goalTop"><span class="goalName" id="ach-name-1"></span><span class="goalReward" id="ach-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-1"></div></div><div class="goalMeta"><span id="ach-progress-1"></span><span id="ach-status-1"></span></div><button type="button" class="claimReward" id="ach-claim-1" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-2"><div class="goalTop"><span class="goalName" id="ach-name-2"></span><span class="goalReward" id="ach-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-2"></div></div><div class="goalMeta"><span id="ach-progress-2"></span><span id="ach-status-2"></span></div><button type="button" class="claimReward" id="ach-claim-2" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-3"><div class="goalTop"><span class="goalName" id="ach-name-3"></span><span class="goalReward" id="ach-reward-3"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-3"></div></div><div class="goalMeta"><span id="ach-progress-3"></span><span id="ach-status-3"></span></div><button type="button" class="claimReward" id="ach-claim-3" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-4"><div class="goalTop"><span class="goalName" id="ach-name-4"></span><span class="goalReward" id="ach-reward-4"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-4"></div></div><div class="goalMeta"><span id="ach-progress-4"></span><span id="ach-status-4"></span></div><button type="button" class="claimReward" id="ach-claim-4" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-5"><div class="goalTop"><span class="goalName" id="ach-name-5"></span><span class="goalReward" id="ach-reward-5"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-5"></div></div><div class="goalMeta"><span id="ach-progress-5"></span><span id="ach-status-5"></span></div><button type="button" class="claimReward" id="ach-claim-5" disabled>Em andamento</button></div></div></div>
 <button id="restart">Jogar novamente</button>
 <button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
 <button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0;const comboBadge=document.querySelector("#comboBadge");
-const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalToast=document.querySelector('#goalToast');
+const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalsCountdown=document.querySelector('#goalsCountdown'),goalToast=document.querySelector('#goalToast');
 let goalToastFrames=0;
 let goalsState;
 try{goalsState=Goals.load(localStorage,Goals.localDay(new Date()))}catch(e){goalsState=Goals.create(Goals.localDay(new Date()))}
 function saveGoalsState(){try{Goals.save(localStorage,goalsState)}catch(e){}}
-function showGoalReward(payouts){
- const coins=payouts.reduce((sum,x)=>sum+x.reward,0);
- if(!coins)return;
- creditCoins(coins);
- goalToast.textContent='OBJETIVO CONCLUÍDO · +'+coins+' MOEDAS';
- goalToast.style.opacity='1';goalToastFrames=170;
+function showGoalToast(message){
+ goalToast.textContent=message;goalToast.style.opacity='1';goalToastFrames=170;
 }
 function recordGoalEvent(event){
  const day=Goals.localDay(new Date());
- const payouts=Goals.record(goalsState,event,day);
+ const ready=Goals.record(goalsState,event,day);
  saveGoalsState();
- if(payouts.length)showGoalReward(payouts);
+ if(ready.length)showGoalToast('OBJETIVO PRONTO · RESGATE NO MENU');
+}
+function updateGoalsCountdown(){
+ const remaining=Goals.nextResetMs(new Date(),goalsState.daily.day);
+ goalsCountdown.textContent='Novas missões em '+Goals.formatCountdown(remaining);
+}
+function claimGoal(kind,id){
+ // Cópia validada: não consumir recompensa se o progresso não puder ser salvo.
+ const today=Goals.localDay(new Date());
+ const draft=Goals.normalize(goalsState,today);
+ const reward=Goals.claim(draft,kind,id,today);
+ if(!reward){goalsState=draft;refreshGoals();return}
+ let saved=false;
+ try{saved=Goals.save(localStorage,draft)}catch(e){}
+ if(!saved){
+  showGoalToast('Não foi possível salvar o resgate');
+  return;
+ }
+ goalsState=draft;
+ creditCoins(reward.reward);
+ showGoalToast('RECOMPENSA RESGATADA · +'+reward.reward+' MOEDAS');
+ refreshGoals();
 }
 function refreshGoals(){
  if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();
  const snapshot=Goals.getStatus(goalsState);
- goalsDay.textContent='Dia '+snapshot.day.split('-').reverse().join('/')+' · recompensas automáticas';
+ goalsDay.textContent='Dia '+snapshot.day.split('-').reverse().join('/')+' · resgate manual';
+ updateGoalsCountdown();
  for(const [prefix,arr] of [['daily',snapshot.daily],['ach',snapshot.achievements]]){
   arr.forEach((goal,index)=>{
    document.querySelector('#'+prefix+'-name-'+index).textContent=goal.title;
    document.querySelector('#'+prefix+'-reward-'+index).textContent='+'+goal.reward+' moedas';
    document.querySelector('#'+prefix+'-progress-'+index).textContent=goal.progress+' / '+goal.target;
-   document.querySelector('#'+prefix+'-status-'+index).textContent=goal.claimed?'RECEBIDA':'EM ANDAMENTO';
+   document.querySelector('#'+prefix+'-status-'+index).textContent=goal.claimed?'RESGATADA':goal.ready?'PRONTA':'EM ANDAMENTO';
    document.querySelector('#'+prefix+'-fill-'+index).style.width=(100*goal.progress/goal.target)+'%';
-   document.querySelector('#'+prefix+'-row-'+index).classList.toggle('complete',goal.claimed);
+   const row=document.querySelector('#'+prefix+'-row-'+index),button=document.querySelector('#'+prefix+'-claim-'+index);
+   row.classList.toggle('complete',goal.claimed);
+   row.classList.toggle('ready',goal.ready);
+   button.disabled=!goal.ready;
+   button.textContent=goal.claimed?'Resgatada':goal.ready?'Resgatar +'+goal.reward:'Em andamento';
+   button.classList.toggle('ready',goal.ready);
+   button.onclick=()=>claimGoal(prefix==='daily'?'daily':'achievement',goal.id);
   });
  }
 }
@@ -182,7 +211,7 @@ function showPanel(title,body,action,secondary=false){
 function menu(){mode='menu';alive=false;started=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();showPanel('FALL JUMP','Gire a torre, atravesse os vãos e faça combos. Cinco passagens sem quicar ativam o FEVER: por 1,5 segundo, rompa discos comuns e ganhe o dobro de pontos!','Jogar',false)}
 function openGoals(){
  mode='goals';alive=false;started=false;pauseBtn.style.display='none';
- showPanel('Missões e conquistas','Acompanhe desafios do dia e marcos permanentes. Cada recompensa é concedida automaticamente ao completar o objetivo.','Voltar ao menu');
+ showPanel('Missões e conquistas','Acompanhe desafios do dia e marcos permanentes. Ao cumprir uma meta, toque em Resgatar para receber suas moedas antes da renovação.','Voltar ao menu');
  refreshGoals();
 }
 function openShop(){
@@ -330,7 +359,13 @@ Fever.onBounce(feverState);refreshFeverHud();
 comboBadge.classList.remove('on');shake=2.4;burst(project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y+radius*scale,9);break}}cameraY+=(ballY+ballZ*.32/((1+ballZ*.0012)*verticalScale)-cameraY)*.13}squash*=.79;shake*=.8;for(let q of particles){q.x+=q.vx*scale;q.y+=q.vy*scale;q.vy+=q.shard?.19:.12;q.life--;if(q.shard)q.spin+=q.spinSpeed}particles=particles.filter(q=>q.life>0);if(particles.length>130)particles.splice(0,particles.length-130);for(let q of breakFx){q.dx+=q.vx;q.dz+=q.vz;q.dy+=q.vy;q.vy+=.23;q.rot+=q.rv;q.life--}breakFx=breakFx.filter(q=>q.life>0);if(breakFx.length>70)breakFx.splice(0,breakFx.length-70);for(let popup of popups){popup.y-=.7*scale;popup.life--}popups=popups.filter(x=>x.life>0);for(let t of trail)t.life--;trail=trail.filter(t=>t.life>0);if(started&&alive&&vy>8&&combo>=2&&frames%2===0)trail.push({x:project(ballX,ballZ,ballY).x,y:project(ballX,ballZ,ballY).y-12*scale,life:16});frames++}
 let lastFrameTime=null,frameAccumulator=0;
 const fixedFrameMs=1000/60;
+let lastCountdownUpdate=-Infinity;
 function update(timestamp){
+  if(mode==='goals'&&timestamp-lastCountdownUpdate>=1000){
+    lastCountdownUpdate=timestamp;
+    if(Goals.localDay(new Date())>goalsState.daily.day)refreshGoals();
+    else updateGoalsCountdown();
+  }
   if(lastFrameTime===null)lastFrameTime=timestamp;
   const elapsed=Math.min(Math.max(timestamp-lastFrameTime,0),50);
   lastFrameTime=timestamp;

@@ -1,5 +1,5 @@
 /* Fall Jump 1.5 — missões diárias e conquistas locais.
- * Recompensas automáticas e uma única vez por objetivo; sem conta, rede ou anúncios.
+ * Progresso persistente com resgate manual e único por objetivo; sem rede.
  */
 (function(root,factory){
  'use strict';
@@ -79,37 +79,66 @@
  function record(state,event,today){
   refreshDay(state,today);
   const updates={};
+  const oldCombo=state.totals.bestCombo;
+  const oldTotals={...state.totals};
   if(event&&typeof event==='object'){
    for(const metric of METRICS.filter(n=>n!=='bestCombo'))updates[metric]=clampCount(event[metric]);
    const combo=clampCount(event.combo);
    if(combo>state.totals.bestCombo)state.totals.bestCombo=combo;
   }
   for(const metric of Object.keys(updates))state.totals[metric]=capAdd(state.totals[metric],updates[metric]);
-  const payouts=[];
+  const newlyReady=[];
   for(const goal of ACHIEVEMENTS){
-   if(state.totals[goal.metric]>=goal.target&&!state.awards.includes(goal.id)){
-    state.awards.push(goal.id);
-    payouts.push({id:goal.id,title:goal.title,reward:goal.reward,kind:'achievement'});
+   const previous=goal.metric==='bestCombo'?oldCombo:oldTotals[goal.metric];
+   if(previous<goal.target&&state.totals[goal.metric]>=goal.target&&!state.awards.includes(goal.id)){
+    newlyReady.push({id:goal.id,title:goal.title,reward:goal.reward,kind:'achievement'});
    }
   }
   for(const mission of missionsFor(state.daily.day)){
-   const delta=updates[mission.metric]||0;
-   state.daily.progress[mission.id]=capAdd(state.daily.progress[mission.id]||0,delta);
-   if(state.daily.progress[mission.id]>=mission.target&&!state.daily.claimed.includes(mission.id)){
-    state.daily.claimed.push(mission.id);
-    payouts.push({id:mission.id,title:mission.title,reward:mission.reward,kind:'daily'});
+   const before=state.daily.progress[mission.id]||0;
+   state.daily.progress[mission.id]=capAdd(before,updates[mission.metric]||0);
+   if(before<mission.target&&state.daily.progress[mission.id]>=mission.target&&!state.daily.claimed.includes(mission.id)){
+    newlyReady.push({id:mission.id,title:mission.title,reward:mission.reward,kind:'daily'});
    }
   }
-  return payouts;
+  // Não creditar moedas aqui: o jogador recebe somente quando toca em Resgatar.
+  return newlyReady;
+ }
+ function claim(state,kind,id,today){
+  refreshDay(state,today);
+  const daily=kind==='daily';
+  const goals=daily?missionsFor(state.daily.day):kind==='achievement'?ACHIEVEMENTS:[];
+  const goal=goals.find(item=>item.id===id);
+  if(!goal)return null;
+  const claimed=daily?state.daily.claimed:state.awards;
+  const progress=daily?state.daily.progress[id]||0:state.totals[goal.metric]||0;
+  if(claimed.includes(id)||progress<goal.target)return null;
+  claimed.push(id);
+  return {id:goal.id,title:goal.title,reward:goal.reward,kind:daily?'daily':'achievement'};
+ }
+ function nextResetMs(now,storedDay){
+  const date=now instanceof Date?now:new Date();
+  const local=localDay(date);
+  const day=validDay(storedDay)&&storedDay>local?storedDay:local;
+  const [year,month,dateNum]=day.split('-').map(Number);
+  const midnight=new Date(year,month-1,dateNum+1,0,0,0,0).getTime();
+  return Math.max(0,midnight-date.getTime());
+ }
+ function formatCountdown(ms){
+  const seconds=Math.ceil(Math.max(0,ms)/1000);
+  const hours=Math.floor(seconds/3600);
+  const minutes=Math.floor(seconds%3600/60);
+  const remainder=seconds%60;
+  return [hours,minutes,remainder].map(n=>String(n).padStart(2,'0')).join(':');
  }
  function getStatus(state){
   return {day:state.daily.day,daily:missionsFor(state.daily.day).map(goal=>({
    ...goal,progress:Math.min(goal.target,state.daily.progress[goal.id]||0),
-   claimed:state.daily.claimed.includes(goal.id)
+   claimed:state.daily.claimed.includes(goal.id),ready:!state.daily.claimed.includes(goal.id)&&(state.daily.progress[goal.id]||0)>=goal.target
   })),achievements:ACHIEVEMENTS.map(goal=>({
    ...goal,progress:Math.min(goal.target,state.totals[goal.metric]||0),
-   claimed:state.awards.includes(goal.id)
+   claimed:state.awards.includes(goal.id),ready:!state.awards.includes(goal.id)&&(state.totals[goal.metric]||0)>=goal.target
   }))};
  }
- return {KEY,create,normalize,load,save,record,refreshDay,localDay,missionsFor,getStatus,ACHIEVEMENTS,DAILY_POOL};
+ return {KEY,create,normalize,load,save,record,claim,refreshDay,localDay,missionsFor,getStatus,nextResetMs,formatCountdown,ACHIEVEMENTS,DAILY_POOL};
 });

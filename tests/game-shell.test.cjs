@@ -67,7 +67,10 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   node('#goalsButton').onclick();
   assert.equal(node('#goalsSection').hidden,false);
   assert.ok(node('#daily-name-0').textContent.length>0);
+  assert.ok(node('#goalsCountdown').textContent.includes('Novas missões em '));
+  assert.equal(node('#daily-claim-0').disabled,true);
   assert.ok(node('#ach-name-0').textContent.length>0);
+  assert.equal(node('#ach-claim-0').disabled,true);
   node('#restart').onclick(); // Voltar das missões para o menu
   assert.equal(node('#goalsSection').hidden,true);
   node('#restart').onclick(); // Iniciar a partida

@@ -5,68 +5,92 @@ const goals=require('../www/goals.js');
 function memory(){const map=new Map();return {getItem:k=>map.get(k)||null,setItem:(k,v)=>map.set(k,v)}}
 const DAY='2026-11-06',NEXT='2026-11-07';
 
-test('seleciona três missões distintas e mantém escolhas do mesmo dia',()=>{
- const selected=goals.missionsFor(DAY),again=goals.missionsFor(DAY);
- assert.equal(selected.length,3);
- assert.deepEqual(selected,again);
- assert.equal(new Set(selected.map(m=>m.id)).size,3);
+test('três missões distintas por dia, data local reproduzível',()=>{
+ assert.equal(goals.missionsFor(DAY).length,3);
+ assert.deepEqual(goals.missionsFor(DAY),goals.missionsFor(DAY));
  assert.notDeepEqual(goals.missionsFor(DAY),goals.missionsFor(NEXT));
+ assert.equal(new Set(goals.missionsFor(DAY).map(m=>m.id)).size,3);
 });
-test('progresso de plataformas e conquista é cumulativo com recompensa uma só vez',()=>{
+test('completar objetivos não credita nem marca como resgatados até clicar',()=>{
  const state=goals.create(DAY);
- assert.deepEqual(goals.record(state,{platforms:99,combo:9},DAY),[]);
- const one=goals.record(state,{platforms:1,combo:10},DAY);
- assert.ok(one.some(p=>p.id==='steps100'&&p.reward===30));
- assert.ok(one.some(p=>p.id==='combo10'&&p.reward===50));
- assert.deepEqual(goals.record(state,{platforms:300,combo:10},DAY).filter(x=>x.kind==='achievement'),[]);
- const next=goals.record(state,{platforms:100},DAY);
- assert.deepEqual(next.filter(x=>x.kind==='achievement').map(x=>x.id),['steps500']);
- assert.equal(state.totals.bestCombo,10);
+ const first=goals.record(state,{platforms:100,combo:10},DAY);
+ assert.ok(first.some(x=>x.id==='steps100'));
+ assert.ok(first.some(x=>x.id==='combo10'));
+ assert.deepEqual(state.awards,[]);
+ assert.equal(goals.getStatus(state).achievements.find(x=>x.id==='combo10').ready,true);
+ assert.deepEqual(goals.record(state,{platforms:1,combo:10},DAY),[]);
+ const reward=goals.claim(state,'achievement','combo10',DAY);
+ assert.deepEqual(reward,{id:'combo10',title:'Mestre dos combos',reward:50,kind:'achievement'});
+ assert.equal(goals.claim(state,'achievement','combo10',DAY),null);
+ assert.equal(goals.getStatus(state).achievements.find(x=>x.id==='combo10').ready,false);
+ assert.equal(goals.getStatus(state).achievements.find(x=>x.id==='combo10').claimed,true);
 });
-test('três missões diárias mudam no dia seguinte, sem reiniciar conquistas',()=>{
- const state=goals.create(DAY),missions=goals.missionsFor(DAY);
- const event={platforms:100,wins:3,fevers:3,bonus:20,smashes:20,combo5:6,combo:9};
- const reward=goals.record(state,event,DAY);
- for(const mission of missions)assert.equal(reward.filter(x=>x.id===mission.id).length,1);
- assert.deepEqual(goals.record(state,event,DAY).filter(x=>x.kind==='daily'),[]);
- assert.equal(goals.getStatus(state).daily.every(x=>x.claimed),true);
- goals.refreshDay(state,NEXT);
+test('resgate de missão diária só depois de concluir, com recompensa única',()=>{
+ const state=goals.create(DAY);
+ const goal=goals.missionsFor(DAY)[0];
+ assert.equal(goals.claim(state,'daily',goal.id,DAY),null);
+ goals.record(state,{platforms:100,wins:3,fevers:3,bonus:20,smashes:20,combo5:6},DAY);
+ assert.equal(goals.getStatus(state).daily.every(x=>x.ready),true);
+ const reward=goals.claim(state,'daily',goal.id,DAY);
+ assert.equal(reward.reward,goal.reward);
+ assert.equal(goals.claim(state,'daily',goal.id,DAY),null);
+ assert.equal(goals.getStatus(state).daily.find(x=>x.id===goal.id).claimed,true);
+ assert.equal(goals.claim(state,'daily','invalid',DAY),null);
+ assert.equal(goals.claim(state,'wrong',goal.id,DAY),null);
+});
+test('missões não resgatadas expiram na virada do dia; conquistas permanecem',()=>{
+ const state=goals.create(DAY);
+ goals.record(state,{platforms:100,wins:3,fevers:3,bonus:20,smashes:20,combo5:6},DAY);
+ const old=goals.missionsFor(DAY)[0];
+ assert.ok(goals.claim(state,'achievement','steps100',DAY));
+ assert.equal(goals.refreshDay(state,NEXT),true);
  assert.equal(goals.getStatus(state).daily.every(x=>!x.claimed&&x.progress===0),true);
  assert.equal(goals.getStatus(state).achievements.find(x=>x.id==='steps100').claimed,true);
- assert.equal(state.totals.platforms,200);
-});
-test('não retrocede data quando o relógio do aparelho é alterado',()=>{
- const state=goals.create(NEXT);
- goals.record(state,{wins:1},DAY);
- assert.equal(state.daily.day,NEXT);
+ assert.equal(goals.claim(state,'daily',old.id,NEXT),null);
  assert.equal(goals.refreshDay(state,DAY),false);
- assert.equal(state.daily.day,NEXT);
 });
-test('recupera armazenamento inválido e mantém objetivos concedidos',()=>{
+test('contagem regressiva até meia-noite local é correta, inclusive dia curto de DST',()=>{
+ const now=new Date(2026,10,6,23,59,30,400);
+ const remaining=goals.nextResetMs(now,DAY);
+ assert.equal(remaining,29600);
+ assert.equal(goals.formatCountdown(remaining),'00:00:30');
+ const start=new Date(2026,10,6,0,0,0);
+ assert.equal(goals.nextResetMs(start,DAY),24*3600000);
+ assert.equal(goals.formatCountdown(0),'00:00:00');
+ assert.equal(goals.formatCountdown(3599999),'01:00:00');
+ // A data persistida à frente do relógio não permite renovar antes do previsto.
+ assert.ok(goals.nextResetMs(now,'2026-11-08')>24*3600000);
+});
+test('resgates e progressos anteriores persistem após reiniciar, sem duplicar',()=>{
  const storage=memory();
  const state=goals.create(DAY);
  goals.record(state,{platforms:500,fevers:10,combo:10},DAY);
- assert.ok(goals.save(storage,state));
- const reloaded=goals.load(storage,DAY);
- assert.deepEqual(reloaded,state);
- assert.equal(goals.record(reloaded,{platforms:1},DAY).some(x=>x.id==='steps500'),false);
- const invalid={getItem(){return '{invalid';},setItem(){throw Error('blocked')}};
- assert.deepEqual(goals.load(invalid,DAY),goals.create(DAY));
- assert.equal(goals.save(invalid,state),false);
+ assert.ok(goals.claim(state,'achievement','steps500',DAY));
+ assert.equal(goals.save(storage,state),true);
+ const read=goals.load(storage,DAY);
+ assert.deepEqual(read,state);
+ assert.equal(goals.claim(read,'achievement','steps500',DAY),null);
+ assert.equal(goals.getStatus(read).achievements.find(g=>g.id==='fever10').ready,true);
 });
-test('suporta estados legados e valores malformados sem conceder moedas por métricas negativas',()=>{
- const raw={totals:{platforms:-500,wins:NaN,fevers:1e40,bestCombo:3},
+test('migra dados da versão 1.5: recompensas já concedidas seguem resgatadas',()=>{
+ const state=goals.normalize({totals:{platforms:500,bestCombo:10},awards:['steps100','steps100'],
+ daily:{day:DAY,progress:Object.fromEntries(goals.missionsFor(DAY).map(m=>[m.id,99])),claimed:[goals.missionsFor(DAY)[0].id]}},DAY);
+ assert.equal(goals.claim(state,'achievement','steps100',DAY),null);
+ assert.equal(goals.getStatus(state).achievements.find(g=>g.id==='steps100').claimed,true);
+ assert.equal(goals.claim(state,'daily',goals.missionsFor(DAY)[0].id,DAY),null);
+ assert.equal(goals.getStatus(state).achievements.find(g=>g.id==='steps500').ready,true);
+ const storage=memory();goals.save(storage,state);
+ assert.deepEqual(goals.load(storage,DAY),state);
+});
+test('dados inválidos não liberam resgates e armazenamento indisponível não quebra',()=>{
+ const bad={totals:{platforms:-500,wins:NaN,fevers:1e40,bestCombo:3},
  awards:['steps100','steps100','bogus'],daily:{day:DAY,progress:{descents:-1},claimed:['bogus']}};
- const state=goals.normalize(raw,DAY);
+ const state=goals.normalize(bad,DAY);
  assert.equal(state.totals.platforms,0);
- assert.equal(state.totals.wins,0);
- assert.equal(state.totals.fevers,0);
  assert.deepEqual(state.awards,['steps100']);
- assert.deepEqual(goals.record(state,{platforms:-100,wins:0,combo:-12},DAY),[]);
-});
-test('não modifica estoque da loja: apenas emite valores de recompensa',()=>{
- const state=goals.create(DAY);
- const out=goals.record(state,{platforms:100,combo:10},DAY);
- assert.ok(out.reduce((n,x)=>n+x.reward,0)>0);
- assert.equal(Object.prototype.hasOwnProperty.call(state,'coins'),false);
+ assert.deepEqual(goals.record(state,{platforms:-100,combo:-12},DAY),[]);
+ assert.equal(goals.claim(state,'achievement','steps500',DAY),null);
+ const broken={getItem(){return '{invalid'},setItem(){throw Error('blocked')}};
+ assert.deepEqual(goals.load(broken,DAY),goals.create(DAY));
+ assert.equal(goals.save(broken,state),false);
 });

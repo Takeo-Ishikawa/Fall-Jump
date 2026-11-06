@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.5), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.5.1), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -63,12 +63,12 @@ No menu inicial, toque em **Aparências** para equipar a Melancia gratuita ou de
 
 O progresso é salvo em `localStorage` na chave `fall-jump-skins-v1`, separada do recorde anterior `melon-helix-v06-best`. Desinstalar o jogo ou limpar os dados do aplicativo pode apagar esse progresso.
 
-## Missões diárias e conquistas — versão 1.5
-O menu **Missões e conquistas** mostra três desafios diários rotativos e seis conquistas permanentes, com barra de progresso, indicação da recompensa e marcação de objetivos concluídos. As recompensas são **moedas do jogo**, concedidas **automaticamente e uma única vez por objetivo**, sem anúncios, contas ou compras reais.
+## Missões diárias e conquistas — versão 1.5.1
+O menu **Missões e conquistas** mostra três desafios diários rotativos e seis conquistas permanentes. Ao cumprir uma meta, a recompensa **fica disponível para resgate**; toque no botão **Resgatar +N moedas** para receber o prêmio. Cada objetivo é resgatável uma única vez (por dia, nas missões diárias; uma única vez na instalação, nas conquistas permanentes). Objetivos não concluídos mantêm o botão desativado.
 
-As missões diárias variam de acordo com o dia local do dispositivo (por exemplo: ultrapassar plataformas, ativar Fever, romper plataformas, fazer combos ou concluir fases). O progresso diário começa do zero no dia seguinte, mas as conquistas permanentes mantêm seu progresso. A alteração do relógio para um dia anterior não faz o progresso retroceder.
+A tela mostra um **temporizador HH:MM:SS até a próxima meia-noite local**, quando a seleção das missões diárias e seu progresso são renovados automaticamente. **Missões diárias concluídas mas não resgatadas expiram na renovação**, enquanto as conquistas permanentes continuam disponíveis. A contagem usa o relógio do dispositivo; não exige conexão com a internet.
 
-O estado é salvo na chave `fall-jump-goals-v1` do `localStorage`, separado da carteira de moedas (`fall-jump-skins-v1`) e do recorde. **O progresso começa a ser contabilizado a partir da versão 1.5**, sem contabilizar retroativamente partidas anteriores. A recompensa se soma às moedas obtidas durante o jogo e não recebe multiplicador do Fever.
+O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skins-v1`. A migração preserva todas as recompensas já concedidas automaticamente pela versão 1.5, sem disponibilizá-las outra vez. As moedas do resgate são independentes do Fever. Como o progresso é local, limpar dados ou desinstalar o aplicativo pode apagá-lo.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.

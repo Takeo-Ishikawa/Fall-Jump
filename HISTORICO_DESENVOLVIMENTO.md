@@ -126,6 +126,15 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Cache offline atualizado; versão, workflow de APK/AAB e README atualizados.
 - **Validação:** execução nº 50 concluída com sucesso: testes do gerador, Fever, aparências, missões/conquistas e inicialização do jogo passaram; APK e AAB assinados e publicados como v1.5.50. Resta avaliar a interface e as recompensas no aparelho Android.
 
+## Fall Jump 1.5.1 — Resgate manual e relógio das missões diárias (2026-11-06)
+- Conforme solicitado, cumprir missões e conquistas não credita moedas imediatamente: o objetivo passa para estado **PRONTA**, com botão **Resgatar +N**. O resgate paga uma única vez e altera o botão para **Resgatada**.
+- Mantidas no armazenamento as listas antigas `awards` e `daily.claimed`, portanto as recompensas entregues automaticamente na 1.5 continuam resgatadas, sem duplicação na atualização.
+- Tela de objetivos exibe contagem regressiva **HH:MM:SS** calculada pela meia-noite local, atualizada a cada segundo enquanto a tela está aberta. Missões diárias são renovadas ao cruzar o dia (sem servidor); recompensas diárias não resgatadas expiram, mas conquistas permanentes continuam disponíveis.
+- Separadas no módulo `www/goals.js` as ações `record` (atualiza progresso) e `claim` (valida meta, registra o resgate e retorna a recompensa). A interface só credita moedas após salvar o resgate.
+- Testes incluem pagamento único, permanência após reiniciar, migração da versão anterior, expiração no reset e horário local/DST; teste de inicialização confere temporizador e botões.
+- Versão, README, histórico e cache PWA atualizados. Chave Android, ID do aplicativo, progressão, Fever e colisões inalterados.
+- **Status:** validar pipeline de APK/AAB e comportamento em aparelho real.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
