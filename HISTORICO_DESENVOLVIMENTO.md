@@ -20,6 +20,13 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 
 **Nota de rastreabilidade:** as versões 0.1–0.7 foram desenvolvidas e testadas iterativamente antes da importação ao GitHub. Este repositório contém a base importada 0.7, não o histórico Git granular dessas versões. Para o futuro, as alterações serão registradas em commits.
 
+## Ajuste posterior à versão Android 0.8 — contato visual da bola
+- Relato de teste no Android: a bola parecia quicar antes de atingir a plataforma.
+- Causa provável identificada no código: a posição vertical desenhada da bola era fixa (`ballScreenY`), enquanto a câmera acompanhava a física com atraso; o cálculo de colisão também ignorava a escala vertical da projeção.
+- Correção: a bola agora é desenhada com `project(ballX, ballZ, ballY)`, usando a mesma transformação dos discos; o contato físico usa `contactRadius = radius / verticalScale`, compatível com o raio visual em pixels, e a câmera usa a profundidade correta.
+- Mantidas as regras de colisão por abertura, plataformas quebráveis, sons, pontuação e assinatura Android.
+- **Status:** código publicado; a precisão visual do contato ainda depende de validação no APK de celular.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
