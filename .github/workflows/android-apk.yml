@@ -155,6 +155,7 @@ jobs:
           echo "APK e AAB assinados e verificados."
 
       - name: Publicar APK e AAB diretamente em Releases
+        continue-on-error: true # Mesmo com bloqueio temporario da API, Artifacts permanece disponivel
         env:
           GH_TOKEN: ${{ github.token }}
           BUILD_NUMBER: ${{ github.run_number }}
