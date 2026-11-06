@@ -44,6 +44,16 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Pacote e nomenclatura do APK/release atualizados para 1.0. O `applicationId`, chave permanente e sequência de `versionCode` continuam iguais para instalar a atualização por cima da anterior.
 - **Validação:** sintaxe do JavaScript confirmada; comportamento no celular ainda depende de teste após compilação.
 
+## Fall Jump 1.1 — Polimento visual e preparação Android (2026-11-06)
+- Menu redesenhado com tipografia, contraste, cores e estrutura visual mais consistentes com a temática da melancia.
+- Alvos de toque de ajuda, som e pausa ampliados para 44 px; indicador de pontuação e progresso reorganizado para melhorar a leitura no celular.
+- Legenda de plataformas na tela inicial e na ajuda, distinguindo plataformas normais, frágeis, bônus e perigosas.
+- Gerador reproduzível de ícones Android em `scripts/generate_android_icons.py`, executado no CI após o Capacitor preparar o projeto; também fixa orientação vertical do app pelo AndroidManifest.
+- Mantidas todas as mecânicas anteriores: física de contato, combos, dificuldade, som e recordes.
+- Identidade Android `com.takeoishikawa.falljump`, keystore, versionCode crescente e assinatura permanecem inalterados para permitir atualização sobre o APK anterior.
+- Documento `CHECKLIST_PUBLICACAO.md` criado para registrar o que ainda falta antes de eventual lançamento na Google Play.
+- **Validação:** revisão e sintaxe JavaScript confirmadas; build Android e testes de aparência em dispositivo real ainda devem ser conferidos.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
