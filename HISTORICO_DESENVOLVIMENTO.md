@@ -60,7 +60,7 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - O APK continua verificado pelo `apksigner`; o AAB passa por verificação de assinatura com `jarsigner`, antes de ambos serem disponibilizados em GitHub Releases e Artifacts.
 - Preservados o `applicationId` (`com.takeoishikawa.falljump`), a chave privada permanente e o `versionCode` baseado em `github.run_number`; nenhuma alteração de mecânica ou física do jogo.
 - **Atenção à loja:** o Play App Signing distingue chave de upload e chave de assinatura da distribuição. Para permitir futura atualização pela Play Store por cima dos APKs instalados manualmente, a assinatura dos APKs finais distribuídos precisa ser compatível com a chave atual. Essa decisão deverá ser feita antes da publicação inicial.
-- **Status:** modificação do CI concluída; confirmar primeiro build e arquivos produzidos.
+- **Validação:** execução nº 19 concluída com sucesso em 2026-11-06; APK e AAB versão 1.1.19 gerados, assinaturas verificadas e ambos publicados em Releases.
 
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
