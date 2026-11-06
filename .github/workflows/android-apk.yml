@@ -85,7 +85,7 @@ jobs:
           source, n = re.subn(r'(?m)^(\s*)versionCode\s+\d+', lambda m: m.group(1)+f'versionCode {code}', source, count=1)
           if n != 1:
               raise RuntimeError("versionCode nao encontrado")
-          source, n = re.subn(r'(?m)^(\s*)versionName\s+["\'][^"\']+["\']', lambda m: m.group(1)+f'versionName "0.8.{code}"', source, count=1)
+          source, n = re.subn(r'(?m)^(\s*)versionName\s+["\'][^"\']+["\']', lambda m: m.group(1)+f'versionName "0.9.{code}"', source, count=1)
           if n != 1:
               raise RuntimeError("versionName nao encontrado")
           signing = """
@@ -127,7 +127,7 @@ jobs:
           BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
           "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
           mkdir -p dist
-          cp "$APK" "dist/Fall-Jump-v0.8.${{ github.run_number }}.apk"
+          cp "$APK" "dist/Fall-Jump-v0.9.${{ github.run_number }}.apk"
 
       - name: Publicar APK diretamente em Releases
         env:
@@ -135,18 +135,18 @@ jobs:
           BUILD_NUMBER: ${{ github.run_number }}
         shell: bash
         run: |
-          TAG="v0.8.${BUILD_NUMBER}"
-          APK="dist/Fall-Jump-v0.8.${BUILD_NUMBER}.apk"
+          TAG="v0.9.${BUILD_NUMBER}"
+          APK="dist/Fall-Jump-v0.9.${BUILD_NUMBER}.apk"
           gh release create "$TAG" "$APK" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
-            --title "Fall Jump 0.8.${BUILD_NUMBER} (APK Android)" \
+            --title "Fall Jump 0.9.${BUILD_NUMBER} (APK Android)" \
             --notes "APK Android de teste, assinado com a chave permanente. Atualiza a instalação anterior quando a assinatura e o identificador do aplicativo coincidirem." \
             --prerelease
 
       - name: Disponibilizar APK para download
         uses: actions/upload-artifact@v4
         with:
-          name: Fall-Jump-Android-v0.8.${{ github.run_number }}
+          name: Fall-Jump-Android-v0.9.${{ github.run_number }}
           path: dist/*.apk
           retention-days: 30
