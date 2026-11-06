@@ -61,3 +61,17 @@ test('indicador e reset são determinísticos para novas partidas', () => {
   fever.reset(state);
   assert.deepEqual(state, fever.create());
 });
+test('Fever rompe discos normais e bônus, mas jamais neutraliza áreas perigosas', () => {
+  const state=fever.create();
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'bounce');
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:true}),'smash');
+  assert.equal(fever.contact(state,{gap:false,danger:true,fragile:true}),'lose');
+  for(let i=0;i<fever.GAP_TARGET;i++)fever.onGap(state);
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'smash');
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:true}),'smash');
+  assert.equal(fever.contact(state,{gap:false,danger:true,fragile:false}),'lose');
+  assert.equal(fever.contact(state,{gap:true,danger:false,fragile:false}),'gap');
+  fever.reset(state);
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'bounce');
+});
+
