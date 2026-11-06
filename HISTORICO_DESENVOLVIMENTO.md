@@ -75,6 +75,16 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Preservados controles, física e colisões já aprovados, efeitos especiais, recordes, application ID e assinatura Android. `package.json` e a publicação APK/AAB avançam para 1.2.
 - **Validação:** execução nº 25 concluída com sucesso: testes do gerador, compilação APK/AAB, verificação das assinaturas e publicação de ambos em Releases. Resta validar o equilíbrio e os controles em dispositivo real.
 
+## Fall Jump 1.2.1 — Torres mais longas e variação de ritmo (2026-11-06)
+- Ajuste solicitado após teste: as fases anteriores de 10–14 plataformas pareciam curtas e pouco diferentes; a sequência de quedas por várias plataformas foi aprovada.
+- Quantidade de plataformas ampliada: níveis 1–2 = 24; 3–4 = 28; 5–6 = 32; 7–8 = 36; 9–10 = 40; 11–12 = 44; nível 13 em diante = 48.
+- Padrões modulares tornados mais contrastantes. `plunge` alinha de 4 a 7 plataformas para combos extensos; `spiral` exige rotação contínua; `zigzag` e `switchback` invertem o sentido com maior amplitude; `precision` reduz a folga; `rest` alivia o ritmo.
+- Pesos de escolha variam conforme os cinco ciclos de dificuldade: alguns níveis favorecem combos, outros precisão ou mudanças de direção. Cada fase continua usando semente reproduzível.
+- Plataformas de descanso/queda livre apresentam menos zonas perigosas; especial dourada favorece combos. Os limites de segurança e a simulação física de travessia permanecem ativos.
+- Testes automáticos ampliados para conferir a nova contagem de 24 a 48 plataformas e a presença de trechos longos. Verificação adicional de 1.800 configurações realizada sem fases inválidas ou fallback.
+- Nenhuma alteração nos controles, colisão, identidade de aplicativo, chave de assinatura ou criação de APK/AAB.
+- **Status:** alterações no repositório; confirmar a nova compilação e avaliar diversão, duração de fase e dificuldade em aparelho real antes de prosseguir para Fever.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
