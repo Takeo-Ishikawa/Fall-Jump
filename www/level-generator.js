@@ -1,4 +1,4 @@
-/* Fall Jump 1.2 — gerador procedural determinístico e verificável.
+/* Fall Jump 1.2.1 — gerador procedural com torres longas e trechos variados.
  * Sem dependências, funciona no navegador e nos testes Node.js.
  */
 (function (root, factory) {
@@ -54,21 +54,38 @@
     const intensity = clamp(curve[phase] + Math.min(0.18, tier * 0.023), 0, 0.91);
     return { phase, tier, intensity, label: STAGE_NAMES[phase] };
   }
+  // Pesos por ciclo: cada etapa possui identidade, não apenas obstáculos
+  // aleatórios com a mesma distribuição.
+  const PHASE_WEIGHTS = [
+    [['plunge', 6], ['rest', 4], ['spiral', 3], ['zigzag', 1]],
+    [['plunge', 6], ['spiral', 4], ['zigzag', 3], ['switchback', 1]],
+    [['zigzag', 5], ['spiral', 4], ['switchback', 3], ['precision', 3], ['plunge', 2]],
+    [['precision', 5], ['switchback', 5], ['zigzag', 4], ['spiral', 2], ['plunge', 2]],
+    [['rest', 6], ['plunge', 5], ['spiral', 3], ['zigzag', 2]]
+  ];
+  const OPENING_PATTERNS = ['plunge', 'plunge', 'zigzag', 'switchback', 'rest'];
+
   function pickPattern(rng, level, phase, previous) {
-    const choices = level <= 1
-      ? ['spiral', 'plunge', 'rest']
-      : phase === 4
-        ? ['rest', 'plunge', 'spiral', 'zigzag']
-        : phase === 0
-          ? ['spiral', 'plunge', 'zigzag', 'rest']
-          : PATTERN_NAMES;
-    const remaining = choices.filter(name => name !== previous);
-    return remaining[Math.floor(rng() * remaining.length)];
+    let choices = PHASE_WEIGHTS[phase];
+    if (level === 1) choices = choices.filter(pair => pair[0] !== 'zigzag');
+    choices = choices.filter(pair => pair[0] !== previous);
+    const total = choices.reduce((sum, pair) => sum + pair[1], 0);
+    let choice = rng() * total;
+    for (const [type, weight] of choices) {
+      choice -= weight;
+      if (choice < 0) return type;
+    }
+    return choices[choices.length - 1][0];
+  }
+  function segmentLength(pattern, rng) {
+    if (pattern === 'plunge') return 4 + Math.floor(rng() * 4);
+    if (pattern === 'spiral' || pattern === 'zigzag') return 4 + Math.floor(rng() * 3);
+    return 3 + Math.floor(rng() * 3);
   }
   function buildCandidate(level, seed, safeMode) {
     const rng = randomFromSeed(seed);
     const difficulty = difficultyFor(level);
-    const count = 10 + Math.min(4, Math.floor((level - 1) / 3));
+    const count = 24 + Math.min(24, 4 * Math.floor((level - 1) / 2));
     const platforms = [];
     const segments = [];
     const intensity = safeMode ? difficulty.intensity * 0.62 : difficulty.intensity;
@@ -79,38 +96,39 @@
     let i = 0;
 
     while (i < count) {
-      const pattern = pickPattern(rng, level, difficulty.phase, lastPattern);
+      const pattern = i === 0 ? OPENING_PATTERNS[difficulty.phase] : pickPattern(rng, level, difficulty.phase, lastPattern);
       lastPattern = pattern;
       const from = i;
-      const length = Math.min(count - i, 2 + Math.floor(rng() * 3));
+      const length = Math.min(count - i, segmentLength(pattern, rng));
       const direction = rng() < 0.5 ? -1 : 1;
       for (let j = 0; j < length; j++, i++) {
         let change = 0;
-        if (pattern === 'spiral') change = direction * (0.21 + rng() * 0.32 + intensity * 0.12);
-        else if (pattern === 'zigzag') change = direction * (j % 2 ? -1 : 1) * (0.35 + rng() * 0.20 + intensity * 0.10);
-        else if (pattern === 'plunge') change = (rng() - 0.5) * (0.15 + intensity * 0.12);
-        else if (pattern === 'switchback') change = direction * (j % 2 ? -1 : 1) * (0.46 + rng() * 0.23 + intensity * 0.14);
-        else if (pattern === 'rest') change = (rng() - 0.5) * 0.28;
-        else if (pattern === 'precision') change = direction * (0.27 + rng() * 0.31 + intensity * 0.13);
+        if (pattern === 'spiral') change = direction * (0.38 + rng() * 0.22 + intensity * 0.06);
+        else if (pattern === 'zigzag') change = direction * (j % 2 ? -1 : 1) * (0.60 + rng() * 0.22 + intensity * 0.08);
+        else if (pattern === 'plunge') change = (rng() - 0.5) * 0.16;
+        else if (pattern === 'switchback') change = direction * (j % 2 ? -1 : 1) * (0.70 + rng() * 0.20 + intensity * 0.08);
+        else if (pattern === 'rest') change = (rng() - 0.5) * 0.20;
+        else if (pattern === 'precision') change = direction * (0.48 + rng() * 0.28 + intensity * 0.08);
 
         const angle = i === 0 ? 1.3 : signedAngle(lastAngle + change);
         lastAngle = angle;
         const minGap = level === 1 ? 1.15 : 0.80;
-        let gap = 1.25 + rng() * 0.25 - intensity * 0.24;
-        if (pattern === 'precision' && level >= 3) gap -= 0.10;
-        if (pattern === 'rest' || pattern === 'plunge') gap += 0.08;
+        let gap = 1.23 + rng() * 0.23 - intensity * 0.16;
+        if (pattern === 'precision' && level >= 3) gap -= 0.12;
+        if (pattern === 'rest' || pattern === 'plunge') gap += 0.14;
         gap = clamp(gap, minGap, 1.56);
 
         let special = null;
         if (i >= 2 && i < count - 1 && i - lastSpecial >= 3) {
           const roll = rng();
-          if (level >= 2 && roll < 0.20) special = 'bonus';
-          else if (level >= 3 && roll < 0.20 + 0.12 * intensity) special = 'fragile';
+          if (level >= 2 && roll < (pattern === 'plunge' ? 0.25 : 0.17)) special = 'bonus';
+          else if (level >= 3 && roll < 0.26 + 0.10 * intensity) special = 'fragile';
           if (special) lastSpecial = i;
         }
         let danger = 0;
         if (level >= 2 && i >= 3 && i < count - 1 && i - lastDanger >= 3) {
-          const chance = 0.12 + intensity * 0.19 + (pattern === 'precision' ? 0.05 : 0);
+          const chance = pattern === 'plunge' || pattern === 'rest'
+            ? 0.02 : 0.14 + intensity * 0.22 + (pattern === 'precision' ? 0.06 : 0);
           if (rng() < chance) {
             danger = clamp(0.26 + rng() * 0.21 + intensity * 0.12, 0, 0.65);
             lastDanger = i;
@@ -167,7 +185,7 @@
 
   function validateLevel(plan) {
     if (!plan || !Array.isArray(plan.platforms) || plan.platforms.length !== plan.count) return false;
-    if (plan.count < 10 || plan.count > 14) return false;
+    if (plan.count < 24 || plan.count > 48) return false;
     for (let i = 0; i < plan.platforms.length; i++) {
       const p = plan.platforms[i];
       if (!Number.isFinite(p.angle) || !Number.isFinite(p.gap) ||
