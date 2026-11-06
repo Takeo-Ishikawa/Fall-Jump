@@ -43,6 +43,12 @@
     return active(state) ? state.remaining / DURATION_FRAMES : state.charge / GAP_TARGET;
   }
   function multiplier(state) { return active(state) ? SCORE_MULTIPLIER : 1; }
-  return { create, active, reset, onGap, onBounce, tick, progress, multiplier,
+  function contact(state, { gap, danger, fragile }) {
+    if (gap) return 'gap';
+    if (danger) return 'lose'; // O Fever não imuniza contra zonas escuras.
+    if (fragile || active(state)) return 'smash';
+    return 'bounce';
+  }
+  return { create, active, reset, onGap, onBounce, tick, progress, multiplier, contact,
     GAP_TARGET, DURATION_FRAMES, SCORE_MULTIPLIER };
 });
