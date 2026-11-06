@@ -85,6 +85,18 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Nenhuma alteração nos controles, colisão, identidade de aplicativo, chave de assinatura ou criação de APK/AAB.
 - **Status:** alterações no repositório; confirmar a nova compilação e avaliar diversão, duração de fase e dificuldade em aparelho real antes de prosseguir para Fever.
 
+## Fall Jump 1.3 — Sistema Fever (2026-11-06)
+- Adicionado `www/fever.js` para controlar carga, ativação, temporizador e multiplicador de pontos de forma separada da física do jogo.
+- **Ativação:** cinco passagens por aberturas sem quicar enchem a barra; uma quicada antes da ativação zera a carga parcial.
+- **Duração:** 240 passos físicos a 60 Hz (aproximadamente 4 segundos). O cronômetro é pausado junto com a simulação quando o jogo é pausado ou fica em segundo plano.
+- **Efeito:** enquanto ativo, o Fever permite romper plataformas normais, douradas e frágeis ao contato, mantendo a velocidade de queda e o sistema de colisões já aprovados. A quebra gera fragmentos com cores correspondentes.
+- **Risco preservado:** setores escuros continuam fatais durante o Fever. A prioridade da colisão é abertura → perigo → quebra (Fever ou azul) → quique.
+- **Recompensas:** pontuação em dobro durante o Fever, incluindo combos e pontos de plataformas especiais. Não há recarga automática enquanto o efeito está ativo; ao terminar, é necessário completar outra sequência de cinco aberturas.
+- **Interface:** barra de carga e tempo restante, brilho amarelo ao redor da bola, mensagem de ativação, efeitos sonoros e atualização das instruções.
+- `tests/fever.test.cjs` verifica ativação, duração, reinício, multiplicador e prioridade dos perigos. O CI executa os testes das fases e do Fever antes de gerar APK/AAB.
+- `www/sw.js` inclui o módulo Fever no cache offline. Preservados `com.takeoishikawa.falljump`, a assinatura permanente, recordes e `versionCode` crescente.
+- **Status:** lógica e interface implementadas no repositório; confirmar testes, compilação APK/AAB e jogabilidade no celular.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
