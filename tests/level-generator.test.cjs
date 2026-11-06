@@ -55,4 +55,8 @@ test('nunca inclui condições ilegais no plano', () => {
   invalid.platforms[3].gap = plan.platforms[3].gap;
   invalid.platforms[2].danger = 0.4;
   assert.equal(generator.validateLevel(invalid), false);
+  const impossible = structuredClone(plan);
+  const last = impossible.platforms.length - 1;
+  impossible.platforms[last].angle = generator.signedAngle(impossible.platforms[last - 1].angle + Math.PI);
+  assert.equal(generator.simulateRoute(impossible).ok, false, 'uma mudança de 180° não pode ser instantânea');
 });
