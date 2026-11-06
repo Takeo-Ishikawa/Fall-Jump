@@ -2,6 +2,8 @@
 
 Jogo casual HTML5 (base 0.7 aprovada), preparado para Android via Capacitor 7.
 
+Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
+
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
 - `capacitor.config.json`: identidade fixa do aplicativo (`com.takeoishikawa.falljump`).
@@ -26,7 +28,7 @@ O Android exige **o mesmo applicationId e a mesma chave de assinatura**, além d
    O comando copia o Base64 ao clipboard. Cole no valor do secret (não em arquivos do repositório).
 
 ## Gerar o APK
-Abra **Actions > Compilar APK atualizavel > Run workflow**. Depois, abra a execução concluída e baixe o arquivo ZIP na seção **Artifacts**; dentro dele estará o APK.
+Abra **Actions > Compilar APK atualizavel > Run workflow**. Depois que a compilação terminar, baixe o **APK diretamente em [Releases](https://github.com/Takeo-Ishikawa/Fall-Jump/releases)**, sem extrair ZIP. A seção **Artifacts** também mantém uma cópia compactada por execução.
 
 Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os dados do aplicativo quando o ID e a assinatura forem os mesmos, o versionCode for apropriado e a instalação for aceita. O APK não se atualiza sozinho: é preciso baixar e abrir o arquivo novo.
 
