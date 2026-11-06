@@ -53,7 +53,7 @@ const progressFill=document.querySelector("#progressFill"),stagePatternEl=docume
   const override=new URLSearchParams(location.search).get('seed');
   const fixedSeed=override!==null&&override.trim()!==''?Number(override):null;
   const requestedSeed=fixedSeed!==null&&Number.isFinite(fixedSeed)
-    ?(fixedSeed+Math.imul(n,0x9e3779b1))>>>0
+    ?(fixedSeed>>>0)
     :generator.randomSeed();
   const plan=generator.generateLevel(n,requestedSeed);
   platforms=plan.platforms;
