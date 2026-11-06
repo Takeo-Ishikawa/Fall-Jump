@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.1), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.2), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -8,6 +8,8 @@ Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda 
 
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
+- `www/level-generator.js`: geração modular determinística de níveis com validação de rotas.
+- `tests/level-generator.test.cjs`: testes automatizados de variedade, segurança e reprodutibilidade.
 - `scripts/generate_android_icons.py`: gera ícones Android e fixa a orientação vertical durante a compilação.
 - `capacitor.config.json`: identidade fixa do aplicativo (`com.takeoishikawa.falljump`).
 - `.github/workflows/android-apk.yml`: cria **APK e AAB de release assinados** no GitHub Actions, usando a mesma identidade Android e o mesmo versionCode.
@@ -42,6 +44,13 @@ Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os
 
 ## Desenvolvimento
 Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compilação (depois que os secrets forem configurados). Para compilar apenas quando desejar, também há o botão manual **Run workflow**.
+
+## Testar e reproduzir níveis
+- `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.
+- Cada fase apresenta uma identificação `FASE #XXXXXXXX` (hexadecimal) na interface.
+- Para reproduzir uma fase na versão web, abra `index.html?seed=0xXXXXXXXX` e alcance o mesmo número de nível; o mesmo código de semente gera o mesmo layout para esse nível.
+- Sem a opção `seed`, cada nova tentativa utiliza uma configuração diferente dentro de limites equivalentes de dificuldade.
+- O verificador simula a queda livre e um limite de rotação plausível para eliminar sequências inadequadas; ele **não garante** que toda fase será fácil para todas as pessoas.
 
 ## Segurança e limites
 - Nunca publique o `.jks`, senhas nem o Base64 da chave.
