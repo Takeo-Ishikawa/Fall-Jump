@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#edf0f4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg"><title>Fall Jump — Versão 1.3.1</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf0f4;font-family:system-ui,Arial,sans-serif;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}#panel{max-height:calc(100dvh - 38px);overflow-y:auto} @media(max-height:540px){#panel{padding:14px 18px}#panel p{margin:7px 0}#panel h2{font-size:20px}#hint{bottom:calc(8px + env(safe-area-inset-bottom))}}#hud{position:absolute;top:max(12px,env(safe-area-inset-top));left:14px;right:66px;text-align:left;pointer-events:none;color:#29303a}#bestHud{font-size:11px;font-weight:750;color:#657181;margin-top:5px}#hud small{font-weight:800;letter-spacing:.15em;font-size:12px}#progress{height:5px;width:145px;margin:6px 0 0;border-radius:10px;background:#cdd3dc;overflow:hidden}#progressFill{height:100%;width:0;background:#f14e70;transition:width .2s}#score{font-size:34px;font-weight:850;line-height:1.05}#comboBadge{position:absolute;top:80px;right:14px;color:#268044;font-weight:900;font-size:17px;text-align:right;pointer-events:none;opacity:0;transition:opacity .18s}#comboBadge.on{opacity:1}#hint{position:absolute;bottom:calc(32px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#56606e;font-size:14px;pointer-events:none}#overlay{position:absolute;inset:0;background:#12192799;display:none;align-items:center;justify-content:center;padding:24px}#panel{background:white;border-radius:22px;padding:28px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 60px #0003}#panel h2{margin:0 0 8px}#panel .subline{font-size:13px;margin:5px 0 16px;color:#6e7885}#panel p{color:#5c6471;line-height:1.5}.secondary{background:#e8ecf1;color:#36404e;margin-top:10px}#panel button{width:100%}button{border:0;border-radius:14px;background:#f14e70;color:white;padding:14px 30px;font-weight:800;font-size:17px;cursor:pointer}#sound{position:absolute;top:max(15px,env(safe-area-inset-top));right:59px;background:#ffffffc9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:17px;color:#424957;padding:0}#pause{position:absolute;top:max(55px,calc(env(safe-area-inset-top) + 42px));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:16px;color:#424957;padding:0}#help{position:absolute;top:max(15px,env(safe-area-inset-top));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:18px;color:#424957}
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#edf0f4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg"><title>Fall Jump — Versão 1.4</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf0f4;font-family:system-ui,Arial,sans-serif;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}#panel{max-height:calc(100dvh - 38px);overflow-y:auto} @media(max-height:540px){#panel{padding:14px 18px}#panel p{margin:7px 0}#panel h2{font-size:20px}#hint{bottom:calc(8px + env(safe-area-inset-bottom))}}#hud{position:absolute;top:max(12px,env(safe-area-inset-top));left:14px;right:66px;text-align:left;pointer-events:none;color:#29303a}#bestHud{font-size:11px;font-weight:750;color:#657181;margin-top:5px}#hud small{font-weight:800;letter-spacing:.15em;font-size:12px}#progress{height:5px;width:145px;margin:6px 0 0;border-radius:10px;background:#cdd3dc;overflow:hidden}#progressFill{height:100%;width:0;background:#f14e70;transition:width .2s}#score{font-size:34px;font-weight:850;line-height:1.05}#comboBadge{position:absolute;top:80px;right:14px;color:#268044;font-weight:900;font-size:17px;text-align:right;pointer-events:none;opacity:0;transition:opacity .18s}#comboBadge.on{opacity:1}#hint{position:absolute;bottom:calc(32px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#56606e;font-size:14px;pointer-events:none}#overlay{position:absolute;inset:0;background:#12192799;display:none;align-items:center;justify-content:center;padding:24px}#panel{background:white;border-radius:22px;padding:28px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 60px #0003}#panel h2{margin:0 0 8px}#panel .subline{font-size:13px;margin:5px 0 16px;color:#6e7885}#panel p{color:#5c6471;line-height:1.5}.secondary{background:#e8ecf1;color:#36404e;margin-top:10px}#panel button{width:100%}button{border:0;border-radius:14px;background:#f14e70;color:white;padding:14px 30px;font-weight:800;font-size:17px;cursor:pointer}#sound{position:absolute;top:max(15px,env(safe-area-inset-top));right:59px;background:#ffffffc9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:17px;color:#424957;padding:0}#pause{position:absolute;top:max(55px,calc(env(safe-area-inset-top) + 42px));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:16px;color:#424957;padding:0}#help{position:absolute;top:max(15px,env(safe-area-inset-top));right:16px;background:#ffffffb9;border:1px solid #d9dde4;border-radius:50%;width:34px;height:34px;font-size:18px;color:#424957}
 /* Interface 1.1: melhor legibilidade, hierarquia e alvos de toque no Android */
 :root{--fj-ink:#283543;--fj-pink:#ef4e76;--fj-soft:#eef6f3}
 #hud{top:max(14px,env(safe-area-inset-top));left:14px;right:auto;width:min(190px,calc(100vw - 126px));padding:12px 14px 13px;border-radius:18px;background:rgba(255,255,255,.83);border:1px solid rgba(255,255,255,.9);box-shadow:0 9px 28px #23324815;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);color:var(--fj-ink)}
@@ -37,9 +37,67 @@
 #feverHud.active #feverLabel{color:#c47720}
 #feverHud.active #feverFill{background:linear-gradient(90deg,#ffc349,#f77a29)}
 #feverHud.active #feverTrack{box-shadow:0 0 9px #e9b34369}
+
+#walletHud{margin-top:7px;color:#aa7b1f;font-size:11px;font-weight:850}
+#shopSection[hidden]{display:none!important}
+#shopWallet{margin:8px 0 12px;font-size:13px;font-weight:850;color:#976919}
+#shopGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#panel #shopGrid button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:12px 6px;min-height:110px;border-radius:16px;background:#f4f7f8;color:#374351;font-size:12px;font-weight:800;border:2px solid transparent;box-shadow:none}
+#panel #shopGrid button.equipped{border-color:#58bb83;background:#eaf8ed}
+#panel #shopGrid button.affordable:not(.equipped){border-color:#ead997}
+#shopGrid button .skinStatus{font-size:10px;color:#687785;font-weight:700}
+.skinThumb{display:block;width:37px;height:37px;border-radius:50%;border:2px solid #ffffffb0;box-shadow:inset -6px -5px 9px #0003,0 3px 8px #0002}
+.skinThumb.melon{background:radial-gradient(circle at 30% 25%,#baf35e,#53c842 58%,#116f39)}
+.skinThumb.lemon{background:radial-gradient(circle at 30% 25%,#fff7a0,#f7d74c 58%,#b18d21)}
+.skinThumb.blueberry{background:radial-gradient(circle at 30% 25%,#b7c5ff,#6481de 58%,#37438c)}
+.skinThumb.strawberry{background:radial-gradient(circle at 30% 25%,#ffb0a3,#f1556a 58%,#9e283f)}
+#shopFeedback{min-height:18px;margin:10px 0 4px!important;font-size:12px!important;color:#587366!important}
+#panel #skinsButton{margin-top:9px}
 @media(prefers-reduced-motion:reduce){#progressFill,#comboBadge,#feverFill{transition:none}}
-</style></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: quica</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p><button id="restart">Jogar novamente</button><button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><script src="level-generator.js"></script><script src="fever.js"></script><script>
+</style></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: quica</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
+<div id="shopSection" hidden>
+ <div id="shopWallet">Moedas disponíveis: <span id="shopCoins">0</span></div>
+ <div id="shopGrid">
+  <button id="skin-melon" class="shopChoice" type="button"><span class="skinThumb melon"></span><span>Melancia</span><span class="skinStatus" id="status-melon">Equipar</span></button>
+  <button id="skin-lemon" class="shopChoice" type="button"><span class="skinThumb lemon"></span><span>Limão</span><span class="skinStatus" id="status-lemon">60 moedas</span></button>
+  <button id="skin-blueberry" class="shopChoice" type="button"><span class="skinThumb blueberry"></span><span>Mirtilo</span><span class="skinStatus" id="status-blueberry">140 moedas</span></button>
+  <button id="skin-strawberry" class="shopChoice" type="button"><span class="skinThumb strawberry"></span><span>Morango</span><span class="skinStatus" id="status-strawberry">260 moedas</span></button>
+ </div>
+ <p id="shopFeedback" role="status">Todas as aparências são cosméticas.</p>
+</div>
+<button id="restart">Jogar novamente</button>
+<button id="skinsButton" class="secondary" style="display:none">Aparências</button>
+<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script>
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0;const comboBadge=document.querySelector("#comboBadge");
+const Skins=window.FallJumpSkins;
+let skinState;
+try{skinState=Skins.load(localStorage)}catch(e){skinState=Skins.normalize()}
+const coinCountEl=document.querySelector('#coinCount'),shopCoinsEl=document.querySelector('#shopCoins'),
+ shopSection=document.querySelector('#shopSection'),shopFeedback=document.querySelector('#shopFeedback'),
+ skinsButton=document.querySelector('#skinsButton');
+function saveSkinState(){try{Skins.save(localStorage,skinState)}catch(e){}}
+function refreshWallet(){
+ coinCountEl.textContent=skinState.coins.toLocaleString('pt-BR');
+ shopCoinsEl.textContent=coinCountEl.textContent;
+ skinsButton.textContent='Aparências · '+Skins.byId(skinState.selected).name;
+}
+function creditCoins(amount){
+ const gained=Skins.earn(skinState,amount);
+ if(gained){saveSkinState();refreshWallet()}
+ return gained;
+}
+function refreshShop(){
+ refreshWallet();
+ for(const skin of Skins.CATALOG){
+  const button=document.querySelector('#skin-'+skin.id);
+  const status=document.querySelector('#status-'+skin.id);
+  const equipped=skinState.selected===skin.id;
+  const owned=skinState.owned.includes(skin.id);
+  status.textContent=equipped?'EQUIPADA':owned?'Equipar':skin.price+' moedas';
+  button.classList.toggle('equipped',equipped);
+  button.classList.toggle('affordable',!owned&&skinState.coins>=skin.price);
+ }
+}
 const Fever=window.FallJumpFever,feverState=Fever.create();
 const feverHud=document.querySelector('#feverHud'),feverFill=document.querySelector('#feverFill'),feverAmount=document.querySelector('#feverAmount');
 function refreshFeverHud(){
@@ -57,10 +115,35 @@ soundBtn.onclick=()=>{soundOn=!soundOn;soundBtn.textContent=soundOn?'♫':'♪̸
 const storageKey='melon-helix-v06-best';
 try{best=Math.max(0,Number(localStorage.getItem(storageKey))||0)}catch(e){}
 const bestEl=document.querySelector('#bestScore'),stats=document.querySelector('#stats'),legendEl=document.querySelector('#legend'),restartBtn=document.querySelector('#restart'),menuBtn=document.querySelector('#menuButton'),pauseBtn=document.querySelector('#pause');
+refreshWallet();
 function refreshBest(){bestEl.textContent=best.toLocaleString('pt-BR')}
 function saveBest(){if(totalScore>best){best=totalScore;try{localStorage.setItem(storageKey,String(best))}catch(e){}refreshBest()}}
-function showPanel(title,body,action,secondary=false){message.textContent=title;details.textContent=body;restartBtn.textContent=action;menuBtn.style.display=secondary?'block':'none';legendEl.hidden=mode!=='menu'&&mode!=='help';stats.textContent=`RECORDE  ${best.toLocaleString('pt-BR')}  •  PONTOS  ${totalScore.toLocaleString('pt-BR')}`;overlay.style.display='flex'}
-function menu(){mode='menu';alive=false;started=false;hint.style.opacity='0';pauseBtn.style.display='none';showPanel('FALL JUMP','Gire a torre, atravesse os vãos e faça combos. Cinco passagens sem quicar ativam o FEVER: por 1,5 segundo, rompa discos comuns e ganhe o dobro de pontos!','Jogar',false)}
+function showPanel(title,body,action,secondary=false){
+ message.textContent=title;details.textContent=body;restartBtn.textContent=action;
+ menuBtn.style.display=secondary?'block':'none';
+ skinsButton.style.display=mode==='menu'?'block':'none';
+ shopSection.hidden=mode!=='shop';
+ legendEl.hidden=mode!=='menu'&&mode!=='help';
+ stats.textContent='RECORDE  '+best.toLocaleString('pt-BR')+'  •  PONTOS  '+totalScore.toLocaleString('pt-BR');
+ overlay.style.display='flex';
+}
+function menu(){mode='menu';alive=false;started=false;hint.style.opacity='0';pauseBtn.style.display='none';refreshWallet();showPanel('FALL JUMP','Gire a torre, atravesse os vãos e faça combos. Cinco passagens sem quicar ativam o FEVER: por 1,5 segundo, rompa discos comuns e ganhe o dobro de pontos!','Jogar',false)}
+function openShop(){
+ mode='shop';alive=false;started=false;pauseBtn.style.display='none';
+ showPanel('Aparências','Ganhe 2 moedas a cada 4 plataformas e mais 12 ao concluir uma fase. Escolha sua bola favorita.','Voltar ao menu');
+ shopFeedback.textContent='As aparências não alteram as habilidades da bola.';
+ refreshShop();
+}
+for(const skin of Skins.CATALOG){
+ document.querySelector('#skin-'+skin.id).onclick=()=>{
+  const result=Skins.choose(skinState,skin.id);
+  if(result.ok){
+   saveSkinState();
+   shopFeedback.textContent=result.action==='unlocked'?'Desbloqueada e equipada: '+skin.name+'!':'Equipada: '+skin.name+'.';
+  }else shopFeedback.textContent=result.reason==='coins'?'Faltam '+result.missing+' moedas para '+skin.name+'.':'Aparência indisponível.';
+  refreshShop();
+ };
+}
 const progressFill=document.querySelector("#progressFill"),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=137,ballX=0,ballZ=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32,bounce=-7.6;const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43}function buildLevel(n){
   const generator=window.FallJumpLevelGenerator;
   if(!generator)throw new Error('O gerador de fases não foi carregado.');
@@ -135,9 +218,28 @@ if(alive&&Fever.active(feverState)){
 if(alive&&vy<0){ctx.save();ctx.globalAlpha=Math.min(.16,Math.abs(vy)*.012);ctx.strokeStyle='#66c86e';ctx.lineWidth=2*scale;ctx.beginPath();ctx.ellipse(bx,by+radius*scale,18*scale,5*scale,0,0,TAU);ctx.stroke();ctx.restore()}
 for(let t of trail){let alpha=t.life/16;ctx.fillStyle=`rgba(59,183,86,${alpha*.24})`;ctx.beginPath();ctx.arc(t.x,t.y,Math.max(1,radius*scale*alpha*.8),0,TAU);ctx.fill()}for(let q of particles){ctx.globalAlpha=Math.max(0,Math.min(1,q.life/(q.maxLife||42)));ctx.fillStyle=q.color||'#8cdb5c';if(q.shard){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.spin);let sz=q.size*scale;ctx.fillRect(-sz*.5,-sz*.36,sz,sz*.72);ctx.restore()}else{ctx.beginPath();ctx.arc(q.x,q.y,q.size*scale,0,TAU);ctx.fill()}}ctx.globalAlpha=1;
 for(let popup of popups){ctx.save();ctx.globalAlpha=Math.min(1,popup.life/18);ctx.font=`900 ${Math.round(20*scale)}px system-ui`;ctx.textAlign='center';ctx.lineWidth=3*scale;ctx.strokeStyle='#203b35';ctx.strokeText(popup.text,popup.x,popup.y);ctx.fillStyle=popup.color;ctx.fillText(popup.text,popup.x,popup.y);ctx.restore()}
-ctx.save();ctx.translate(bx,by);ctx.scale(1+squash*.65,1-squash*.45);ctx.shadowColor='#192b2c55';ctx.shadowBlur=7*scale;ctx.shadowOffsetY=3*scale;let r=radius*scale;let melon=ctx.createRadialGradient(-r*.4,-r*.5,r*.05,0,0,r);melon.addColorStop(0,'#baf35e');melon.addColorStop(.55,'#53c842');melon.addColorStop(1,'#116f39');ctx.fillStyle=melon;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';ctx.save();ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.clip();for(let i=-2;i<=2;i++){ctx.beginPath();ctx.strokeStyle=i%2?'#195e35':'#277b36';ctx.lineWidth=3.2*scale;ctx.moveTo(i*6*scale-r*.15,-r*1.2);ctx.bezierCurveTo(i*4*scale-r*.3,-r*.2,i*7*scale+r*.25,r*.3,i*5*scale+r*.15,r*1.2);ctx.stroke()}ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#67d95e';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){sfx(win?'win':'lose');alive=false;started=false;saveBest();levelFinishing=win;mode=win?'leveldone':'gameover';pauseBtn.style.display='none';if(win)levelsCompleted++;showPanel(win?`Nível ${level} concluído!`:'Fim de jogo',win?`Boa! Você superou ${levelTarget} plataformas. Prepare-se para um novo padrão de aberturas.`:'Você atingiu uma área perigosa. Tente alinhar a abertura antes da queda.',win?'Próximo nível':'Tentar novamente',true)}
+ctx.save();ctx.translate(bx,by);ctx.scale(1+squash*.65,1-squash*.45);ctx.shadowColor='#192b2c55';ctx.shadowBlur=7*scale;ctx.shadowOffsetY=3*scale;let r=radius*scale;const skin=Skins.byId(skinState.selected)||Skins.CATALOG[0];
+let ballColor=ctx.createRadialGradient(-r*.4,-r*.5,r*.05,0,0,r);
+ballColor.addColorStop(0,skin.light);ballColor.addColorStop(.55,skin.mid);ballColor.addColorStop(1,skin.dark);
+ctx.fillStyle=ballColor;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';
+ctx.save();ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.clip();
+if(skin.pattern==='stripes'){
+ for(let i=-2;i<=2;i++){
+  ctx.beginPath();ctx.strokeStyle=skin.detail;ctx.globalAlpha=.6;ctx.lineWidth=(skin.id==='lemon'?2:3.2)*scale;
+  ctx.moveTo(i*6*scale-r*.15,-r*1.2);
+  ctx.bezierCurveTo(i*4*scale-r*.3,-r*.2,i*7*scale+r*.25,r*.3,i*5*scale+r*.15,r*1.2);
+  ctx.stroke();
+ }
+}else{
+ const spots=[[-.44,-.44],[-.02,-.61],[.43,-.37],[-.55,.08],[-.13,-.09],[.35,.03],[-.33,.45],[.1,.51],[.54,.39]];
+ ctx.fillStyle=skin.detail;
+ for(const [x,y] of spots){
+  ctx.beginPath();ctx.ellipse(x*r,y*r,skin.pattern==='seeds'?1.25*scale:2*scale,skin.pattern==='seeds'?2.3*scale:2*scale,0,0,TAU);ctx.fill();
+ }
+}
+ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#67d95e';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){sfx(win?'win':'lose');alive=false;started=false;saveBest();levelFinishing=win;mode=win?'leveldone':'gameover';pauseBtn.style.display='none';if(win){levelsCompleted++;creditCoins(Skins.coinsForLevel())}showPanel(win?`Nível ${level} concluído!`:'Fim de jogo',win?`Boa! Você superou ${levelTarget} plataformas. Prepare-se para um novo padrão de aberturas.`:'Você atingiu uma área perigosa. Tente alinhar a abertura antes da queda.',win?'Próximo nível':'Tentar novamente',true)}
 function completePlatform(p,cause='gap'){
- p.passed=true;levelPassed++;combo++;
+ p.passed=true;levelPassed++;combo++;creditCoins(Skins.coinsForPlatform(levelPassed));
  const activated=cause==='gap'&&Fever.onGap(feverState);
  const powered=Fever.active(feverState);
  const streakReward=combo===3?20:combo===5?50:combo===8?100:0;
@@ -186,8 +288,9 @@ function update(timestamp){
   requestAnimationFrame(update);
 }
 function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';canvas.setPointerCapture?.(e.pointerId)}function move(e){if(!drag||mode!=='playing')return;let delta=e.clientX-lastX;lastX=e.clientX;rotation+=delta*.012;rotation=norm(rotation)}function up(){drag=false}canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);function startGame(next=false){if(next){level++;buildLevel(level)}else{reset()}mode='playing';alive=true;started=false;overlay.style.display='none';pauseBtn.style.display='block';hint.style.opacity='1';refreshBest()}
-restartBtn.onclick=()=>{initAudio();if(mode==='paused'||mode==='help'){mode='playing';alive=true;overlay.style.display='none';pauseBtn.style.display='block';hint.style.opacity=started?'0':'1'}else if(mode==='leveldone')startGame(true);else startGame(false)};
+restartBtn.onclick=()=>{initAudio();if(mode==='shop'){menu();return}if(mode==='paused'||mode==='help'){mode='playing';alive=true;overlay.style.display='none';pauseBtn.style.display='block';hint.style.opacity=started?'0':'1'}else if(mode==='leveldone')startGame(true);else startGame(false)};
 menuBtn.onclick=()=>menu();
+skinsButton.onclick=()=>openShop();
 pauseBtn.onclick=()=>{if(mode!=='playing')return;mode='paused';pauseBtn.style.display='none';showPanel('Pausado','Sua partida está preservada. Continue de onde parou.','Continuar',true)};
 document.querySelector('#help').onclick=()=>{initAudio();if(mode==='playing'){mode='help';pauseBtn.style.display='none';showPanel('Como jogar','Arraste horizontalmente para girar a torre. Atravesse as aberturas. Evite as partes escuras. Plataformas azuis se quebram ao contato; douradas dão bônus. Atravesse 5 aberturas sem quicar para ativar Fever por 1,5 segundo: discos comuns se quebram e a pontuação dobra. As áreas escuras continuam perigosas.','Continuar',true)}else if(mode==='menu'){showPanel('Como jogar','Arraste horizontalmente para girar a torre e passe pelos vãos. Evite as áreas escuras. As plataformas azuis quebram ao toque e as douradas dão bônus. Complete 5 quedas sem quicar para ativar Fever, mas continue evitando áreas escuras.','Jogar',false)}else if(mode==='paused'){mode='help';showPanel('Como jogar','Arraste para girar a torre; evite as áreas escuras. Discos azuis quebram ao contato, dourados dão pontos extras e Fever permite quebrar discos normais por 1,5 segundo.','Continuar',true)}};
 function autoPause(){drag=false;if(mode!=='playing')return;mode='paused';pauseBtn.style.display='none';showPanel('Pausado','Sua partida foi pausada automaticamente ao sair do jogo.','Continuar',true)}
