@@ -1,0 +1,8 @@
+{
+  "appId": "com.takeoishikawa.falljump",
+  "appName": "Fall Jump",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+}
