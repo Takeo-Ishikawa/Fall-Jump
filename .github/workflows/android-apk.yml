@@ -10,7 +10,7 @@ on:
       - ".github/workflows/android-apk.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: android-build-${{ github.ref }}
@@ -128,6 +128,21 @@ jobs:
           "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
           mkdir -p dist
           cp "$APK" "dist/Fall-Jump-v0.8.${{ github.run_number }}.apk"
+
+      - name: Publicar APK diretamente em Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_NUMBER: ${{ github.run_number }}
+        shell: bash
+        run: |
+          TAG="v0.8.${BUILD_NUMBER}"
+          APK="dist/Fall-Jump-v0.8.${BUILD_NUMBER}.apk"
+          gh release create "$TAG" "$APK" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Fall Jump 0.8.${BUILD_NUMBER} (APK Android)" \
+            --notes "APK Android de teste, assinado com a chave permanente. Atualiza a instalação anterior quando a assinatura e o identificador do aplicativo coincidirem." \
+            --prerelease
 
       - name: Disponibilizar APK para download
         uses: actions/upload-artifact@v4
