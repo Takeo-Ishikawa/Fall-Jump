@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.2), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.3), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -9,6 +9,8 @@ Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda 
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
 - `www/level-generator.js`: geração modular determinística de níveis com validação de rotas.
+- `www/fever.js`: regras da habilidade Fever, ativação, temporizador e pontuação em dobro.
+- `tests/fever.test.cjs`: testes de ativação, duração e prioridade das colisões.
 - `tests/level-generator.test.cjs`: testes automatizados de variedade, segurança e reprodutibilidade.
 - `scripts/generate_android_icons.py`: gera ícones Android e fixa a orientação vertical durante a compilação.
 - `capacitor.config.json`: identidade fixa do aplicativo (`com.takeoishikawa.falljump`).
@@ -44,6 +46,11 @@ Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os
 
 ## Desenvolvimento
 Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compilação (depois que os secrets forem configurados). Para compilar apenas quando desejar, também há o botão manual **Run workflow**.
+
+## Fever — recompensa por quedas consecutivas
+Ao atravessar **5 aberturas sem quicar**, a bola entra em Fever durante **4 segundos de simulação**. Nesse intervalo, discos comuns e frágeis podem ser quebrados no contato e os pontos recebidos são dobrados. As partes escuras permanecem perigosas; Fever não concede invulnerabilidade.
+
+A barra no HUD mostra as passagens que faltam e, após a ativação, o tempo restante. Quicar antes da ativação zera a carga. O temporizador não avança quando o jogo está pausado.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.
