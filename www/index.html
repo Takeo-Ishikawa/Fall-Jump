@@ -107,7 +107,7 @@ function renderBreakFx(){
   let face=[worldPoint(a,ringR),worldPoint(b,ringR),worldPoint(b,innerR),worldPoint(a,innerR)];
   polygon(face,q.color);
   let side=[face[0],face[1],project(Math.sin(b)*ringR+q.dx,Math.cos(b)*ringR+q.dz,q.y+q.dy+12),project(Math.sin(a)*ringR+q.dx,Math.cos(a)*ringR+q.dz,q.y+q.dy+12)];
-  polygon(side,'#367e94');
+  polygon(side,q.color==='#79cfdf'||q.color==='#58aec4'?'#367e94':q.color==='#ffd977'||q.color==='#efb54e'?'#ba7c31':'#a92c4c');
   ctx.restore();
  }
 }
@@ -158,9 +158,10 @@ function completePlatform(p,cause='gap'){
  burst(project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y,powered?13:combo>=3?12:6);
  if(levelPassed>=levelTarget){flash=9;end(true)}
 }
-function simulateStep(){if(mode==='playing'&&alive&&started){Fever.tick(feverState);if(frames%6===0)refreshFeverHud();let prev=ballY;vy=Math.min(vy+gravity,14);ballY+=vy;for(let p of platforms){if(p.passed||vy<=0)continue;if(prev+contactRadius<=p.y&&ballY+contactRadius>=p.y){if(inGap(p)){completePlatform(p,'gap');break}
-if(dangerAt(p)){end();break}
-if(p.special==='fragile'||Fever.active(feverState)){
+function simulateStep(){if(mode==='playing'&&alive&&started){Fever.tick(feverState);if(frames%6===0)refreshFeverHud();let prev=ballY;vy=Math.min(vy+gravity,14);ballY+=vy;for(let p of platforms){if(p.passed||vy<=0)continue;if(prev+contactRadius<=p.y&&ballY+contactRadius>=p.y){const collision=Fever.contact(feverState,{gap:inGap(p),danger:dangerAt(p),fragile:p.special==='fragile'});
+if(collision==='gap'){completePlatform(p,'gap');break}
+if(collision==='lose'){end();break}
+if(collision==='smash'){
  p.broken=true;fragments(p);completePlatform(p,'smash');
  sfx('break');shake=4;break
 }
