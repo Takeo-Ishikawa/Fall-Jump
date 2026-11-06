@@ -1,0 +1,63 @@
+'use strict';
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const root = path.resolve(__dirname, '..');
+
+test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
+  const html = fs.readFileSync(path.join(root, 'www/index.html'), 'utf8');
+  const tags = [...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)];
+  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js']);
+  const inline = tags.find(x => !x[1])?.[2];
+  assert.ok(inline, 'o script principal deve estar presente');
+  assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
+
+  const nodes = new Map(), canvasEvents = {};
+  const gradient = { addColorStop() {} };
+  const ctx = new Proxy({}, {
+    get(target, key) {
+      if (key === 'createLinearGradient' || key === 'createRadialGradient') return () => gradient;
+      if (key in target) return target[key];
+      return () => {};
+    },
+    set(target, key, value) { target[key] = value; return true; }
+  });
+  const node = selector => {
+    if (!nodes.has(selector)) nodes.set(selector, {
+      style: {}, textContent: '', hidden: false,
+      classList: { add() {}, remove() {}, toggle() {} },
+      setAttribute() {}, addEventListener(event, listener) {
+        if (selector === '#game') canvasEvents[event] = listener;
+      },
+      setPointerCapture() {}, getContext: () => ctx
+    });
+    return nodes.get(selector);
+  };
+  let scheduledFrame;
+  const browser = {
+    innerWidth: 390, innerHeight: 780, location: { protocol: 'file:', search: '' },
+    addEventListener() {}, FallJumpLevelGenerator: require('../www/level-generator.js'),
+    FallJumpFever: require('../www/fever.js')
+  };
+  const sandbox = {
+    document: { querySelector: node, documentElement: { clientWidth: 390 }, addEventListener() {} },
+    window: browser, location: browser.location,
+    navigator: {}, localStorage: { getItem() { return null; }, setItem() {} },
+    innerWidth: 390, innerHeight: 780, devicePixelRatio: 1,
+    requestAnimationFrame(fn) { scheduledFrame = fn; },
+    URLSearchParams, Math, console
+  };
+  assert.doesNotThrow(() => vm.runInNewContext(inline, sandbox, { timeout: 5000 }));
+  assert.equal(typeof scheduledFrame, 'function');
+  assert.ok(node('#feverAmount').textContent.includes('/5'));
+  assert.equal(typeof node('#restart').onclick, 'function');
+  node('#restart').onclick();
+  assert.equal(typeof canvasEvents.pointerdown, 'function');
+  canvasEvents.pointerdown({ clientX: 170, pointerId: 1 });
+  for (let i = 0; i < 80; i++) scheduledFrame(i * 1000 / 60);
+  assert.ok(node('#level').textContent.includes('NÍVEL 1'));
+  assert.ok(node('#stageSeed').textContent.includes('FASE #'));
+  assert.ok(Number(node('#score').textContent) >= 0);
+});
