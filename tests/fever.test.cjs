@@ -3,7 +3,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fever = require('../www/fever.js');
 
-test('cinco passagens pela abertura ativam Fever por quatro segundos', () => {
+test('cinco passagens pela abertura ativam Fever por 1,5 segundo', () => {
   const state = fever.create();
   assert.equal(fever.GAP_TARGET, 5);
   for (let i = 0; i < 4; i++) {
@@ -13,7 +13,7 @@ test('cinco passagens pela abertura ativam Fever por quatro segundos', () => {
   }
   assert.equal(fever.onGap(state), true);
   assert.equal(fever.active(state), true);
-  assert.equal(state.remaining, 240);
+  assert.equal(state.remaining, 90);
   assert.equal(state.charge, 0);
   assert.equal(state.activations, 1);
   assert.equal(fever.multiplier(state), 2);
@@ -31,7 +31,7 @@ test('quicar cancela carga parcial, mas não interrompe Fever ativado', () => {
   assert.equal(fever.active(state), true);
 });
 
-test('tempo acaba em exatamente 240 passos, sem carga automática durante Fever', () => {
+test('tempo acaba em exatamente 90 passos, sem carga automática durante Fever', () => {
   const state = fever.create();
   for (let i = 0; i < fever.GAP_TARGET; i++) fever.onGap(state);
   for (let i = 0; i < 100; i++) assert.equal(fever.onGap(state), false);

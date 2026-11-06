@@ -97,6 +97,15 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - `www/sw.js` inclui o módulo Fever no cache offline. Preservados `com.takeoishikawa.falljump`, a assinatura permanente, recordes e `versionCode` crescente.
 - **Validação:** execução nº 40 concluída com sucesso; testes do Fever, gerador de níveis e inicialização/renderização do jogo passaram; APK e AAB assinados e publicados na Release v1.3.40. Resta avaliar a sensação do Fever no celular.
 
+## Fall Jump 1.3.1 — Balanceamento do Fever e extensão das fases (2026-11-06)
+- Ajuste após teste em celular: quatro segundos de Fever duravam demais em relação ao comprimento das fases, permitindo destruir quase a torre inteira.
+- Fever reduzido de 240 para **90 passos físicos a 60 Hz (1,5 segundo)**, mantendo os cinco vãos exigidos para ativação, o multiplicador de pontuação x2 e a prioridade das áreas escuras.
+- Torres ampliadas de **24–48 para 40–80 plataformas**. Níveis 1–2: 40; 3–4: 46; 5–6: 52; 7–8: 58; 9–10: 64; 11–12: 70; 13–14: 76; 15 em diante: 80.
+- Padrões modulares, validação da rota de queda, distribuição espaçada de perigos, cálculo de combos e regras de colisão preservados.
+- Atualizados os testes do gerador, a duração do Fever, as instruções exibidas no jogo, versão de pacote e workflow APK/AAB; cache PWA incrementado para evitar arquivos desatualizados.
+- Identidade Android, assinatura e versionCode crescente preservados.
+- **Status:** código implementado; necessário confirmar testes e compilação Android, além de validar o ritmo em aparelho real.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.

@@ -16,8 +16,8 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
       const plan = generator.generateLevel(level, (level * 7919 + i * 104729) >>> 0);
       assert.ok(generator.validateLevel(plan), 'nível inválido: ' + level + ', seed ' + plan.seed);
       assert.ok(generator.simulateRoute(plan).ok, 'sem rota válida');
-      assert.equal(plan.platforms.length, 24 + Math.min(24, 4 * Math.floor((level - 1) / 2)));
-      assert.ok(plan.platforms.length >= 24 && plan.platforms.length <= 48);
+      assert.equal(plan.platforms.length, 40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));
+      assert.ok(plan.platforms.length >= 40 && plan.platforms.length <= 80);
       assert.ok(plan.platforms.every((p, j) => p.y === j * 137));
       assert.equal(plan.platforms[0].danger, 0);
       for (let j = 1; j < plan.platforms.length; j++) {

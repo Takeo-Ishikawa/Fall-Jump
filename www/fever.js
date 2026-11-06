@@ -10,7 +10,7 @@
 })(typeof window !== 'undefined' ? window : null, function() {
   'use strict';
   const GAP_TARGET = 5;
-  const DURATION_FRAMES = 240; // 4 segundos de simulação a 60 Hz
+  const DURATION_FRAMES = 90; // 1,5 segundo de simulação a 60 Hz
   const SCORE_MULTIPLIER = 2;
 
   function create() { return { charge: 0, remaining: 0, activations: 0 }; }

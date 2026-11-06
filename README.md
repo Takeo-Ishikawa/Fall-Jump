@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.3), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.3.1), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -48,9 +48,9 @@ Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os
 Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compilação (depois que os secrets forem configurados). Para compilar apenas quando desejar, também há o botão manual **Run workflow**.
 
 ## Fever — recompensa por quedas consecutivas
-Ao atravessar **5 aberturas sem quicar**, a bola entra em Fever durante **4 segundos de simulação**. Nesse intervalo, discos comuns e frágeis podem ser quebrados no contato e os pontos recebidos são dobrados. As partes escuras permanecem perigosas; Fever não concede invulnerabilidade.
+Ao atravessar **5 aberturas sem quicar**, a bola entra em Fever durante **1,5 segundo de simulação**. Nesse intervalo, discos comuns e frágeis podem ser quebrados no contato e os pontos recebidos são dobrados. As partes escuras permanecem perigosas; Fever não concede invulnerabilidade.
 
-A barra no HUD mostra as passagens que faltam e, após a ativação, o tempo restante. Quicar antes da ativação zera a carga. O temporizador não avança quando o jogo está pausado.
+A barra no HUD mostra as passagens que faltam e, após a ativação, o tempo restante. Quicar antes da ativação zera a carga. O temporizador não avança quando o jogo está pausado. A partir da versão 1.3.1, os níveis têm de 40 a 80 plataformas: 40 nos níveis 1–2, aumentando 6 a cada dois níveis, até o máximo de 80 no nível 15.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.

@@ -85,7 +85,7 @@
   function buildCandidate(level, seed, safeMode) {
     const rng = randomFromSeed(seed);
     const difficulty = difficultyFor(level);
-    const count = 24 + Math.min(24, 4 * Math.floor((level - 1) / 2));
+    const count = 40 + Math.min(40, 6 * Math.floor((level - 1) / 2));
     const platforms = [];
     const segments = [];
     const intensity = safeMode ? difficulty.intensity * 0.62 : difficulty.intensity;
@@ -185,7 +185,7 @@
 
   function validateLevel(plan) {
     if (!plan || !Array.isArray(plan.platforms) || plan.platforms.length !== plan.count) return false;
-    if (plan.count < 24 || plan.count > 48) return false;
+    if (plan.count < 40 || plan.count > 80) return false;
     for (let i = 0; i < plan.platforms.length; i++) {
       const p = plan.platforms[i];
       if (!Number.isFinite(p.angle) || !Number.isFinite(p.gap) ||
