@@ -62,6 +62,19 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - **Atenção à loja:** o Play App Signing distingue chave de upload e chave de assinatura da distribuição. Para permitir futura atualização pela Play Store por cima dos APKs instalados manualmente, a assinatura dos APKs finais distribuídos precisa ser compatível com a chave atual. Essa decisão deverá ser feita antes da publicação inicial.
 - **Validação:** execução nº 19 concluída com sucesso em 2026-11-06; APK e AAB versão 1.1.19 gerados, assinaturas verificadas e ambos publicados em Releases.
 
+## Fall Jump 1.2 — Gerador híbrido de níveis (2026-11-06)
+- Novo módulo isolado em `www/level-generator.js`; o jogo permanece em Canvas 2D e carrega o gerador como recurso local, sem dependência de rede.
+- Biblioteca de seis padrões modulares: `spiral`, `zigzag`, `plunge`, `switchback`, `rest` e `precision`. Cada fase combina diversos segmentos com variações angulares controladas.
+- Dificuldade dividida em ciclos de cinco momentos: aprendizado, ritmo, técnica, desafio e respiro; continua aumentando em faixas de níveis sem crescimento ininterrupto.
+- Aberturas ajustadas conforme dificuldade, com limites de largura; perigos e plataformas especiais distribuídos com espaçamento mínimo, evitando repetição imediata.
+- Cada fase usa uma semente numérica reproduzível. A interface mostra o código hexadecimal `FASE #XXXXXXXX`. O parâmetro `?seed=0xXXXXXXXX` permite gerar a mesma configuração para um determinado nível; sem parâmetro, cada nova tentativa usa semente diferente.
+- Validação conservadora simula a gravidade `0.32`, limite de queda `14`, espaçamento `137`, raio de contato do jogo e rotação plausível de `0.11` rad/frame. Rejeita uma fase sem rota de queda livre com margem interna de `0.09` radiano. A simulação não substitui teste humano de dificuldade; permite encontrar sequências claramente inadequadas.
+- Fallback seguro caso diversas tentativas do gerador não sejam aceitas.
+- Testes em `tests/level-generator.test.cjs` verificam reprodutibilidade, diversidade, padrões legais e viabilidade simulada em 1.500 configurações; o GitHub Actions executa esses testes antes da compilação Android.
+- `www/sw.js` atualizado para o cache offline também incluir o novo módulo.
+- Preservados controles, física e colisões já aprovados, efeitos especiais, recordes, application ID e assinatura Android. `package.json` e a publicação APK/AAB avançam para 1.2.
+- **Status:** módulo testado e integrado; confirmar APK Android e comportamento em dispositivo real após compilação.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
