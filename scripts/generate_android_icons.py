@@ -114,7 +114,7 @@ def main():
     )
     manifest=ROOT/"android/app/src/main/AndroidManifest.xml"
     source=manifest.read_text(encoding="utf-8")
-    found=re.search(r"<activity\\b[^>]*>",source,re.S)
+    found=re.search(r"<activity\b[^>]*>",source,re.S)
     if not found:
         raise RuntimeError("Activity não encontrada no AndroidManifest.xml")
     tag=found.group(0)
