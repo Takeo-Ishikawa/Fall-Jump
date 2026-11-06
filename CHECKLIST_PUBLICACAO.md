@@ -23,7 +23,8 @@ Status: **preparação inicial**. O APK atual serve para testes e distribuição
 - [ ] Auditar permissões do Android e dependências adicionadas antes da publicação.
 - [ ] Preencher formulários aplicáveis de segurança de dados, classificação etária e público-alvo na Google Play.
 - [ ] Revisar requisitos atuais de target API level, testes e contas no Google Play Console.
-- [ ] Gerar um Android App Bundle (`.aab`) de release, compatível com o processo de assinatura da Play Store.
+- [ ] Confirmar em uma execução bem-sucedida a geração e verificação de um Android App Bundle (`.aab`) assinado (workflow já configurado para gerar os dois formatos).
+- [ ] Definir no Play App Signing qual chave assinará os APKs distribuídos, considerando os APKs de teste instalados manualmente; a chave de upload do AAB pode ser diferente da chave de assinatura da loja.
 - [ ] Testar distribuição interna/fechada antes de solicitar publicação geral.
 
 ## Manutenção
