@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.4), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.5), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -11,6 +11,8 @@ Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda 
 - `www/level-generator.js`: geração modular determinística de níveis com validação de rotas.
 - `www/fever.js`: regras da habilidade Fever, ativação, temporizador e pontuação em dobro.
 - `www/skins.js`: coleção local de aparências, moedas e persistência entre sessões.
+- `www/goals.js`: missões diárias e conquistas permanentes, com recompensas automáticas e progresso local.
+- `tests/goals.test.cjs`: valida atualização diária, progressão, premiação única e persistência.
 - `tests/skins.test.cjs`: testes de recompensas, compras cosméticas e dados salvos.
 - `tests/fever.test.cjs`: testes de ativação, duração e prioridade das colisões.
 - `tests/level-generator.test.cjs`: testes automatizados de variedade, segurança e reprodutibilidade.
@@ -60,6 +62,13 @@ Cada quatro plataformas concluídas concedem **2 moedas**; finalizar uma fase co
 No menu inicial, toque em **Aparências** para equipar a Melancia gratuita ou desbloquear Limão (60 moedas), Mirtilo (140) e Morango (260). As aparências mudam exclusivamente a cor e o desenho da bola: não alteram gravidade, colisões, velocidade ou vantagens competitivas. Não existem compras com dinheiro real.
 
 O progresso é salvo em `localStorage` na chave `fall-jump-skins-v1`, separada do recorde anterior `melon-helix-v06-best`. Desinstalar o jogo ou limpar os dados do aplicativo pode apagar esse progresso.
+
+## Missões diárias e conquistas — versão 1.5
+O menu **Missões e conquistas** mostra três desafios diários rotativos e seis conquistas permanentes, com barra de progresso, indicação da recompensa e marcação de objetivos concluídos. As recompensas são **moedas do jogo**, concedidas **automaticamente e uma única vez por objetivo**, sem anúncios, contas ou compras reais.
+
+As missões diárias variam de acordo com o dia local do dispositivo (por exemplo: ultrapassar plataformas, ativar Fever, romper plataformas, fazer combos ou concluir fases). O progresso diário começa do zero no dia seguinte, mas as conquistas permanentes mantêm seu progresso. A alteração do relógio para um dia anterior não faz o progresso retroceder.
+
+O estado é salvo na chave `fall-jump-goals-v1` do `localStorage`, separado da carteira de moedas (`fall-jump-skins-v1`) e do recorde. **O progresso começa a ser contabilizado a partir da versão 1.5**, sem contabilizar retroativamente partidas anteriores. A recompensa se soma às moedas obtidas durante o jogo e não recebe multiplicador do Fever.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.

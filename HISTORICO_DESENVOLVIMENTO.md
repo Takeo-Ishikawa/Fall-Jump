@@ -115,6 +115,17 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Novos testes de loja, persistência, custos e recompensas em `tests/skins.test.cjs`, além da ampliação do teste de inicialização e cache offline do PWA.
 - **Validação técnica:** execução nº 45 concluída com sucesso; testes de moedas, loja, inicialização/renderização, Fever e gerador aprovados, APK e AAB assinados e publicados em Releases como v1.4.45. Ainda é necessário testar a aparência e o desbloqueio no dispositivo Android.
 
+## Fall Jump 1.5 — Missões e conquistas offline (2026-11-06)
+- Adicionado `www/goals.js` para acompanhar três missões diárias rotativas e seis conquistas permanentes. As metas incluem plataformas atravessadas, Fever, combos, bônus, quebras e fases concluídas.
+- Recompensas em moedas concedidas automaticamente ao atingir uma meta; cada missão diária paga uma única vez por dia, e cada conquista permanente paga uma única vez durante a instalação.
+- Seleção diária determinística pelo calendário local do aparelho, com progresso salvo em `localStorage` (`fall-jump-goals-v1`). A data diária só avança, evitando recriação de recompensas ao retroceder o relógio.
+- Interface no menu inicial: botão **Missões e conquistas**, três metas diárias, seis conquistas, progresso individual e recompensa associada. Um aviso visual confirma prêmios recebidos durante o jogo.
+- Contadores obtidos dos eventos reais de jogo: plataforma, quebra, Fever ativado, combo de cinco, bônus dourado e vitória. Conquistas de combos utilizam o recorde de combo observado na versão 1.5.
+- Preservados o sistema de skins, carteira existente, recordes, gerador de 40 a 80 plataformas, Fever de 1,5 segundo, física/colisão e identidade/assinatura Android.
+- Novos testes em `tests/goals.test.cjs` verificam entrega única, virada do dia, proteção contra dados inválidos, persistência e acúmulo. O teste de inicialização verifica a navegação do menu de missões.
+- Cache offline atualizado; versão, workflow de APK/AAB e README atualizados.
+- **Status:** código implementado; confirmar compilação e teste de experiência no dispositivo Android.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.
