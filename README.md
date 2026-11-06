@@ -1,4 +1,4 @@
-# Fall Jump — Android e HTML5
+# Fall Jump — HTML5, APK e AAB Android
 
 Jogo casual HTML5/Canvas 2D (versão 1.1), empacotado para Android via Capacitor 7.
 
@@ -10,7 +10,7 @@ Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda 
 - `www/index.html`: código do jogo, mantido independente do Android.
 - `scripts/generate_android_icons.py`: gera ícones Android e fixa a orientação vertical durante a compilação.
 - `capacitor.config.json`: identidade fixa do aplicativo (`com.takeoishikawa.falljump`).
-- `.github/workflows/android-apk.yml`: cria APK de **release assinado** no GitHub Actions.
+- `.github/workflows/android-apk.yml`: cria **APK e AAB de release assinados** no GitHub Actions, usando a mesma identidade Android e o mesmo versionCode.
 - `package.json`: dependências do Capacitor.
 
 ## Como garantir atualizações sem desinstalar
@@ -30,8 +30,13 @@ O Android exige **o mesmo applicationId e a mesma chave de assinatura**, além d
    ```
    O comando copia o Base64 ao clipboard. Cole no valor do secret (não em arquivos do repositório).
 
-## Gerar o APK
-Abra **Actions > Compilar APK atualizavel > Run workflow**. Depois que a compilação terminar, baixe o **APK diretamente em [Releases](https://github.com/Takeo-Ishikawa/Fall-Jump/releases)**, sem extrair ZIP. A seção **Artifacts** também mantém uma cópia compactada por execução.
+## Gerar APK e AAB
+Abra **Actions > Compilar APK e AAB atualizaveis > Run workflow**. Após uma execução bem-sucedida, abra **[Releases](https://github.com/Takeo-Ishikawa/Fall-Jump/releases)** e baixe diretamente um dos dois arquivos, sem extrair ZIP:
+
+- `Fall-Jump-v1.1.N.apk`: instalação direta no Android, para testes e atualizações manuais.
+- `Fall-Jump-v1.1.N.aab`: Android App Bundle para futuro envio ao Play Console. **Não é um APK instalável diretamente no celular.**
+
+O pipeline executa `assembleRelease bundleRelease`, verifica o APK com `apksigner`, verifica a assinatura JAR do AAB com `jarsigner` e publica ambos na mesma Release. A seção **Artifacts** também contém cópias compactadas.
 
 Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os dados do aplicativo quando o ID e a assinatura forem os mesmos, o versionCode for apropriado e a instalação for aceita. O APK não se atualiza sozinho: é preciso baixar e abrir o arquivo novo.
 
@@ -43,4 +48,6 @@ Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compi
 - Mantenha um backup offline da mesma chave e das senhas. Se perder a chave, não poderá atualizar instalações existentes pelo mesmo fluxo.
 - **Não instale builds debug efêmeras** sobre o aplicativo assinado; use sempre o APK de release do workflow.
 - O código web e a assinatura ficam separados; o código do jogo pode evoluir sem mudar a identidade Android.
-- O APK é para distribuição manual e teste. Para Google Play, planejar também um AAB assinado e o gerenciamento de assinatura da loja.
+- O APK é para distribuição manual e teste; o AAB é para publicação futura via Google Play.
+- **Play App Signing exige uma decisão de chave:** o Google usa uma chave de assinatura do app para entregar APKs aos usuários, que pode ser diferente da chave de upload do AAB. Os APKs atualmente instalados manualmente só poderão receber atualizações da Play Store sem reinstalação se a assinatura distribuída pela loja for compatível com a atual. Antes do primeiro lançamento, planejar cuidadosamente o uso da chave existente no Play App Signing.
+- Não enviar o AAB à loja nem configurar assinatura no Play Console sem revisar primeiro os requisitos e o `CHECKLIST_PUBLICACAO.md`.
