@@ -1,0 +1,9 @@
+{
+  "name": "Fall Jump",
+  "short_name": "Fall Jump",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#edf0f4",
+  "theme_color": "#edf0f4"
+}
