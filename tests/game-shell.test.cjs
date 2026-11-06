@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, '..');
 test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
   const html = fs.readFileSync(path.join(root, 'www/index.html'), 'utf8');
   const tags = [...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)];
-  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js', 'skins.js']);
+  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js', 'skins.js', 'goals.js']);
   const inline = tags.find(x => !x[1])?.[2];
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
@@ -40,7 +40,8 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
     innerWidth: 390, innerHeight: 780, location: { protocol: 'file:', search: '' },
     addEventListener() {}, FallJumpLevelGenerator: require('../www/level-generator.js'),
     FallJumpFever: require('../www/fever.js'),
-    FallJumpSkins: require('../www/skins.js')
+    FallJumpSkins: require('../www/skins.js'),
+    FallJumpGoals: require('../www/goals.js')
   };
   const sandbox = {
     document: { querySelector: node, documentElement: { clientWidth: 390 }, addEventListener() {} },
@@ -62,6 +63,13 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(node('#shopFeedback').textContent.includes('Faltam 60'));
   node('#restart').onclick(); // Voltar do catálogo ao menu
   assert.equal(node('#shopSection').hidden,true);
+  assert.equal(typeof node('#goalsButton').onclick,'function');
+  node('#goalsButton').onclick();
+  assert.equal(node('#goalsSection').hidden,false);
+  assert.ok(node('#daily-name-0').textContent.length>0);
+  assert.ok(node('#ach-name-0').textContent.length>0);
+  node('#restart').onclick(); // Voltar das missões para o menu
+  assert.equal(node('#goalsSection').hidden,true);
   node('#restart').onclick(); // Iniciar a partida
   assert.equal(typeof canvasEvents.pointerdown, 'function');
   canvasEvents.pointerdown({ clientX: 170, pointerId: 1 });
