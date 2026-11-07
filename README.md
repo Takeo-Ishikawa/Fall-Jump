@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.8.0, polimento visual em validação), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.8.1, polimento visual em validação), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -117,3 +117,9 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - Versão do pacote e cache offline atualizados para 1.8.0.
 - Física, gerador, Fever, moedas, skins e missões não foram modificados nesta rodada.
 - Aprovação visual e teste de instalação sobre APK anterior continuam pendentes.
+
+## Versão 1.8.1 — primeira rodada de acabamento do Canvas
+- Brilho especular e contorno sutil na bola, preservando padrões de skins e squash/stretch existentes.
+- Realce discreto nas bordas das plataformas, sem alterar geometria ou colisões.
+- Nenhuma biblioteca, imagem ou textura externa adicionada; efeitos feitos no Canvas 2D.
+- Pendente: teste automatizado, compilação e avaliação visual em Android antes de considerar a Etapa B concluída.
