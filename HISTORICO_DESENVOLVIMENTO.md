@@ -141,7 +141,7 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Ao concluir uma meta, aviso imediato de recompensa disponível. Os botões de resgate, persistência, anti-duplicidade e temporizador até a meia-noite continuam intactos.
 - Efeitos visuais respeitam `prefers-reduced-motion`; a animação permanece limitada e não bloqueia a interface.
 - Teste de inicialização ampliado para conferir o indicador, resgate único e medalha de celebração. Novo cache offline e versão 1.6; o Android mantém mesma identidade e assinatura.
-- **Status:** aguarda confirmação da compilação APK/AAB e avaliação em dispositivo real.
+- **Validação:** execução nº 53 concluída com sucesso: testes do gerador, Fever, personalização, resgate e interface de celebração, compilação APK/AAB, assinatura e publicação em Releases (v1.6.53). Resta conferir a experiência visual em dispositivo Android.
 
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
