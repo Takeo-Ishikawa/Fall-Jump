@@ -1,12 +1,12 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.7.1), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.8.0, polimento visual em validação), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
 Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda necessários antes de uma eventual publicação na Google Play.
 
-**Próxima etapa:** [PLANO_POLIMENTO_VISUAL_1_8.md](PLANO_POLIMENTO_VISUAL_1_8.md) — roteiro de direção visual em três entregas (HUD/menus, bola/plataformas/efeitos e ambientação), com critérios de aceite e checklist de testes em Android. **É um plano de trabalho; ainda não foi implementado no jogo.**
+**Próxima etapa:** [PLANO_POLIMENTO_VISUAL_1_8.md](PLANO_POLIMENTO_VISUAL_1_8.md) — roteiro de direção visual em três entregas (HUD/menus, bola/plataformas/efeitos e ambientação), com critérios de aceite e checklist de testes em Android. **A Etapa A foi iniciada; aprovação visual em Android ainda pendente.**
 
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
@@ -111,3 +111,9 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - O APK é para distribuição manual e teste; o AAB é para publicação futura via Google Play.
 - **Play App Signing exige uma decisão de chave:** o Google usa uma chave de assinatura do app para entregar APKs aos usuários, que pode ser diferente da chave de upload do AAB. Os APKs atualmente instalados manualmente só poderão receber atualizações da Play Store sem reinstalação se a assinatura distribuída pela loja for compatível com a atual. Antes do primeiro lançamento, planejar cuidadosamente o uso da chave existente no Play App Signing.
 - Não enviar o AAB à loja nem configurar assinatura no Play Console sem revisar primeiro os requisitos e o `CHECKLIST_PUBLICACAO.md`.
+
+## Versão 1.8.0 — polimento visual (em validação)
+- Refinamento CSS do HUD, botões superiores, abas, painéis, resumos de partida e estados de resgate, incluindo telas pequenas.
+- Versão do pacote e cache offline atualizados para 1.8.0.
+- Física, gerador, Fever, moedas, skins e missões não foram modificados nesta rodada.
+- Aprovação visual e teste de instalação sobre APK anterior continuam pendentes.
