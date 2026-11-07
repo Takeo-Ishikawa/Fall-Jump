@@ -129,9 +129,9 @@
 <button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
 <button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
 <button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
-(()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0;const comboBadge=document.querySelector("#comboBadge");
-const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalsCountdown=document.querySelector('#goalsCountdown'),goalToast=document.querySelector('#goalToast'),goalsOverview=document.querySelector('#goalsOverview'),goalCelebration=document.querySelector('#goalCelebration'),rewardMedalTitle=document.querySelector('#rewardMedalTitle'),rewardMedalName=document.querySelector('#rewardMedalName'),rewardMedalAmount=document.querySelector('#rewardMedalAmount');
-let goalToastFrames=0,celebrationFrames=0;
+(()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0,phaseCoins=0,phaseBestCombo=0;const comboBadge=document.querySelector("#comboBadge");
+const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalsCountdown=document.querySelector('#goalsCountdown'),goalToast=document.querySelector('#goalToast'),goalsOverview=document.querySelector('#goalsOverview'),goalsDailyTab=document.querySelector('#goalsDailyTab'),goalsAchievementTab=document.querySelector('#goalsAchievementTab'),goalsDailyGroup=document.querySelector('#goalsDailyGroup'),goalsAchievementGroup=document.querySelector('#goalsAchievementGroup'),goalCelebration=document.querySelector('#goalCelebration'),rewardMedalTitle=document.querySelector('#rewardMedalTitle'),rewardMedalName=document.querySelector('#rewardMedalName'),rewardMedalAmount=document.querySelector('#rewardMedalAmount');
+let goalToastFrames=0,celebrationFrames=0,goalsTab='daily';
 let goalsState;
 try{goalsState=Goals.load(localStorage,Goals.localDay(new Date()))}catch(e){goalsState=Goals.create(Goals.localDay(new Date()))}
 function saveGoalsState(){try{Goals.save(localStorage,goalsState)}catch(e){}}
@@ -187,10 +187,26 @@ function claimGoal(kind,id){
  showGoalCelebration(reward);
  refreshGoals();
 }
+function selectGoalTab(tab){
+ goalsTab=tab==='achievements'?'achievements':'daily';
+ const isDaily=goalsTab==='daily';
+ goalsDailyGroup.hidden=!isDaily;
+ goalsAchievementGroup.hidden=isDaily;
+ goalsDailyTab.classList.toggle('selected',isDaily);
+ goalsAchievementTab.classList.toggle('selected',!isDaily);
+ goalsDailyTab.setAttribute('aria-selected',String(isDaily));
+ goalsAchievementTab.setAttribute('aria-selected',String(!isDaily));
+ if(mode==='goals')document.querySelector('#panel').scrollTop=0;
+}
+goalsDailyTab.onclick=()=>selectGoalTab('daily');
+goalsAchievementTab.onclick=()=>selectGoalTab('achievements');
 function refreshGoals(){
  if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();
  const snapshot=Goals.getStatus(goalsState);
  updateGoalIndicators(snapshot);
+ const dailyReady=snapshot.daily.filter(g=>g.ready).length,achievementReady=snapshot.achievements.filter(g=>g.ready).length;
+ goalsDailyTab.textContent='Diárias'+(dailyReady?' · '+dailyReady:'');
+ goalsAchievementTab.textContent='Conquistas'+(achievementReady?' · '+achievementReady:'');
  goalsDay.textContent='Dia '+snapshot.day.split('-').reverse().join('/')+' · resgate manual';
  updateGoalsCountdown();
  for(const [prefix,arr] of [['daily',snapshot.daily],['ach',snapshot.achievements]]){
@@ -255,26 +271,41 @@ function sfx(kind){if(kind==='bounce')tone(190,.12,'sine',.055,110);else if(kind
 soundBtn.onclick=()=>{soundOn=!soundOn;soundBtn.textContent=soundOn?'♫':'♪̸';soundBtn.setAttribute('aria-label',soundOn?'Desativar sons':'Ativar sons');try{localStorage.setItem('fall-jump-sound-enabled',String(soundOn))}catch(e){}if(soundOn){initAudio();tone(620,.07)}};
 const storageKey='melon-helix-v06-best';
 try{best=Math.max(0,Number(localStorage.getItem(storageKey))||0)}catch(e){}
-const bestEl=document.querySelector('#bestScore'),stats=document.querySelector('#stats'),legendEl=document.querySelector('#legend'),restartBtn=document.querySelector('#restart'),menuBtn=document.querySelector('#menuButton'),pauseBtn=document.querySelector('#pause');
+const bestEl=document.querySelector('#bestScore'),stats=document.querySelector('#stats'),legendEl=document.querySelector('#legend'),restartBtn=document.querySelector('#restart'),menuBtn=document.querySelector('#menuButton'),pauseBtn=document.querySelector('#pause'),
+helpBtn=document.querySelector('#help'),panelBack=document.querySelector('#panelBack'),menuInstructions=document.querySelector('#menuInstructions'),pauseInstructions=document.querySelector('#pauseInstructions'),
+resultSummary=document.querySelector('#resultSummary'),resultPlatforms=document.querySelector('#resultPlatforms'),resultCombo=document.querySelector('#resultCombo'),resultCoins=document.querySelector('#resultCoins');
 refreshWallet();
 function refreshBest(){bestEl.textContent=best.toLocaleString('pt-BR')}
 function saveBest(){if(totalScore>best){best=totalScore;try{localStorage.setItem(storageKey,String(best))}catch(e){}refreshBest()}}
 function showPanel(title,body,action,secondary=false){
  message.textContent=title;details.textContent=body;restartBtn.textContent=action;
  menuBtn.style.display=secondary?'block':'none';
+ menuBtn.textContent=mode==='confirm-exit'?'Continuar jogando':mode==='paused'||mode==='help'?'Sair da partida':'Menu inicial';
  skinsButton.style.display=mode==='menu'?'block':'none';
  goalsButton.style.display=mode==='menu'?'block':'none';
+ menuInstructions.style.display=mode==='menu'?'block':'none';
+ pauseInstructions.style.display=mode==='paused'?'block':'none';
+ panelBack.style.display=mode==='shop'||mode==='goals'||mode==='menu-help'?'block':'none';
+ helpBtn.style.display='none';
  shopSection.hidden=mode!=='shop';
  goalsSection.hidden=mode!=='goals';
- legendEl.hidden=mode!=='menu'&&mode!=='help';
+ resultSummary.hidden=mode!=='gameover'&&mode!=='leveldone';
+ if(!resultSummary.hidden){
+  resultPlatforms.textContent=levelPassed+' / '+levelTarget;
+  resultCombo.textContent=String(phaseBestCombo);
+  resultCoins.textContent='+'+phaseCoins;
+ }
+ legendEl.hidden=mode!=='menu'&&mode!=='menu-help'&&mode!=='help';
  stats.textContent='RECORDE  '+best.toLocaleString('pt-BR')+'  •  PONTOS  '+totalScore.toLocaleString('pt-BR');
  overlay.style.display='flex';
 }
-function menu(){mode='menu';alive=false;started=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();updateGoalIndicators();showPanel('FALL JUMP','Gire a torre, atravesse os vãos e faça combos. Cinco passagens sem quicar ativam o FEVER: por 1,5 segundo, rompa discos comuns e ganhe o dobro de pontos!','Jogar',false)}
+function menu(){mode='menu';alive=false;started=false;drag=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();updateGoalIndicators();showPanel('FALL JUMP','Gire a torre, atravesse os vãos e faça combos. Cinco passagens sem quicar ativam o FEVER: por 1,5 segundo, rompa discos comuns e ganhe o dobro de pontos!','Jogar',false)}
 function openGoals(){
  mode='goals';alive=false;started=false;pauseBtn.style.display='none';
- showPanel('Missões e conquistas','Acompanhe desafios do dia e marcos permanentes. Ao cumprir uma meta, toque em Resgatar para receber suas moedas antes da renovação.','Voltar ao menu');
+ showPanel('Missões e conquistas','Conclua objetivos, resgate suas moedas e acompanhe a próxima renovação.','Voltar ao menu');
  refreshGoals();
+ const snapshot=Goals.getStatus(goalsState);
+ selectGoalTab(snapshot.daily.some(g=>g.ready)||!snapshot.achievements.some(g=>g.ready)?'daily':'achievements');
 }
 function openShop(){
  mode='shop';alive=false;started=false;pauseBtn.style.display='none';
@@ -292,7 +323,7 @@ for(const skin of Skins.CATALOG){
   refreshShop();
  };
 }
-const progressFill=document.querySelector("#progressFill"),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=137,ballX=0,ballZ=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32,bounce=-7.6;const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43}function buildLevel(n){
+const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=137,ballX=0,ballZ=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32,bounce=-7.6;const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43}function buildLevel(n){
   const generator=window.FallJumpLevelGenerator;
   if(!generator)throw new Error('O gerador de fases não foi carregado.');
   // ?seed=123456 ou ?seed=0xDEADBEEF permite reproduzir um bug.
@@ -305,6 +336,8 @@ const progressFill=document.querySelector("#progressFill"),stagePatternEl=docume
   const plan=generator.generateLevel(n,requestedSeed);
   platforms=plan.platforms;
   levelTarget=plan.count;
+  phaseCoins=0;phaseBestCombo=0;
+  progressCountEl.textContent='0 / '+levelTarget;
   Fever.reset(feverState);
   refreshFeverHud();
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
@@ -385,9 +418,19 @@ if(skin.pattern==='stripes'){
   ctx.beginPath();ctx.ellipse(x*r,y*r,skin.pattern==='seeds'?1.25*scale:2*scale,skin.pattern==='seeds'?2.3*scale:2*scale,0,0,TAU);ctx.fill();
  }
 }
-ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#67d95e';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){sfx(win?'win':'lose');alive=false;started=false;saveBest();levelFinishing=win;mode=win?'leveldone':'gameover';pauseBtn.style.display='none';if(win){levelsCompleted++;creditCoins(Skins.coinsForLevel());recordGoalEvent({wins:1})}showPanel(win?`Nível ${level} concluído!`:'Fim de jogo',win?`Boa! Você superou ${levelTarget} plataformas. Prepare-se para um novo padrão de aberturas.`:'Você atingiu uma área perigosa. Tente alinhar a abertura antes da queda.',win?'Próximo nível':'Tentar novamente',true)}
+ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#67d95e';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){
+ sfx(win?'win':'lose');
+ alive=false;started=false;drag=false;saveBest();levelFinishing=win;
+ mode=win?'leveldone':'gameover';pauseBtn.style.display='none';
+ if(win){levelsCompleted++;phaseCoins+=creditCoins(Skins.coinsForLevel());recordGoalEvent({wins:1})}
+ const explanation=win
+  ?'Torre concluída! Você recebeu 12 moedas extras. Confira o resumo e avance para a próxima fase.'
+  :levelPassed===0?'Você ainda não atravessou nenhuma plataforma. Procure uma abertura e arraste para girar a torre.'
+  :'Você avançou '+levelPassed+' de '+levelTarget+' plataformas. Evite as áreas escuras e tente novamente.';
+ showPanel(win?'Nível '+level+' concluído!':'Fim de jogo',explanation,win?'Próximo nível':'Tentar novamente',true);
+}
 function completePlatform(p,cause='gap'){
- p.passed=true;levelPassed++;combo++;creditCoins(Skins.coinsForPlatform(levelPassed));
+ p.passed=true;levelPassed++;combo++;phaseBestCombo=Math.max(phaseBestCombo,combo);phaseCoins+=creditCoins(Skins.coinsForPlatform(levelPassed));
  const activated=cause==='gap'&&Fever.onGap(feverState);
  recordGoalEvent({platforms:1,bonus:p.special==='bonus'?1:0,smashes:p.broken?1:0,combo5:combo===5?1:0,combo,fevers:activated?1:0});
  const powered=Fever.active(feverState);
@@ -396,6 +439,7 @@ function completePlatform(p,cause='gap'){
  const points=basePoints*Fever.multiplier(feverState);
  totalScore+=points;saveBest();scoreEl.textContent=totalScore;
  progressFill.style.width=(levelPassed/levelTarget*100)+'%';
+ progressCountEl.textContent=levelPassed+' / '+levelTarget;
  refreshFeverHud();
  if(activated){
   flash=12;shake=3.5;sfx('fever');
@@ -442,13 +486,51 @@ function update(timestamp){
   draw();
   requestAnimationFrame(update);
 }
-function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';canvas.setPointerCapture?.(e.pointerId)}function move(e){if(!drag||mode!=='playing')return;let delta=e.clientX-lastX;lastX=e.clientX;rotation+=delta*.012;rotation=norm(rotation)}function up(){drag=false}canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);function startGame(next=false){if(next){level++;buildLevel(level)}else{reset()}mode='playing';alive=true;started=false;overlay.style.display='none';pauseBtn.style.display='block';hint.style.opacity='1';refreshBest()}
-restartBtn.onclick=()=>{initAudio();if(mode==='shop'||mode==='goals'){menu();return}if(mode==='paused'||mode==='help'){mode='playing';alive=true;overlay.style.display='none';pauseBtn.style.display='block';hint.style.opacity=started?'0':'1'}else if(mode==='leveldone')startGame(true);else startGame(false)};
-menuBtn.onclick=()=>menu();
+function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';canvas.setPointerCapture?.(e.pointerId)}function move(e){if(!drag||mode!=='playing')return;let delta=e.clientX-lastX;lastX=e.clientX;rotation+=delta*.012;rotation=norm(rotation)}function up(){drag=false}canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);function startGame(next=false){
+ if(next){level++;buildLevel(level)}else reset();
+ mode='playing';alive=true;started=false;drag=false;overlay.style.display='none';
+ pauseBtn.style.display='block';helpBtn.style.display='block';
+ hint.style.opacity='1';refreshBest();
+}
+function resumeGame(){
+ mode='playing';alive=true;drag=false;overlay.style.display='none';
+ pauseBtn.style.display='block';helpBtn.style.display='block';
+ hint.style.opacity=started?'0':'1';
+}
+function askLeave(){
+ drag=false;mode='confirm-exit';
+ showPanel('Sair da partida?','O progresso desta tentativa será perdido. Moedas e recompensas já salvas permanecerão.','Sair e voltar ao menu',true);
+}
+function openGameHelp(){
+ drag=false;mode='help';pauseBtn.style.display='none';
+ showPanel('Como jogar','Arraste para girar a torre. Alinhe as aberturas, evite as partes escuras. Azuis quebram, douradas dão bônus. Cinco aberturas sem quicar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
+}
+function openMenuHelp(){
+ mode='menu-help';
+ showPanel('Como jogar','Toque na tela para começar a queda. Arraste horizontalmente para girar a torre e passar pelos vãos. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Cinco passagens sem quicar ativam Fever por 1,5 segundo.','Voltar ao menu');
+}
+restartBtn.onclick=()=>{
+ initAudio();
+ if(mode==='shop'||mode==='goals'||mode==='menu-help'||mode==='confirm-exit'){menu();return}
+ if(mode==='paused'||mode==='help'){resumeGame();return}
+ if(mode==='leveldone')startGame(true);else startGame(false);
+};
+menuBtn.onclick=()=>{
+ if(mode==='confirm-exit'){resumeGame();return}
+ if(mode==='paused'||mode==='help'){askLeave();return}
+ menu();
+};
+panelBack.onclick=()=>menu();
+menuInstructions.onclick=()=>openMenuHelp();
+pauseInstructions.onclick=()=>openGameHelp();
 skinsButton.onclick=()=>openShop();
 goalsButton.onclick=()=>openGoals();
-pauseBtn.onclick=()=>{if(mode!=='playing')return;mode='paused';pauseBtn.style.display='none';showPanel('Pausado','Sua partida está preservada. Continue de onde parou.','Continuar',true)};
-document.querySelector('#help').onclick=()=>{initAudio();if(mode==='playing'){mode='help';pauseBtn.style.display='none';showPanel('Como jogar','Arraste horizontalmente para girar a torre. Atravesse as aberturas. Evite as partes escuras. Plataformas azuis se quebram ao contato; douradas dão bônus. Atravesse 5 aberturas sem quicar para ativar Fever por 1,5 segundo: discos comuns se quebram e a pontuação dobra. As áreas escuras continuam perigosas.','Continuar',true)}else if(mode==='menu'){showPanel('Como jogar','Arraste horizontalmente para girar a torre e passe pelos vãos. Evite as áreas escuras. As plataformas azuis quebram ao toque e as douradas dão bônus. Complete 5 quedas sem quicar para ativar Fever, mas continue evitando áreas escuras.','Jogar',false)}else if(mode==='paused'){mode='help';showPanel('Como jogar','Arraste para girar a torre; evite as áreas escuras. Discos azuis quebram ao contato, dourados dão pontos extras e Fever permite quebrar discos normais por 1,5 segundo.','Continuar',true)}};
+pauseBtn.onclick=()=>{
+ if(mode!=='playing')return;
+ drag=false;mode='paused';pauseBtn.style.display='none';
+ showPanel('Pausado','Sua partida está preservada. Você pode continuar ou consultar as instruções.','Continuar',true);
+};
+helpBtn.onclick=()=>{if(mode==='playing'){initAudio();openGameHelp()}};
 function autoPause(){drag=false;if(mode!=='playing')return;mode='paused';pauseBtn.style.display='none';showPanel('Pausado','Sua partida foi pausada automaticamente ao sair do jogo.','Continuar',true)}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)autoPause()});window.addEventListener('pagehide',autoPause);
 window.addEventListener('resize',resize);window.addEventListener('orientationchange',()=>{drag=false;resize()});
