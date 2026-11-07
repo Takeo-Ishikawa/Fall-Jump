@@ -280,7 +280,7 @@ function saveBest(){if(totalScore>best){best=totalScore;try{localStorage.setItem
 function showPanel(title,body,action,secondary=false){
  message.textContent=title;details.textContent=body;restartBtn.textContent=action;
  menuBtn.style.display=secondary?'block':'none';
- menuBtn.textContent=mode==='confirm-exit'?'Continuar jogando':mode==='paused'||mode==='help'?'Sair da partida':'Menu inicial';
+ menuBtn.textContent=mode==='confirm-exit'?'Sair da partida':mode==='paused'||mode==='help'?'Sair da partida':'Menu inicial';
  skinsButton.style.display=mode==='menu'?'block':'none';
  goalsButton.style.display=mode==='menu'?'block':'none';
  menuInstructions.style.display=mode==='menu'?'block':'none';
@@ -499,7 +499,7 @@ function resumeGame(){
 }
 function askLeave(){
  drag=false;mode='confirm-exit';
- showPanel('Sair da partida?','O progresso desta tentativa será perdido. Moedas e recompensas já salvas permanecerão.','Sair e voltar ao menu',true);
+ showPanel('Sair da partida?','O progresso desta tentativa será perdido. Moedas e recompensas já salvas permanecerão.','Continuar jogando',true);
 }
 function openGameHelp(){
  drag=false;mode='help';pauseBtn.style.display='none';
@@ -511,12 +511,13 @@ function openMenuHelp(){
 }
 restartBtn.onclick=()=>{
  initAudio();
- if(mode==='shop'||mode==='goals'||mode==='menu-help'||mode==='confirm-exit'){menu();return}
+ if(mode==='confirm-exit'){resumeGame();return}
+ if(mode==='shop'||mode==='goals'||mode==='menu-help'){menu();return}
  if(mode==='paused'||mode==='help'){resumeGame();return}
  if(mode==='leveldone')startGame(true);else startGame(false);
 };
 menuBtn.onclick=()=>{
- if(mode==='confirm-exit'){resumeGame();return}
+ if(mode==='confirm-exit'){menu();return}
  if(mode==='paused'||mode==='help'){askLeave();return}
  menu();
 };
