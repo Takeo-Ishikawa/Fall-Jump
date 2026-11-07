@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.7), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.7.1), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -85,6 +85,14 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - **Nova tentativa:** depois de uma derrota, Tentar novamente repete o mesmo nível (com nova semente), reiniciando a pontuação da tentativa. Começar pelo menu inicia uma nova sequência no nível 1.
 - Sem modificações de gravidade, controles, limite de plataformas, Fever, progressão de moedas ou assinaturas Android. As verificações automatizadas cobrem os percursos de navegação e resultados.
 - Ver `REVISAO_EXPERIENCIA.md` para o roteiro de validação no aparelho.
+
+## Versão 1.7.1 — Correções de navegação identificadas no Android
+- Corrigida uma chave de fechamento ausente na regra CSS de `#goalToast`. O erro fazia o Android ignorar parte das regras seguintes, deixando o botão Voltar grande e rosa e empilhando as abas das missões.
+- **Aparências, Como jogar e Missões:** apenas um botão Voltar compacto no topo. O botão inferior Voltar ao menu foi ocultado nessas três telas, eliminando a duplicidade.
+- **Missões:** abas Diárias e Conquistas ficam lado a lado em um controle segmentado, com destaque discreto na aba selecionada; o botão superior permanece acessível durante a rolagem.
+- **Barra de status:** a sobreposição reserva espaço superior e inferior adicional, além dos `safe-area-inset` quando disponíveis, para não encostar na barra de status e nos gestos do Android.
+- Estatísticas de partida desnecessárias foram ocultadas apenas nas telas secundárias, abrindo espaço para o conteúdo.
+- Testes automatizados verificam chaves CSS equilibradas, layouts fundamentais e existência de um único botão de retorno por tela. Física, pontuação, Fever, lojas, objetivos e dados persistidos não foram alterados.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.

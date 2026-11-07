@@ -19,6 +19,17 @@ test('estrutura HTML tem menus e indicadores reais, sem IDs duplicados ou divs a
   assert.equal(opening,closing,'tags desequilibradas: '+tag);
  }
  assert.ok(html.includes('touch-action:pan-y'),'painel deve permitir rolagem vertical');
+ const css=html.split('<style>')[1].split('</style>')[0];
+ assert.equal((css.match(/{/g)||[]).length,(css.match(/}/g)||[]).length,
+  'regras CSS não podem ter chaves abertas; o navegador ignora seletores posteriores');
+ assert.match(css,/#goalToast\\{[^{}]*\\}\\s*@media\\(max-height:540px\\)/,
+  'a regra do aviso de recompensas deve terminar antes do próximo media query');
+ assert.match(css,/#panel #panelBack\\{[^{}]*width:max-content/,
+  'botão superior Voltar deve ter largura compacta');
+ assert.match(css,/#panel #goalTabs\\{[^{}]*flex-direction:row/,
+  'abas de missões devem ficar na mesma linha');
+ assert.match(css,/#overlay\\{[^{}]*env\\(safe-area-inset-top\\)/,
+  'sobreposição deve respeitar barra superior do Android');
 });
 
 test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
@@ -89,11 +100,16 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#goalsButton').style.display,'none');
   assert.equal(node('#legend').hidden,false);
   assert.equal(node('#panelBack').style.display,'block');
+  assert.equal(node('#restart').style.display,'none','ajuda do menu usa somente Voltar no topo');
+  assert.equal(node('#stats').style.display,'none');
   node('#panelBack').onclick();
+  assert.equal(node('#restart').style.display,'block');
   assert.equal(node('#message').textContent,'FALL JUMP');
   assert.equal(typeof node('#skinsButton').onclick,'function');
   node('#skinsButton').onclick();
   assert.equal(node('#shopSection').hidden,false);
+  assert.equal(node('#restart').style.display,'none','catálogo não pode ter segundo botão Voltar ao menu');
+  assert.equal(node('#panelBack').style.display,'block');
   node('#skin-lemon').onclick();
   assert.ok(node('#shopFeedback').textContent.includes('Faltam 60'));
   assert.equal(node('#panelBack').style.display,'block');
@@ -103,6 +119,9 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   node('#goalsButton').onclick();
   assert.equal(node('#goalsSection').hidden,false);
   assert.equal(node('#panelBack').style.display,'block');
+  assert.equal(node('#restart').style.display,'none','missões não podem exigir rolar para achar outro Voltar');
+  assert.equal(node('#stats').style.display,'none');
+  assert.equal(node('#goalTabs').hidden,false);
   node('#goalsDailyTab').onclick();
   assert.equal(node('#goalsDailyGroup').hidden,false);
   assert.equal(node('#goalsAchievementGroup').hidden,true);
@@ -130,6 +149,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#coinCount').textContent,'30');
   node('#panelBack').onclick(); // Voltar das missões sem descer a tela inteira
   assert.equal(node('#goalsSection').hidden,true);
+  assert.equal(node('#restart').style.display,'block');
   node('#restart').onclick(); // Iniciar a partida
   assert.equal(node('#progressCount').textContent,'0 / 40');
   assert.equal(node('#resultSummary').hidden,true);
