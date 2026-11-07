@@ -6,6 +6,8 @@ Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o reg
 
 Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda necessários antes de uma eventual publicação na Google Play.
 
+**Próxima etapa:** [PLANO_POLIMENTO_VISUAL_1_8.md](PLANO_POLIMENTO_VISUAL_1_8.md) — roteiro de direção visual em três entregas (HUD/menus, bola/plataformas/efeitos e ambientação), com critérios de aceite e checklist de testes em Android. **É um plano de trabalho; ainda não foi implementado no jogo.**
+
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
 - `www/level-generator.js`: geração modular determinística de níveis com validação de rotas.
