@@ -22,13 +22,13 @@ test('estrutura HTML tem menus e indicadores reais, sem IDs duplicados ou divs a
  const css=html.split('<style>')[1].split('</style>')[0];
  assert.equal((css.match(/{/g)||[]).length,(css.match(/}/g)||[]).length,
   'regras CSS não podem ter chaves abertas; o navegador ignora seletores posteriores');
- assert.match(css,/#goalToast\\{[^{}]*\\}\\s*@media\\(max-height:540px\\)/,
+ assert.match(css,/#goalToast\{[^{}]*\}\s*@media\(max-height:540px\)/,
   'a regra do aviso de recompensas deve terminar antes do próximo media query');
- assert.match(css,/#panel #panelBack\\{[^{}]*width:max-content/,
+ assert.match(css,/#panel #panelBack\{[^{}]*width:max-content/,
   'botão superior Voltar deve ter largura compacta');
- assert.match(css,/#panel #goalTabs\\{[^{}]*flex-direction:row/,
+ assert.match(css,/#panel #goalTabs\{[^{}]*flex-direction:row/,
   'abas de missões devem ficar na mesma linha');
- assert.match(css,/#overlay\\{[^{}]*env\\(safe-area-inset-top\\)/,
+ assert.match(css,/#overlay\{[^{}]*env\(safe-area-inset-top\)/,
   'sobreposição deve respeitar barra superior do Android');
 });
 
