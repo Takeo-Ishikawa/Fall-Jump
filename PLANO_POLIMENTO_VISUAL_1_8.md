@@ -1,6 +1,6 @@
 # Fall Jump — Plano de polimento visual da versão 1.8
 
-**Status:** planejamento aprovado para implementação incremental; nenhuma alteração visual de código foi executada por este documento.  
+**Status:** Etapa A iniciada em 2026-11-07; primeira rodada de CSS para HUD e menus aplicada. Validação automatizada e aprovação em Android pendentes.  
 **Base de referência:** versão 1.7.1; consultar também [REVISAO_EXPERIENCIA.md](REVISAO_EXPERIENCIA.md), [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) e [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md).  
 **Objetivo:** aumentar a legibilidade, a sensação de profundidade e o prazer visual do jogo, preservando controles, física, desempenho, regras de pontuação e dados do jogador.
 
@@ -158,3 +158,9 @@ As versões acima são **marcos propostos**, não releases já existentes. Não 
 5. Documento e histórico registrarem o que foi implementado de fato, não apenas planejado.
 
 **Próxima ação sugerida:** iniciar pela **Etapa A (HUD e menus)**, entregar um APK de teste específico e obter aprovação das capturas antes de mudar a renderização da bola e das plataformas.
+
+## Registro de implementação — 2026-11-07
+
+- Iniciada a Etapa A (1.8.0) com acabamento CSS do HUD, hierarquia da pontuação, barras de progresso e Fever, controles superiores, botões, painéis, abas, cartões de resultado e ajustes responsivos.
+- Mantidas as regras de física, colisão, economia, missões e persistência; alterações limitadas a CSS e título da página.
+- **Pendente:** testes automatizados/Actions, captura e aprovação no Android. Os checkboxes de aceite permanecem abertos até a validação real.
