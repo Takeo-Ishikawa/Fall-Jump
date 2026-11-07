@@ -488,7 +488,7 @@ function update(timestamp){
 }
 function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';canvas.setPointerCapture?.(e.pointerId)}function move(e){if(!drag||mode!=='playing')return;let delta=e.clientX-lastX;lastX=e.clientX;rotation+=delta*.012;rotation=norm(rotation)}function up(){drag=false}canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);function startGame(next=false){
  if(next){level++;buildLevel(level)}else reset();
- mode='playing';alive=true;started=false;drag=false;overlay.style.display='none';
+ mode='playing';alive=true;started=false;drag=false;overlay.style.display='none';resultSummary.hidden=true;
  pauseBtn.style.display='block';helpBtn.style.display='block';
  hint.style.opacity='1';refreshBest();
 }
