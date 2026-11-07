@@ -143,6 +143,17 @@ Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix
 - Teste de inicialização ampliado para conferir o indicador, resgate único e medalha de celebração. Novo cache offline e versão 1.6; o Android mantém mesma identidade e assinatura.
 - **Validação:** execução nº 53 concluída com sucesso: testes do gerador, Fever, personalização, resgate e interface de celebração, compilação APK/AAB, assinatura e publicação em Releases (v1.6.53). Resta conferir a experiência visual em dispositivo Android.
 
+## Fall Jump 1.7 — Revisão de experiência e navegação (2026-11-06)
+- Auditoria dos fluxos de entrada, instruções, menu, pausa, saída, vitória, derrota, navegação de missões e feedback de progressão. Documentada em `REVISAO_EXPERIENCIA.md`.
+- Corrigida a descoberta de instruções no menu: botão Como jogar dentro do painel e versão separada da ajuda em partida/pausa; controles atrás do overlay não são mais necessários.
+- A saída do meio de uma tentativa agora exige confirmação; Continuar jogando é a escolha principal, evitando abandono acidental.
+- Tela de missões dividida em abas Diárias e Conquistas, com número de recompensas disponíveis, botão Voltar acessível no alto do painel e rolagem vertical por toque.
+- HUD inclui contagem numérica `plataformas percorridas / plataformas totais`; resultados de vitória e derrota mostram plataformas, maior combo e moedas obtidas na fase.
+- Ao morrer, Tentar novamente agora reinicia o **nível atual**, não volta inesperadamente para nível 1. A pontuação da tentativa reinicia; moedas persistentes e conquistas são preservadas.
+- Corrigido estado residual do resumo ao avançar à fase seguinte; teste de inicialização ampliado com navegação completa, confirmação de saída, progresso, derrota e vitória.
+- Cache offline atualizado para v17, versão do pacote e workflow para 1.7; ID de aplicativo, assinatura, física, Fever e gerador de 40–80 plataformas mantidos.
+- **Status:** alterações no repositório; confirmar CI e avaliar ergonomia visual e desempenho num aparelho real.
+
 ## Arquitetura atual
 - `www/index.html`: jogo completo HTML5/Canvas 2D (base 0.7 aprovada).
 - `www/manifest.webmanifest`, `www/sw.js`, `www/icons/icon.svg`: recursos web e PWA.

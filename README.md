@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.6), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.7), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -75,6 +75,16 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - O resgate manual continua obrigatório. Cada resgate dispara uma celebração visual leve com medalha e 12 fragmentos animados por CSS, sem imagens extras nem dependências externas.
 - O efeito respeita a preferência do sistema por movimento reduzido (`prefers-reduced-motion`), evitando animações de partículas quando ativado.
 - As regras de carteira, metas diárias, horário de renovação e resgate único foram mantidas. Não é necessário converter dados antigos.
+
+## Versão 1.7 — Revisão da experiência de jogo
+- **Menu:** botão de Como jogar acessível no painel inicial, sem elementos concorrentes na página de instruções. Na pausa, as instruções ficam disponíveis sem reiniciar a partida.
+- **Saída protegida:** sair durante uma tentativa exige confirmação. Continuar é a escolha principal; nenhuma moeda já obtida é apagada.
+- **Missões:** duas abas, Diárias e Conquistas, com contagem de resgates disponíveis e botão Voltar no topo. O painel é rolável por toque no Android.
+- **Durante a fase:** o HUD mostra quantas plataformas foram vencidas em relação ao total, além da barra de progresso.
+- **Ao vencer ou perder:** resumo de plataformas, maior combo da fase e moedas coletadas, incluindo o bônus de 12 moedas por conclusão. A tela é limpa ao começar o nível seguinte.
+- **Nova tentativa:** depois de uma derrota, Tentar novamente repete o mesmo nível (com nova semente), reiniciando a pontuação da tentativa. Começar pelo menu inicia uma nova sequência no nível 1.
+- Sem modificações de gravidade, controles, limite de plataformas, Fever, progressão de moedas ou assinaturas Android. As verificações automatizadas cobrem os percursos de navegação e resultados.
+- Ver `REVISAO_EXPERIENCIA.md` para o roteiro de validação no aparelho.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.
