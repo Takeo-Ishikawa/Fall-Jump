@@ -13,6 +13,9 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   const inline = tags.find(x => !x[1])?.[2];
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
+  const endHook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
+  assert.ok(inline.includes(endHook),'inicialização deve ser reconhecível para o teste');
+  const instrumented=inline.replace(endHook,'window.__fjTest={end,completePlatform,getPlatforms:()=>platforms};'+endHook);
 
   const Goals=require('../www/goals.js');
   const goalsReady=Goals.create(Goals.localDay(new Date()));
@@ -57,22 +60,41 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
     requestAnimationFrame(fn) { scheduledFrame = fn; },
     URLSearchParams, Math, console
   };
-  assert.doesNotThrow(() => vm.runInNewContext(inline, sandbox, { timeout: 5000 }));
+  assert.doesNotThrow(() => vm.runInNewContext(instrumented, sandbox, { timeout: 5000 }));
   assert.equal(typeof scheduledFrame, 'function');
   assert.ok(node('#feverAmount').textContent.includes('/5'));
   assert.equal(typeof node('#restart').onclick, 'function');
   assert.equal(node('#coinCount').textContent,'0');
   assert.ok(node('#goalsButton').textContent.includes('para resgatar'));
+  assert.equal(node('#menuInstructions').style.display,'block');
+  assert.equal(node('#help').style.display,'none');
+  node('#menuInstructions').onclick();
+  assert.equal(node('#message').textContent,'Como jogar');
+  assert.equal(node('#restart').textContent,'Voltar ao menu');
+  assert.equal(node('#goalsButton').style.display,'none');
+  assert.equal(node('#legend').hidden,false);
+  assert.equal(node('#panelBack').style.display,'block');
+  node('#panelBack').onclick();
+  assert.equal(node('#message').textContent,'FALL JUMP');
   assert.equal(typeof node('#skinsButton').onclick,'function');
   node('#skinsButton').onclick();
   assert.equal(node('#shopSection').hidden,false);
   node('#skin-lemon').onclick();
   assert.ok(node('#shopFeedback').textContent.includes('Faltam 60'));
-  node('#restart').onclick(); // Voltar do catálogo ao menu
+  assert.equal(node('#panelBack').style.display,'block');
+  node('#panelBack').onclick(); // Navegação acessível no topo da loja
   assert.equal(node('#shopSection').hidden,true);
   assert.equal(typeof node('#goalsButton').onclick,'function');
   node('#goalsButton').onclick();
   assert.equal(node('#goalsSection').hidden,false);
+  assert.equal(node('#panelBack').style.display,'block');
+  node('#goalsDailyTab').onclick();
+  assert.equal(node('#goalsDailyGroup').hidden,false);
+  assert.equal(node('#goalsAchievementGroup').hidden,true);
+  node('#goalsAchievementTab').onclick();
+  assert.equal(node('#goalsDailyGroup').hidden,true);
+  assert.equal(node('#goalsAchievementGroup').hidden,false);
+  node('#goalsDailyTab').onclick();
   assert.ok(node('#daily-name-0').textContent.length>0);
   assert.ok(node('#goalsCountdown').textContent.includes('Novas missões em '));
   assert.ok(node('#goalsOverview').textContent.includes('para resgatar'));
@@ -91,13 +113,51 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(readyAfterClaim,readyBeforeClaim-1);
   node('#ach-claim-0').onclick();
   assert.equal(node('#coinCount').textContent,'30');
-  node('#restart').onclick(); // Voltar das missões para o menu
+  node('#panelBack').onclick(); // Voltar das missões sem descer a tela inteira
   assert.equal(node('#goalsSection').hidden,true);
   node('#restart').onclick(); // Iniciar a partida
+  assert.equal(node('#progressCount').textContent,'0 / 40');
+  assert.equal(node('#resultSummary').hidden,true);
+  assert.equal(node('#help').style.display,'block');
+  node('#help').onclick(); // Ajuda acessível durante a partida
+  assert.equal(node('#message').textContent,'Como jogar');
+  node('#restart').onclick(); // Continuar após ler ajuda
+  assert.equal(node('#pause').style.display,'block');
+  node('#pause').onclick();
+  assert.equal(node('#message').textContent,'Pausado');
+  assert.equal(node('#pauseInstructions').style.display,'block');
+  node('#pauseInstructions').onclick();
+  assert.equal(node('#message').textContent,'Como jogar');
+  node('#restart').onclick(); // Continuar após ajuda da pausa
+  node('#pause').onclick();
+  node('#menuButton').onclick(); // Solicitar saída
+  assert.equal(node('#message').textContent,'Sair da partida?');
+  assert.equal(node('#restart').textContent,'Continuar jogando');
+  assert.equal(node('#menuButton').textContent,'Sair da partida');
+  node('#restart').onclick(); // Cancelar saída deve preservar partida
+  assert.equal(node('#overlay').style.display,'none');
+  node('#pause').onclick();
+  node('#menuButton').onclick();
+  node('#menuButton').onclick(); // Confirmar saída de fato
+  assert.equal(node('#message').textContent,'FALL JUMP');
+  node('#restart').onclick(); // Nova partida
   assert.equal(typeof canvasEvents.pointerdown, 'function');
   canvasEvents.pointerdown({ clientX: 170, pointerId: 1 });
   for (let i = 0; i < 80; i++) scheduledFrame(i * 1000 / 60);
   assert.ok(node('#level').textContent.includes('NÍVEL 1'));
   assert.ok(node('#stageSeed').textContent.includes('FASE #'));
   assert.ok(Number(node('#score').textContent) >= 0);
+  const platforms=browser.__fjTest.getPlatforms();
+  assert.equal(platforms.length,40);
+  for(const platform of platforms)browser.__fjTest.completePlatform(platform);
+  assert.equal(node('#message').textContent,'Nível 1 concluído!');
+  assert.equal(node('#resultSummary').hidden,false);
+  assert.equal(node('#resultPlatforms').textContent,'40 / 40');
+  assert.equal(node('#resultCombo').textContent,'40');
+  assert.equal(node('#resultCoins').textContent,'+32');
+  assert.equal(node('#progressCount').textContent,'40 / 40');
+  node('#restart').onclick(); // Próxima fase
+  assert.equal(node('#level').textContent,'NÍVEL 2');
+  assert.equal(node('#progressCount').textContent,'0 / 40');
+  assert.equal(node('#resultSummary').hidden,true);
 });
