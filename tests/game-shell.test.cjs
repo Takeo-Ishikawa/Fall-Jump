@@ -6,6 +6,21 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 
+test('estrutura HTML tem menus e indicadores reais, sem IDs duplicados ou divs abertas',()=>{
+ const html=fs.readFileSync(path.join(root,'www/index.html'),'utf8');
+ const required=['panelBack','menuInstructions','pauseInstructions','goalsDailyTab','goalsAchievementTab','goalsDailyGroup','goalsAchievementGroup','progressCount','resultSummary','resultPlatforms','resultCombo','resultCoins','restart','menuButton','help','pause'];
+ for(const id of required){
+  const count=html.split('id="'+id+'"').length-1;
+  assert.equal(count,1,'id ausente ou duplicado: '+id);
+ }
+ for(const tag of ['div','button','span','h3']){
+  const opening=(html.match(new RegExp('<'+tag+'(?:\\s|>)','g'))||[]).length;
+  const closing=(html.match(new RegExp('</'+tag+'>','g'))||[]).length;
+  assert.equal(opening,closing,'tags desequilibradas: '+tag);
+ }
+ assert.ok(html.includes('touch-action:pan-y'),'painel deve permitir rolagem vertical');
+});
+
 test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
   const html = fs.readFileSync(path.join(root, 'www/index.html'), 'utf8');
   const tags = [...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)];
