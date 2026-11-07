@@ -14,6 +14,9 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
 
+  const Goals=require('../www/goals.js');
+  const goalsReady=Goals.create(Goals.localDay(new Date()));
+  Goals.record(goalsReady,{platforms:100,combo:10},goalsReady.daily.day);
   const nodes = new Map(), canvasEvents = {};
   const gradient = { addColorStop() {} };
   const ctx = new Proxy({}, {
@@ -46,7 +49,10 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   const sandbox = {
     document: { querySelector: node, documentElement: { clientWidth: 390 }, addEventListener() {} },
     window: browser, location: browser.location,
-    navigator: {}, localStorage: { getItem() { return null; }, setItem() {} },
+    navigator: {}, localStorage: {
+      getItem(key) {return key===Goals.KEY?JSON.stringify(goalsReady):null;},
+      setItem(key,value){if(key===Goals.KEY)Object.assign(goalsReady,JSON.parse(value));}
+    },
     innerWidth: 390, innerHeight: 780, devicePixelRatio: 1,
     requestAnimationFrame(fn) { scheduledFrame = fn; },
     URLSearchParams, Math, console
@@ -56,6 +62,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(node('#feverAmount').textContent.includes('/5'));
   assert.equal(typeof node('#restart').onclick, 'function');
   assert.equal(node('#coinCount').textContent,'0');
+  assert.ok(node('#goalsButton').textContent.includes('para resgatar'));
   assert.equal(typeof node('#skinsButton').onclick,'function');
   node('#skinsButton').onclick();
   assert.equal(node('#shopSection').hidden,false);
@@ -68,9 +75,20 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#goalsSection').hidden,false);
   assert.ok(node('#daily-name-0').textContent.length>0);
   assert.ok(node('#goalsCountdown').textContent.includes('Novas missões em '));
+  assert.ok(node('#goalsOverview').textContent.includes('para resgatar'));
   assert.equal(node('#daily-claim-0').disabled,true);
   assert.ok(node('#ach-name-0').textContent.length>0);
+  assert.equal(node('#ach-claim-0').disabled,false);
+  assert.equal(node('#ach-claim-0').textContent,'Resgatar +30');
+  node('#ach-claim-0').onclick();
+  assert.equal(node('#coinCount').textContent,'30');
   assert.equal(node('#ach-claim-0').disabled,true);
+  assert.equal(node('#rewardMedalAmount').textContent,'+30 MOEDAS');
+  assert.equal(node('#rewardMedalName').textContent,'Primeiros saltos');
+  assert.equal(node('#goalCelebration').style.opacity,undefined);
+  assert.ok(!node('#goalsOverview').textContent.includes('2 recompensas disponíveis'));
+  node('#ach-claim-0').onclick();
+  assert.equal(node('#coinCount').textContent,'30');
   node('#restart').onclick(); // Voltar das missões para o menu
   assert.equal(node('#goalsSection').hidden,true);
   node('#restart').onclick(); // Iniciar a partida

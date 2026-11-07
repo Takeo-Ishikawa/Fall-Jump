@@ -1,6 +1,6 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.5.1), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.6), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
@@ -69,6 +69,12 @@ O menu **Missões e conquistas** mostra três desafios diários rotativos e seis
 A tela mostra um **temporizador HH:MM:SS até a próxima meia-noite local**, quando a seleção das missões diárias e seu progresso são renovados automaticamente. **Missões diárias concluídas mas não resgatadas expiram na renovação**, enquanto as conquistas permanentes continuam disponíveis. A contagem usa o relógio do dispositivo; não exige conexão com a internet.
 
 O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skins-v1`. A migração preserva todas as recompensas já concedidas automaticamente pela versão 1.5, sem disponibilizá-las outra vez. As moedas do resgate são independentes do Fever. Como o progresso é local, limpar dados ou desinstalar o aplicativo pode apagá-lo.
+
+## Versão 1.6 — Celebrações e visibilidade das recompensas
+- Ao concluir uma missão ou conquista, o menu sinaliza quantas recompensas estão prontas para resgate. O painel de objetivos apresenta um resumo de pendências e recompensas recebidas.
+- O resgate manual continua obrigatório. Cada resgate dispara uma celebração visual leve com medalha e 12 fragmentos animados por CSS, sem imagens extras nem dependências externas.
+- O efeito respeita a preferência do sistema por movimento reduzido (`prefers-reduced-motion`), evitando animações de partículas quando ativado.
+- As regras de carteira, metas diárias, horário de renovação e resgate único foram mantidas. Não é necessário converter dados antigos.
 
 ## Testar e reproduzir níveis
 - `npm test` executa a bateria de testes do gerador usando Node.js, sem dependências adicionais.
