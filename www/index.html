@@ -476,7 +476,7 @@ for(let popup of popups){ctx.save();ctx.globalAlpha=Math.min(1,popup.life/18);ct
 ctx.save();ctx.translate(bx,by);ctx.scale(1+squash*.65,1-squash*.45);ctx.shadowColor='#192b2c55';ctx.shadowBlur=7*scale;ctx.shadowOffsetY=3*scale;let r=radius*scale;const skin=Skins.byId(skinState.selected)||Skins.CATALOG[0];
 let ballColor=ctx.createRadialGradient(-r*.4,-r*.5,r*.05,0,0,r);
 ballColor.addColorStop(0,skin.light);ballColor.addColorStop(.55,skin.mid);ballColor.addColorStop(1,skin.dark);
-ctx.fillStyle=ballColor;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';ctx.save();ctx.globalAlpha=.42;ctx.fillStyle=ctx.createRadialGradient(-r*.42,-r*.53,0,-r*.42,-r*.53,r*.68);ctx.fillStyle.addColorStop(0,'#ffffff');ctx.fillStyle.addColorStop(1,'#ffffff00');ctx.beginPath();ctx.arc(0,0,r*.97,0,TAU);ctx.fill();ctx.restore();
+ctx.fillStyle=ballColor;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';ctx.save();ctx.globalAlpha=.42;let sheen=ctx.createRadialGradient(-r*.42,-r*.53,0,-r*.42,-r*.53,r*.68);sheen.addColorStop(0,'#ffffff');sheen.addColorStop(1,'#ffffff00');ctx.fillStyle=sheen;ctx.beginPath();ctx.arc(0,0,r*.97,0,TAU);ctx.fill();ctx.restore();
 ctx.save();ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.clip();
 if(skin.pattern==='stripes'){
  for(let i=-2;i<=2;i++){
