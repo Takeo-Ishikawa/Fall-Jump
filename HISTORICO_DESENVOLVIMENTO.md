@@ -1,6 +1,12 @@
 # Histórico do projeto — Fall Jump
 
-Última atualização documental: 2026-11-06.
+Última atualização documental: 2026-11-07.
+
+## Planejamento — Polimento visual 1.8 (2026-11-07)
+- Após aprovação da experiência da 1.7.1, foi criado o documento [PLANO_POLIMENTO_VISUAL_1_8.md](PLANO_POLIMENTO_VISUAL_1_8.md).
+- O plano divide o trabalho em A (HUD, menus, consistência), B (bola, plataformas e feedback) e C (fundo, transições, acabamento), com prioridades, limites de desempenho e testes em Android.
+- Esta atualização é **somente documental**: não altera a versão, a assinatura do APK, o jogo instalado ou a lógica existente.
+- A implementação futura deve seguir etapas pequenas com validação visual no celular e manutenção do funcionamento offline.
 
 ## Visão geral
 Fall Jump é um jogo casual mobile de bola saltitante inspirado no gênero Helix Jump. A bola cai e quica automaticamente sobre plataformas anulares em torno de uma coluna central; o jogador gira a torre horizontalmente por toque para alinhar aberturas, evitar áreas perigosas e avançar pelos níveis. O visual utiliza uma temática de melancia. A versão web original é independente da camada Android.
