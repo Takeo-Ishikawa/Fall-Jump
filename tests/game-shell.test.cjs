@@ -80,13 +80,15 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(node('#ach-name-0').textContent.length>0);
   assert.equal(node('#ach-claim-0').disabled,false);
   assert.equal(node('#ach-claim-0').textContent,'Resgatar +30');
+  const readyBeforeClaim=Number(node('#goalsOverview').textContent.match(/^\d+/)[0]);
   node('#ach-claim-0').onclick();
   assert.equal(node('#coinCount').textContent,'30');
   assert.equal(node('#ach-claim-0').disabled,true);
   assert.equal(node('#rewardMedalAmount').textContent,'+30 MOEDAS');
   assert.equal(node('#rewardMedalName').textContent,'Primeiros saltos');
   assert.equal(node('#goalCelebration').style.opacity,undefined);
-  assert.ok(!node('#goalsOverview').textContent.includes('2 recompensas disponíveis'));
+  const readyAfterClaim=Number(node('#goalsOverview').textContent.match(/^\d+/)?.[0]||0);
+  assert.equal(readyAfterClaim,readyBeforeClaim-1);
   node('#ach-claim-0').onclick();
   assert.equal(node('#coinCount').textContent,'30');
   node('#restart').onclick(); // Voltar das missões para o menu
