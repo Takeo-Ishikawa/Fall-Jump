@@ -18,7 +18,7 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
       assert.ok(generator.simulateRoute(plan).ok, 'sem rota válida');
       assert.equal(plan.platforms.length, 40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));
       assert.ok(plan.platforms.length >= 40 && plan.platforms.length <= 80);
-      assert.ok(plan.platforms.every((p, j) => p.y === j * 137));
+      assert.ok(plan.platforms.every((p, j) => p.y === j * generator.SPACING));
       assert.equal(plan.platforms[0].danger, 0);
       for (let j = 1; j < plan.platforms.length; j++) {
         const p = plan.platforms[j], previous = plan.platforms[j - 1];
