@@ -39,6 +39,9 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   const inline = tags.find(x => !x[1])?.[2];
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
+  assert.match(inline,/function resetFrameClock\(\)\{lastFrameTime=null;frameAccumulator=0\}/,'relógio deve ser reiniciado sem passos acumulados');
+  assert.match(inline,/function resumeGame\(\)\{\s*resetFrameClock\(\)/,'retomada não pode consumir frames anteriores');
+  assert.match(inline,/function autoPause\(\)\{drag=false;resetFrameClock\(\)/,'pausa automática deve limpar o tempo acumulado');
   const endHook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
   assert.ok(inline.includes(endHook),'inicialização deve ser reconhecível para o teste');
   const instrumented=inline.replace(endHook,'window.__fjTest={end,completePlatform,getPlatforms:()=>platforms};'+endHook);
