@@ -54,3 +54,35 @@ test('recompensas não se confundem com pontuação nem Fever',()=>{
  assert.equal(shop.earn(state,1.2),0);
  assert.equal(shop.earn(state,52),52);
 });
+
+test('economia de 100 fases: recompensa limitada, compras únicas e recarga segura',()=>{
+ const storage=memory(),state=shop.load(storage);
+ let expected=0;
+ for(let level=1;level<=100;level++){
+  const platforms=40+Math.min(40,6*Math.floor((level-1)/2));
+  for(let passed=1;passed<=platforms;passed++){
+   const reward=shop.coinsForPlatform(passed);
+   assert.equal(reward,passed%4===0?2:0);
+   expected+=reward;
+   assert.equal(shop.earn(state,reward),reward);
+  }
+  expected+=12;
+  assert.equal(shop.earn(state,shop.coinsForLevel()),12);
+  assert.equal(state.coins,expected);
+  assert.equal(shop.save(storage,state),true);
+  assert.deepEqual(shop.load(storage),state);
+ }
+ const original=state.coins;
+ for(const item of shop.CATALOG.slice(1)){
+  const first=shop.choose(state,item.id);
+  assert.equal(first.ok,true);
+  assert.equal(first.price,item.price);
+  const after=state.coins;
+  const again=shop.choose(state,item.id);
+  assert.equal(again.action,'equipped');
+  assert.equal(state.coins,after,'repetir escolha não pode cobrar moedas');
+ }
+ assert.equal(state.coins,original-shop.CATALOG.slice(1).reduce((sum,item)=>sum+item.price,0));
+ assert.equal(shop.save(storage,state),true);
+ assert.deepEqual(shop.load(storage),state);
+});
