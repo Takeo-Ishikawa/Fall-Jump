@@ -10,7 +10,7 @@
   'use strict';
 
   const TAU = Math.PI * 2;
-  const SPACING = 137;
+  const SPACING = 175;
   const GRAVITY = 0.32;
   const MAX_FALL_SPEED = 14;
   const CONTACT_RADIUS = 13 / 0.86;
