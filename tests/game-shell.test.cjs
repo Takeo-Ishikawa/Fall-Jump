@@ -187,7 +187,15 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(Number(node('#score').textContent) >= 0);
   const platforms=browser.__fjTest.getPlatforms();
   assert.equal(platforms.length,40);
-  for(const platform of platforms)browser.__fjTest.completePlatform(platform);
+  browser.__fjTest.completePlatform(platforms[0]);
+  const firstScore=node('#score').textContent;
+  const firstProgress=node('#progressCount').textContent;
+  const firstCoins=node('#coinCount').textContent;
+  browser.__fjTest.completePlatform(platforms[0]);
+  assert.equal(node('#score').textContent,firstScore,'plataforma repetida não duplica pontos');
+  assert.equal(node('#progressCount').textContent,firstProgress,'plataforma repetida não duplica progresso');
+  assert.equal(node('#coinCount').textContent,firstCoins,'plataforma repetida não duplica moedas');
+  for(const platform of platforms.slice(1))browser.__fjTest.completePlatform(platform);
   assert.equal(node('#message').textContent,'Nível 1 concluído!');
   assert.equal(node('#resultSummary').hidden,false);
   assert.equal(node('#resultPlatforms').textContent,'40 / 40');
