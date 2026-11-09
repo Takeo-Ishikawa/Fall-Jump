@@ -548,6 +548,8 @@ ctx.restore();ctx.save();ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=M
  showPanel(win?'Nível '+level+' concluído!':'Fim de jogo',explanation,win?'Próximo nível':'Tentar novamente',true);
 }
 function completePlatform(p,cause='gap'){
+ // Evita contabilização dupla de pontos, moedas e missões para a mesma plataforma.
+ if(!p||p.passed||!alive||mode!=='playing')return;
  p.passed=true;levelPassed++;combo++;phaseBestCombo=Math.max(phaseBestCombo,combo);phaseCoins+=creditCoins(Skins.coinsForPlatform(levelPassed));
  const activated=cause==='gap'&&Fever.onGap(feverState);
  recordGoalEvent({platforms:1,bonus:p.special==='bonus'?1:0,smashes:p.broken?1:0,combo5:combo===5?1:0,combo,fevers:activated?1:0});
