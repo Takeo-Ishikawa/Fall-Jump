@@ -145,3 +145,8 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - Loja com textos mais legíveis e alvos de toque adequados; missões com abas e botões refinados.
 - Ajustes para telas estreitas (até 340 px) e baixas (até 560 px), sem alterar regras ou economia.
 - Aguardando validação automática e inspeção visual em aparelho.
+
+## Versão 1.8.6 — otimização de renderização
+- Gradientes estáticos de fundo, atmosfera e coluna central são criados somente ao ajustar a tela, em vez de serem reconstruídos a cada frame.
+- Mantém aparência e física, reduzindo trabalho de criação de objetos Canvas durante partidas.
+- Atualizados versão e cache offline; validação de CI e teste de desempenho no dispositivo pendentes.
