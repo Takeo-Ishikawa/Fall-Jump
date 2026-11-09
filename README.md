@@ -150,3 +150,8 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - Gradientes estáticos de fundo, atmosfera e coluna central são criados somente ao ajustar a tela, em vez de serem reconstruídos a cada frame.
 - Mantém aparência e física, reduzindo trabalho de criação de objetos Canvas durante partidas.
 - Atualizados versão e cache offline; validação de CI e teste de desempenho no dispositivo pendentes.
+
+## Versão 1.9.0 — estabilização (primeira rodada)
+- Adicionado teste de regressão que verifica o orçamento de criação de gradientes por quadro, evitando reintroduzir os gradientes estáticos no loop de renderização.
+- Identificadores de versão e cache offline atualizados; economia e mecânicas mantidas.
+- Revisão de progressão, persistência e equilíbrio permanece em andamento; não considerar lançamento final sem CI e testes em dispositivo.
