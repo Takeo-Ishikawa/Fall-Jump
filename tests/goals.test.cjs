@@ -94,3 +94,22 @@ test('dados inválidos não liberam resgates e armazenamento indisponível não 
  assert.deepEqual(goals.load(broken,DAY),goals.create(DAY));
  assert.equal(goals.save(broken,state),false);
 });
+
+test('progresso e resgates sobrevivem à reinicialização sem duplicar moedas',()=>{
+ const storage=memory(),wallet=(()=>{const shop=require('../www/skins.js');return {shop,state:shop.normalize()};})();
+ let state=goals.create(DAY);
+ goals.record(state,{platforms:100,combo:10},DAY);
+ assert.equal(goals.save(storage,state),true);
+ state=goals.load(storage,DAY);
+ const reward=goals.claim(state,'achievement','steps100',DAY);
+ assert.equal(reward.reward,30);
+ wallet.shop.earn(wallet.state,reward.reward);
+ assert.equal(goals.save(storage,state),true);
+ state=goals.load(storage,DAY);
+ assert.equal(goals.claim(state,'achievement','steps100',DAY),null);
+ assert.equal(wallet.state.coins,30);
+ assert.equal(goals.getStatus(state).achievements.find(g=>g.id==='steps100').claimed,true);
+ goals.refreshDay(state,NEXT);
+ assert.equal(goals.claim(state,'achievement','steps100',NEXT),null);
+ assert.equal(goals.getStatus(state).achievements.find(g=>g.id==='steps100').claimed,true);
+});
