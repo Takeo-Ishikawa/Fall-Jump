@@ -134,3 +134,8 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - Dois gradientes radiais translúcidos e estáticos ao fundo, antes da coluna e das plataformas, para acrescentar profundidade sem criar novos objetos de jogo.
 - Versão e cache offline atualizados. Mecânicas, colisões e progressão preservadas.
 - Aguardando CI e revisão visual em Android; transições ficam para uma rodada posterior.
+
+## Versão 1.8.4 — transições de resultado
+- Entrada suave da tela de vitória e derrota, com animações de fundo, painel e resumo.
+- Respeita a preferência do sistema por movimento reduzido; não introduz atraso para interagir com os botões.
+- Mantém física, recompensas e regras intactas. Aguardando validação CI e teste visual no Android.
