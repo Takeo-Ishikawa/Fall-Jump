@@ -132,7 +132,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(node('#daily-name-0').textContent.length>0);
   assert.ok(node('#goalsCountdown').textContent.includes('Novas missões em '));
   assert.ok(node('#goalsOverview').textContent.includes('para resgatar'));
-  assert.equal(node('#daily-claim-0').disabled,true);
+  assert.equal(node('#daily-claim-0').disabled,!Goals.getStatus(goalsReady).daily[0].ready,'estado do resgate diário deve refletir progresso real');
   assert.ok(node('#ach-name-0').textContent.length>0);
   assert.equal(node('#ach-claim-0').disabled,false);
   assert.equal(node('#ach-claim-0').textContent,'Resgatar +30');
