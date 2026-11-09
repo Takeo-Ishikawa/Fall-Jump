@@ -587,6 +587,7 @@ Fever.onBounce(feverState);refreshFeverHud();
 comboBadge.classList.remove('on');shake=2.4;burst(project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y+radius*scale,9);break}}cameraY+=(ballY+ballZ*.32/((1+ballZ*.0012)*verticalScale)-cameraY)*.13}squash*=.79;shake*=.8;for(let q of particles){q.x+=q.vx*scale;q.y+=q.vy*scale;q.vy+=q.shard?.19:.12;q.life--;if(q.shard)q.spin+=q.spinSpeed}particles=particles.filter(q=>q.life>0);if(particles.length>130)particles.splice(0,particles.length-130);for(let q of breakFx){q.dx+=q.vx;q.dz+=q.vz;q.dy+=q.vy;q.vy+=.23;q.rot+=q.rv;q.life--}breakFx=breakFx.filter(q=>q.life>0);if(breakFx.length>70)breakFx.splice(0,breakFx.length-70);for(let popup of popups){popup.y-=.7*scale;popup.life--}popups=popups.filter(x=>x.life>0);for(let t of trail)t.life--;trail=trail.filter(t=>t.life>0);if(started&&alive&&vy>8&&combo>=2&&frames%2===0)trail.push({x:project(ballX,ballZ,ballY).x,y:project(ballX,ballZ,ballY).y-12*scale,life:16});frames++}
 let lastFrameTime=null,frameAccumulator=0;
 const fixedFrameMs=1000/60;
+function resetFrameClock(){lastFrameTime=null;frameAccumulator=0}
 let lastCountdownUpdate=-Infinity;
 function update(timestamp){
   if(mode==='goals'&&timestamp-lastCountdownUpdate>=1000){
@@ -609,6 +610,7 @@ function update(timestamp){
   requestAnimationFrame(update);
 }
 function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';canvas.setPointerCapture?.(e.pointerId)}function move(e){if(!drag||mode!=='playing')return;let delta=e.clientX-lastX;lastX=e.clientX;rotation+=delta*.012;rotation=norm(rotation)}function up(){drag=false}canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);function startGame(next=false,retry=false){
+ resetFrameClock();
  if(next){level++;buildLevel(level)}
  else if(retry){totalScore=0;bonusScore=0;frames=0;buildLevel(level)}
  else reset();
@@ -617,6 +619,7 @@ function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;in
  hint.style.opacity='1';refreshBest();
 }
 function resumeGame(){
+ resetFrameClock();
  mode='playing';alive=true;drag=false;overlay.style.display='none';
  pauseBtn.style.display='block';helpBtn.style.display='block';
  hint.style.opacity=started?'0':'1';
@@ -656,7 +659,7 @@ pauseBtn.onclick=()=>{
  showPanel('Pausado','Sua partida está preservada. Você pode continuar ou consultar as instruções.','Continuar',true);
 };
 helpBtn.onclick=()=>{if(mode==='playing'){initAudio();openGameHelp()}};
-function autoPause(){drag=false;if(mode!=='playing')return;mode='paused';pauseBtn.style.display='none';showPanel('Pausado','Sua partida foi pausada automaticamente ao sair do jogo.','Continuar',true)}
+function autoPause(){drag=false;resetFrameClock();if(mode!=='playing')return;mode='paused';pauseBtn.style.display='none';showPanel('Pausado','Sua partida foi pausada automaticamente ao sair do jogo.','Continuar',true)}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)autoPause()});window.addEventListener('pagehide',autoPause);
 window.addEventListener('resize',resize);window.addEventListener('orientationchange',()=>{drag=false;resize()});
 if('serviceWorker' in navigator&&location.protocol==='https:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
