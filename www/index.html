@@ -537,6 +537,8 @@ if(skin.pattern==='stripes'){
  }
 }
 ctx.restore();ctx.save();ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(.7,scale);ctx.beginPath();ctx.arc(0,0,r*.92,Math.PI*1.1,Math.PI*1.77);ctx.stroke();ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#67d95e';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){
+ // Uma tentativa só pode terminar uma vez: evita bônus e transições repetidos.
+ if(mode!=='playing'||!alive)return;
  sfx(win?'win':'lose');
  alive=false;started=false;drag=false;saveBest();levelFinishing=win;
  mode=win?'leveldone':'gameover';pauseBtn.style.display='none';
@@ -549,7 +551,7 @@ ctx.restore();ctx.save();ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=M
 }
 function completePlatform(p,cause='gap'){
  // Evita contabilização dupla de pontos, moedas e missões para a mesma plataforma.
- if(!p||p.passed||!alive||mode!=='playing')return;
+ if(!p||p.passed||!alive||mode!=='playing'||!platforms.includes(p))return;
  p.passed=true;levelPassed++;combo++;phaseBestCombo=Math.max(phaseBestCombo,combo);phaseCoins+=creditCoins(Skins.coinsForPlatform(levelPassed));
  const activated=cause==='gap'&&Fever.onGap(feverState);
  recordGoalEvent({platforms:1,bonus:p.special==='bonus'?1:0,smashes:p.broken?1:0,combo5:combo===5?1:0,combo,fevers:activated?1:0});
