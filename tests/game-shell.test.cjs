@@ -202,13 +202,23 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#resultCombo').textContent,'40');
   assert.equal(node('#resultCoins').textContent,'+32');
   assert.equal(node('#progressCount').textContent,'40 / 40');
+  const completedWallet=node('#coinCount').textContent;
+  browser.__fjTest.end(true);
+  browser.__fjTest.end(false);
+  assert.equal(node('#coinCount').textContent,completedWallet,'encerramento repetido não duplica bônus');
+  assert.equal(node('#message').textContent,'Nível 1 concluído!','derrota tardia não substitui vitória');
   node('#restart').onclick(); // Próxima fase
   assert.equal(node('#level').textContent,'NÍVEL 2');
   assert.equal(node('#progressCount').textContent,'0 / 40');
   assert.equal(node('#resultSummary').hidden,true);
+  const nextProgress=node('#progressCount').textContent;
+  browser.__fjTest.completePlatform(platforms[1]);
+  assert.equal(node('#progressCount').textContent,nextProgress,'plataforma de fase anterior não avança fase nova');
   browser.__fjTest.end(false);
   assert.equal(node('#message').textContent,'Fim de jogo');
   assert.equal(node('#restart').textContent,'Tentar novamente');
+  browser.__fjTest.end(true);
+  assert.equal(node('#message').textContent,'Fim de jogo','vitória tardia não substitui derrota');
   node('#restart').onclick();
   assert.equal(node('#level').textContent,'NÍVEL 2','a derrota não deve reiniciar no nível 1');
   assert.equal(node('#score').textContent,0,'nova tentativa zera apenas a pontuação');
