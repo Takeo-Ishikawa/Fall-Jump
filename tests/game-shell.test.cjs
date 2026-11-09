@@ -49,7 +49,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   const Goals=require('../www/goals.js');
   const goalsReady=Goals.create(Goals.localDay(new Date()));
   Goals.record(goalsReady,{platforms:100,combo:10},goalsReady.daily.day);
-  const nodes = new Map(), canvasEvents = {};
+  const nodes = new Map(), canvasEvents = {}, documentEvents = {}, windowEvents = {};
   const gradient = { addColorStop() {} };
   let gradientCreations=0;
   const ctx = new Proxy({}, {
@@ -74,13 +74,13 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   let scheduledFrame;
   const browser = {
     innerWidth: 390, innerHeight: 780, location: { protocol: 'file:', search: '' },
-    addEventListener() {}, FallJumpLevelGenerator: require('../www/level-generator.js'),
+    addEventListener(event,listener) {windowEvents[event]=listener}, FallJumpLevelGenerator: require('../www/level-generator.js'),
     FallJumpFever: require('../www/fever.js'),
     FallJumpSkins: require('../www/skins.js'),
     FallJumpGoals: require('../www/goals.js')
   };
   const sandbox = {
-    document: { querySelector: node, documentElement: { clientWidth: 390 }, addEventListener() {} },
+    document: { querySelector: node, documentElement: { clientWidth: 390 }, hidden: false, addEventListener(event,listener) {documentEvents[event]=listener} },
     window: browser, location: browser.location,
     navigator: {}, localStorage: {
       getItem(key) {return key===Goals.KEY?JSON.stringify(goalsReady):null;},
@@ -180,6 +180,18 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   node('#menuButton').onclick(); // Confirmar saída de fato
   assert.equal(node('#message').textContent,'FALL JUMP');
   node('#restart').onclick(); // Nova partida
+  assert.equal(typeof documentEvents.visibilitychange,'function');
+  assert.equal(typeof windowEvents.pagehide,'function');
+  sandbox.document.hidden=true;
+  documentEvents.visibilitychange();
+  assert.equal(node('#message').textContent,'Pausado','ocultar aplicativo pausa a partida');
+  assert.equal(node('#restart').textContent,'Continuar');
+  windowEvents.pagehide();
+  assert.equal(node('#message').textContent,'Pausado','pagehide repetido preserva a pausa');
+  sandbox.document.hidden=false;
+  node('#restart').onclick();
+  assert.equal(node('#pause').style.display,'block','retomada restaura controles');
+  assert.equal(node('#message').textContent,'Pausado','retomada não encerra nem reinicia a fase');
   assert.equal(typeof canvasEvents.pointerdown, 'function');
   canvasEvents.pointerdown({ clientX: 170, pointerId: 1 });
   const gradientsBeforeFrames=gradientCreations;
