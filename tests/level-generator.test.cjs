@@ -78,3 +78,32 @@ test('nunca inclui condições ilegais no plano', () => {
   impossible.platforms[last].angle = generator.signedAngle(impossible.platforms[last - 1].angle + Math.PI);
   assert.equal(generator.simulateRoute(impossible).ok, false, 'uma mudança de 180° não pode ser instantânea');
 });
+
+test('auditoria de variedade e segurança em diferentes ciclos de dificuldade', () => {
+ for (const level of [1,2,3,4,5,10,20,30,50,75,100]) {
+  const layouts=new Set();
+  const patterns=new Set();
+  for (let seed=1;seed<=24;seed++) {
+   const plan=generator.generateLevel(level,(seed*2654435761)>>>0);
+   assert.ok(generator.validateLevel(plan),`fase ${level}, seed ${seed}: plano inválido`);
+   assert.ok(generator.simulateRoute(plan).ok,`fase ${level}, seed ${seed}: rota impossível`);
+   assert.equal(plan.platforms[0].danger,0,'primeira plataforma deve ser segura');
+   assert.equal(plan.platforms.at(-1).danger,0,'última plataforma deve ser segura');
+   const signature=plan.platforms.map(p=>[p.angle.toFixed(2),p.gap.toFixed(2),p.danger.toFixed(2),p.special||'-'].join(':')).join('|');
+   layouts.add(signature);
+   for(const segment of plan.segments)patterns.add(segment.type);
+  }
+  assert.ok(layouts.size>=20,`fase ${level}: diversidade insuficiente (${layouts.size}/24)`);
+  assert.ok(patterns.size>=2,`fase ${level}: poucos tipos de trecho`);
+ }
+});
+
+test('curva de dificuldade preserva o ciclo de desafio e respiro',()=>{
+ for(let start=1;start<=96;start+=5){
+  const intensities=Array.from({length:5},(_,offset)=>generator.difficultyFor(start+offset).intensity);
+  assert.ok(intensities[0]<intensities[1]);
+  assert.ok(intensities[1]<intensities[2]);
+  assert.ok(intensities[2]<intensities[3]);
+  assert.ok(intensities[4]<intensities[3]);
+ }
+});
