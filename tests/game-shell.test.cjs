@@ -48,9 +48,10 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   Goals.record(goalsReady,{platforms:100,combo:10},goalsReady.daily.day);
   const nodes = new Map(), canvasEvents = {};
   const gradient = { addColorStop() {} };
+  let gradientCreations=0;
   const ctx = new Proxy({}, {
     get(target, key) {
-      if (key === 'createLinearGradient' || key === 'createRadialGradient') return () => gradient;
+      if (key === 'createLinearGradient' || key === 'createRadialGradient') return () => {gradientCreations++;return gradient;};
       if (key in target) return target[key];
       return () => {};
     },
@@ -178,7 +179,9 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   node('#restart').onclick(); // Nova partida
   assert.equal(typeof canvasEvents.pointerdown, 'function');
   canvasEvents.pointerdown({ clientX: 170, pointerId: 1 });
+  const gradientsBeforeFrames=gradientCreations;
   for (let i = 0; i < 80; i++) scheduledFrame(i * 1000 / 60);
+  assert.equal(gradientCreations,gradientsBeforeFrames,'gradientes estáticos não devem ser recriados a cada quadro');
   assert.ok(node('#level').textContent.includes('NÍVEL 1'));
   assert.ok(node('#stageSeed').textContent.includes('FASE #'));
   assert.ok(Number(node('#score').textContent) >= 0);
