@@ -40,7 +40,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
   assert.match(inline,/const currentPlatformY=Math\.min\(levelPassed,platforms\.length-1\)\*spacing/,'câmera deve seguir plataforma, não altura instantânea da bola');
-  assert.match(inline,/if\(cameraTarget>cameraY\)cameraY\+=/,'câmera deve avançar apenas na descida entre plataformas');
+  assert.ok(inline.includes('const cameraFollowY=Math.min(currentPlatformY,Math.max(0,ballY+contactRadius))'),'câmera deve seguir a queda sem subir durante quiques');
   assert.match(inline,/function resetFrameClock\(\)\{lastFrameTime=null;frameAccumulator=0\}/,'relógio deve ser reiniciado sem passos acumulados');
   assert.match(inline,/function resumeGame\(\)\{\s*resetFrameClock\(\)/,'retomada não pode consumir frames anteriores');
   assert.match(inline,/function autoPause\(\)\{drag=false;resetFrameClock\(\)/,'pausa automática deve limpar o tempo acumulado');
