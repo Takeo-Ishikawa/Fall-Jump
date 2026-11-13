@@ -53,6 +53,8 @@ Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os
 ## Mecânica atual — caminhada pelas plataformas
 O personagem começa apoiado na primeira plataforma. Toque no cenário para começar: ele caminha automaticamente ao redor da coluna. Arraste horizontalmente para girar a torre e conduzir uma abertura até ele. Ao alcançar o vão, o personagem cai verticalmente; ao pousar numa superfície comum, volta a caminhar sem saltar automaticamente. **Dois toques rápidos no cenário (ou dois cliques do mouse) fazem um salto manual para a frente**, disponível apenas quando o personagem está apoiado. Arrastar, manter pressionado ou tocar nos menus não dispara o salto.
 
+Inimigos roxos patrulham trechos seguros de algumas plataformas, a partir da quarta, com três plataformas iniciais livres. Eles vão e voltam sem atravessar os vãos. Encostar causa derrota, inclusive durante Fever; use o salto manual para passar por cima ou gire a torre para desviar. As patrulhas também param durante a pausa.
+
 Áreas escuras causam derrota mesmo durante Fever. Plataformas azuis quebram no contato, e as douradas preservam o bônus. Cinco aberturas atravessadas em sequência, sem pousar, ativam Fever por 1,5 segundo. Um pouso interrompe o combo e a carga incompleta; pausar congela a caminhada e o temporizador.
 
 Os níveis existentes continuam disponíveis. A simulação do gerador verifica uma rota de queda livre; o equilíbrio da nova caminhada ainda precisa de avaliação em aparelho Android.

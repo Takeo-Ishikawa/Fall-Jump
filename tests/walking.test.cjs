@@ -9,7 +9,7 @@ function game(){
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(){return null},setItem(){}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
@@ -85,4 +85,40 @@ test('botão secundário e toque simultâneo não contam como salto',()=>{
  g.cancel();tap(g,500);
  g.down({clientX:170,clientY:400,pointerId:1,timeStamp:650,button:2});
  g.up({clientX:170,clientY:400,pointerId:1,timeStamp:690});assert.equal(g.state().vy,0);
+});
+
+test('patrulhas são determinísticas e evitam início, aberturas, perigo e discos frágeis',()=>{
+ const g=game(),generator=require('../www/level-generator.js');
+ for(let level=1;level<=30;level++){
+  const disks=generator.generateLevel(level,level*12345).platforms;
+  const patrols=g.makeEnemies(disks);
+  assert.equal(JSON.stringify(patrols),JSON.stringify(g.makeEnemies(disks)));
+  assert.ok(patrols.length>0&&patrols.length<disks.length/3);
+  for(const e of patrols){
+   assert.ok(disks.indexOf(e.platform)>=3);assert.notEqual(e.platform.special,'fragile');
+   assert.ok(e.min>e.platform.gap/2&&e.max<Math.PI*2-e.platform.gap/2);
+   if(e.platform.danger)assert.ok(e.min>e.platform.gap+.53+e.platform.danger);
+  }
+ }
+});
+test('inimigo inverte a direção nas extremidades sem sair do trecho',()=>{
+ const g=game();g.putEnemy();const e=g.enemies()[0];const directions=new Set();
+ for(let i=0;i<1000;i++){g.stepEnemies();assert.ok(e.angle>=e.min&&e.angle<=e.max);directions.add(e.direction);}
+ assert.equal(directions.size,2);
+});
+test('contato com inimigo causa derrota mesmo durante Fever',()=>{
+ for(const powered of [false,true]){const g=game();g.putEnemy();if(powered)g.fever();g.step();assert.equal(g.state().mode,'gameover');}
+});
+test('salto suficientemente alto passa por cima; inimigos de plataformas removidas não colidem',()=>{
+ const g=game();tap(g,100);tap(g,230);steps(g,12);g.putEnemy();
+ assert.equal(g.collides(),false,'personagem acima do inimigo');g.step();assert.equal(g.state().mode,'playing');
+ const grounded=game();grounded.putEnemy();assert.equal(grounded.collides(),true);
+ grounded.platforms()[0].broken=true;assert.equal(grounded.collides(),false);
+ grounded.platforms()[0].broken=false;grounded.platforms()[0].passed=true;assert.equal(grounded.collides(),false);
+});
+test('pausa congela as patrulhas; retomada move e reinício recria os inimigos',()=>{
+ const g=game();const initial=g.enemies().map(e=>e.angle);assert.ok(initial.length);
+ g.pause();steps(g,100);assert.deepEqual(g.enemies().map(e=>e.angle),initial);
+ g.resume();g.step();assert.notDeepEqual(g.enemies().map(e=>e.angle),initial);
+ g.start();assert.deepEqual(g.enemies().map(e=>e.angle),initial);
 });
