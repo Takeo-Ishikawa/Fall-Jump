@@ -9,10 +9,10 @@
  const KEY='fall-jump-skins-v1';
  const LIMIT=100000000;
  const CATALOG=Object.freeze([
-  Object.freeze({id:'melon',name:'Melancia',price:0,light:'#baf35e',mid:'#53c842',dark:'#116f39',detail:'#277b36',pattern:'stripes'}),
-  Object.freeze({id:'lemon',name:'Limão',price:60,light:'#fff7a0',mid:'#f7d74c',dark:'#b18d21',detail:'#e6ab20',pattern:'stripes'}),
-  Object.freeze({id:'blueberry',name:'Mirtilo',price:140,light:'#b7c5ff',mid:'#6481de',dark:'#37438c',detail:'#2f3675',pattern:'dots'}),
-  Object.freeze({id:'strawberry',name:'Morango',price:260,light:'#ffb0a3',mid:'#f1556a',dark:'#9e283f',detail:'#ffe2a3',pattern:'seeds'})
+  Object.freeze({id:'melon',name:'Melancia',price:0,light:'#c4dfcb',mid:'#94bfa7',dark:'#527d65',detail:'#527d65',pattern:'stripes'}),
+  Object.freeze({id:'lemon',name:'Limão',price:60,light:'#f4e6b8',mid:'#e8cb86',dark:'#b29554',detail:'#b29554',pattern:'stripes'}),
+  Object.freeze({id:'blueberry',name:'Mirtilo',price:140,light:'#d1d7ed',mid:'#a0aed4',dark:'#68769e',detail:'#56638b',pattern:'dots'}),
+  Object.freeze({id:'strawberry',name:'Morango',price:260,light:'#f1cbd0',mid:'#dea2ae',dark:'#b27385',detail:'#fff0c9',pattern:'seeds'})
  ]);
  const IDS=new Set(CATALOG.map(s=>s.id));
  const byId=id=>CATALOG.find(s=>s.id===id)||null;

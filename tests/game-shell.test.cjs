@@ -110,7 +110,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#stats').style.display,'none');
   node('#panelBack').onclick();
   assert.equal(node('#restart').style.display,'block');
-  assert.equal(node('#message').textContent,'FALL JUMP');
+  assert.equal(node('#message').textContent,'Fall Jump');
   assert.equal(typeof node('#skinsButton').onclick,'function');
   node('#skinsButton').onclick();
   assert.equal(node('#shopSection').hidden,false);
@@ -180,7 +180,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   node('#pause').onclick();
   node('#menuButton').onclick();
   node('#menuButton').onclick(); // Confirmar saída de fato
-  assert.equal(node('#message').textContent,'FALL JUMP');
+  assert.equal(node('#message').textContent,'Fall Jump');
   node('#restart').onclick(); // Nova partida
   assert.equal(typeof documentEvents.visibilitychange,'function');
   assert.equal(typeof windowEvents.pagehide,'function');

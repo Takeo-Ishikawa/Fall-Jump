@@ -1,5 +1,5 @@
-const CACHE_NAME='fall-jump-v190';
-const FILES=['./index.html','./level-generator.js','./fever.js','./skins.js','./goals.js'];
+const CACHE_NAME='fall-jump-v190-pastel-1';
+const FILES=['./index.html','./pastel.css','./level-generator.js','./fever.js','./skins.js','./goals.js'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(FILES)));
   self.skipWaiting();
@@ -12,5 +12,10 @@ self.addEventListener('activate',event=>{
 });
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;
-  event.respondWith(fetch(event.request).catch(()=>caches.match(event.request)));
+  event.respondWith(fetch(event.request).catch(async()=>{
+    const cached=await caches.match(event.request);
+    if(cached)return cached;
+    if(event.request.mode==='navigate')return caches.match('./index.html');
+    return Response.error();
+  }));
 });

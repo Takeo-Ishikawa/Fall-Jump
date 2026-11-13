@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#edf0f4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg"><title>Fall Jump — Versão 1.9.0</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf0f4;font-family:system-ui,Arial,sans-serif;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}#panel{max-height:calc(100dvh - 38px);overflow-y:auto;touch-action:pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch} @media(max-height:540px){#panel{padding:14px 18px}#panel p{margin:7px 0}#panel h2{font-size:20px}#hint{bottom:calc(8px + env(safe-area-inset-bottom))}}#hud{position:absolute;top:max(12px,env(safe-area-inset-top));left:14px;right:66px;text-align:left;pointer-events:none;color:#29303a}#bestHud{font-size:11px;font-weight:750;color:#657181;margin-top:5px}#hud small{font-weight:800;letter-spacing:.15em;font-size:12px}#progress{height:5px;width:145px;margin:6px 0 0;border-radius:10px;background:#cdd3dc;overflow:hidden}#progressFill{height:100%;width:0;background:#f14e70;transition:width .2s}#score{font-size:34px;font-weight:850;line-height:1.05}#comboBadge{position:absolute;top:80px;right:14px;color:#268044;font-weight:900;font-size:17px;text-align:right;pointer-events:none;opacity:0;transition:opacity .18s}#comboBadge.on{opacity:1}#hint{position:absolute;bottom:calc(32px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#56606e;font-size:14px;pointer-events:none}#overlay{position:absolute;inset:0;background:#12192799;display:none;align-items:center;justify-content:center;padding:24px}#panel{background:white;border-radius:22px;padding:28px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 60px #0003}/* 1.8.4: transições curtas para resultados, sem bloquear os controles. */
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#F7F5F0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg"><title>Fall Jump — Versão 1.9.0</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf0f4;font-family:system-ui,Arial,sans-serif;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}#panel{max-height:calc(100dvh - 38px);overflow-y:auto;touch-action:pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch} @media(max-height:540px){#panel{padding:14px 18px}#panel p{margin:7px 0}#panel h2{font-size:20px}#hint{bottom:calc(8px + env(safe-area-inset-bottom))}}#hud{position:absolute;top:max(12px,env(safe-area-inset-top));left:14px;right:66px;text-align:left;pointer-events:none;color:#29303a}#bestHud{font-size:11px;font-weight:750;color:#657181;margin-top:5px}#hud small{font-weight:800;letter-spacing:.15em;font-size:12px}#progress{height:5px;width:145px;margin:6px 0 0;border-radius:10px;background:#cdd3dc;overflow:hidden}#progressFill{height:100%;width:0;background:#f14e70;transition:width .2s}#score{font-size:34px;font-weight:850;line-height:1.05}#comboBadge{position:absolute;top:80px;right:14px;color:#268044;font-weight:900;font-size:17px;text-align:right;pointer-events:none;opacity:0;transition:opacity .18s}#comboBadge.on{opacity:1}#hint{position:absolute;bottom:calc(32px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#56606e;font-size:14px;pointer-events:none}#overlay{position:absolute;inset:0;background:#12192799;display:none;align-items:center;justify-content:center;padding:24px}#panel{background:white;border-radius:22px;padding:28px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 60px #0003}/* 1.8.4: transições curtas para resultados, sem bloquear os controles. */
 #overlay.result-enter{animation:fj-result-backdrop .32s ease-out both}
 #overlay.result-enter #panel{animation:fj-result-panel .42s cubic-bezier(.2,.85,.25,1) both}
 #overlay.result-enter #resultSummary{animation:fj-result-details .5s ease-out both}
@@ -209,7 +209,7 @@
  #overlay{padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom))}
  #panel #panelBack{top:0}
 }
-</style></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 40</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: quica</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
+</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 40</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><circle cx="57" cy="17" r="12" fill="#94BFA7"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: quica</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
 <div id="resultSummary" hidden aria-label="Resumo da fase">
  <div class="resultStat"><strong id="resultPlatforms">0/40</strong><small>PLATAFORMAS</small></div>
  <div class="resultStat"><strong id="resultCombo">0</strong><small>MELHOR COMBO</small></div>
@@ -382,6 +382,7 @@ refreshWallet();
 function refreshBest(){bestEl.textContent=best.toLocaleString('pt-BR')}
 function saveBest(){if(totalScore>best){best=totalScore;try{localStorage.setItem(storageKey,String(best))}catch(e){}refreshBest()}}
 function showPanel(title,body,action,secondary=false){
+ overlay.setAttribute('data-screen',mode);
  message.textContent=title;details.textContent=body;restartBtn.textContent=action;
  // Telas secundárias têm um único retorno no topo; sem botão duplicado ao fim da lista.
  const secondaryScreen=mode==='shop'||mode==='goals'||mode==='menu-help';
@@ -408,7 +409,7 @@ function showPanel(title,body,action,secondary=false){
  stats.textContent='RECORDE  '+best.toLocaleString('pt-BR')+'  •  PONTOS  '+totalScore.toLocaleString('pt-BR');
  overlay.style.display='flex';
 }
-function menu(){mode='menu';alive=false;started=false;drag=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();updateGoalIndicators();showPanel('FALL JUMP','Gire a torre, atravesse os vãos e faça combos. Cinco passagens sem quicar ativam o FEVER: por 1,5 segundo, rompa discos comuns e ganhe o dobro de pontos!','Jogar',false)}
+function menu(){mode='menu';alive=false;started=false;drag=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();updateGoalIndicators();showPanel('Fall Jump','Gire a torre. Encontre seu caminho.','Jogar',false)}
 function openGoals(){
  mode='goals';alive=false;started=false;pauseBtn.style.display='none';
  showPanel('Missões e conquistas','Conclua objetivos, resgate suas moedas e acompanhe a próxima renovação.','Voltar ao menu');
@@ -435,10 +436,10 @@ for(const skin of Skins.CATALOG){
 const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,ballX=0,ballZ=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32,bounce=-7.6;const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
 let backdropPaint={};
 function refreshBackdropPaint(){
- const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f8f9fc');bg.addColorStop(1,'#e6eaf0');
- const haze=ctx.createRadialGradient(W*.18,H*.22,0,W*.18,H*.22,Math.max(W,H)*.65);haze.addColorStop(0,'rgba(255,231,238,.34)');haze.addColorStop(1,'rgba(255,231,238,0)');
- const cool=ctx.createRadialGradient(W*.9,H*.78,0,W*.9,H*.78,Math.max(W,H)*.52);cool.addColorStop(0,'rgba(192,218,239,.25)');cool.addColorStop(1,'rgba(192,218,239,0)');
- const shaftW=innerR*2*scale;const shaft=ctx.createLinearGradient(centerX-shaftW/2,0,centerX+shaftW/2,0);shaft.addColorStop(0,'#cbd0d9');shaft.addColorStop(.24,'#ffffff');shaft.addColorStop(.7,'#f7f8fa');shaft.addColorStop(1,'#c8cdd6');
+ const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f7f5f0');bg.addColorStop(1,'#efeee8');
+ const haze=ctx.createRadialGradient(W*.18,H*.22,0,W*.18,H*.22,Math.max(W,H)*.65);haze.addColorStop(0,'rgba(233,166,176,.10)');haze.addColorStop(1,'rgba(233,166,176,0)');
+ const cool=ctx.createRadialGradient(W*.9,H*.78,0,W*.9,H*.78,Math.max(W,H)*.52);cool.addColorStop(0,'rgba(169,206,216,.12)');cool.addColorStop(1,'rgba(169,206,216,0)');
+ const shaftW=innerR*2*scale;const shaft=ctx.createLinearGradient(centerX-shaftW/2,0,centerX+shaftW/2,0);shaft.addColorStop(0,'#d8d6ce');shaft.addColorStop(.24,'#eeece5');shaft.addColorStop(.7,'#eae8e1');shaft.addColorStop(1,'#d6d4cc');
  backdropPaint={bg,haze,cool,shaft};
 }
 function buildLevel(n){
@@ -461,8 +462,41 @@ function buildLevel(n){
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
   ballY=-76;vy=0;cameraY=ballZ*.44/((1+ballZ*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='↔ Arraste para girar a torre'
-}function reset(){level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function project(x,z,y){let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill()}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}function renderRing(p){const segs=(scale<.85?44:56),step=TAU/segs;let pieces=[];for(let j=0;j<segs;j++){let a=j*step,b=(j+1)*step,mid=(a+b)/2;let local=norm(mid-rotation-p.angle);if(local<p.gap/2||local>TAU-p.gap/2)continue;let dangerous=p.danger&&local>p.gap+.53&&local<p.gap+.53+p.danger;let shade=Math.cos(mid);let top=dangerous?(shade>0?'#333a48':'#464c5b'):(p.special==='bonus'?(shade>0?'#ffd977':'#efb54e'):p.special==='fragile'?(shade>0?'#78c7d6':'#52a6ba'):(shade>0?'#ff6580':'#f64d70'));let side=dangerous?'#252c39':p.special==='bonus'?'#bf853e':p.special==='fragile'?'#448fa2':'#bd3655';pieces.push({z:Math.cos(mid),a,b,top,side,mid})}pieces.sort((a,b)=>b.z-a.z);for(let q of pieces){let a=q.a,b=q.b;let top=arcPoints(a,b,p.y,ringR,3),center=project(0,0,p.y);let bottom=arcPoints(a,b,p.y+30,ringR,3);if(q.z>-.1){let shadow=arcPoints(a,b,p.y+34,ringR,3);polygon([...bottom,...shadow.reverse()],q.top.startsWith('#3')||q.top.startsWith('#4')?'#202532':p.special==='bonus'?'#a97835':p.special==='fragile'?'#367b8e':'#a92c4c')}polygon([...top,center],q.top);if(q.z>-.1){polygon([...top,...bottom.reverse()],q.side);let edge=arcPoints(a,b,p.y+2,ringR,3);ctx.beginPath();ctx.moveTo(top[0].x,top[0].y);for(let pt of edge)ctx.lineTo(pt.x,pt.y);ctx.strokeStyle=q.top.startsWith('#3')||q.top.startsWith('#4')?'#646a78':p.special==='bonus'?'#ffe6a5':p.special==='fragile'?'#b4eaf1':'#ff9aac';ctx.lineWidth=Math.max(.65,.85*scale);ctx.stroke()}}// sparse watermelon seeds on the surface
-for(let j=0;j<10;j++){if(p.special)break;let angle=norm(j*2.399+p.seed*.29+rotation+p.angle),local=norm(angle-rotation-p.angle);if(local<p.gap/2+.09||local>TAU-p.gap/2-.09)continue;let rr=randSeed(p.seed+j)*54+76;let pt=project(Math.sin(angle)*rr,Math.cos(angle)*rr,p.y-1);if(Math.abs(pt.y-ballScreenY)>H*.68)continue;ctx.save();ctx.translate(pt.x,pt.y);ctx.rotate(-angle*.4);ctx.fillStyle='#4d2534';ctx.beginPath();ctx.ellipse(0,0,1.3*scale,2.6*scale,0,0,TAU);ctx.fill();ctx.restore()}}function randSeed(n){let x=Math.sin(n*92.174)*43758.5453;return x-Math.floor(x)}function fragments(p){
+}function reset(){level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function project(x,z,y){let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
+const platformPaint={
+ normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
+ fragile:{top:'#a9ced8',back:'#9bc0cb',side:'#80a7b4',shadow:'#7398a6',edge:'#cee4e9'},
+ bonus:{top:'#e8cb86',back:'#dbc07f',side:'#bfa366',shadow:'#ac925b',edge:'#f2dfb3'},
+ danger:{top:'#534857',back:'#63566a',side:'#433b48',shadow:'#39313e',edge:'#7a6b80'}
+};
+function renderRing(p){
+ const segs=(scale<.85?44:56),step=TAU/segs,pieces=[];
+ for(let j=0;j<segs;j++){
+  const a=j*step,b=(j+1)*step,mid=(a+b)/2,local=norm(mid-rotation-p.angle);
+  if(local<p.gap/2||local>TAU-p.gap/2)continue;
+  const dangerous=p.danger&&local>p.gap+.53&&local<p.gap+.53+p.danger;
+  const paint=platformPaint[dangerous?'danger':p.special]||platformPaint.normal;
+  pieces.push({z:Math.cos(mid),a,b,paint});
+ }
+ pieces.sort((a,b)=>b.z-a.z);
+ for(const q of pieces){
+  const top=arcPoints(q.a,q.b,p.y,ringR,3),center=project(0,0,p.y);
+  const bottom=arcPoints(q.a,q.b,p.y+30,ringR,3);
+  if(q.z>-.1){
+   const shadow=arcPoints(q.a,q.b,p.y+34,ringR,3);
+   polygon([...bottom,...shadow.reverse()],q.paint.shadow,true);
+  }
+  polygon([...top,center],q.z>0?q.paint.top:q.paint.back,true);
+  if(q.z>-.1){
+   polygon([...top,...bottom.reverse()],q.paint.side,true);
+   const edge=arcPoints(q.a,q.b,p.y+2,ringR,3);
+   ctx.beginPath();ctx.moveTo(top[0].x,top[0].y);
+   for(const pt of edge)ctx.lineTo(pt.x,pt.y);
+   ctx.strokeStyle=q.paint.edge;ctx.lineWidth=Math.max(.65,.85*scale);ctx.stroke();
+  }
+ }
+}
+function fragments(p){
  // Rebuild the *whole ring* as visible wedges, instead of emitting tiny squares
  // underneath the ball. Each wedge is stored in world space and follows the camera.
  const count=26,step=TAU/count;
@@ -471,15 +505,15 @@ for(let j=0;j<10;j++){if(p.special)break;let angle=norm(j*2.399+p.seed*.29+rotat
   const local=norm(mid-rotation-p.angle);
   if(local<p.gap/2||local>TAU-p.gap/2)continue;
   let v=rand(1.8,4.1),z=Math.cos(mid),x=Math.sin(mid);
-  breakFx.push({a,b,y:p.y,dx:0,dz:0,dy:0,vx:x*v+rand(-.5,.5),vz:z*v+rand(-.5,.5),vy:rand(-3.6,-1.3),rot:0,rv:rand(-.07,.07),life:64,maxLife:64,color:p.special==='fragile'?(z>0?'#79cfdf':'#58aec4'):p.special==='bonus'?(z>0?'#ffd977':'#efb54e'):(z>0?'#ff6580':'#dd426a')});
+  breakFx.push({a,b,y:p.y,dx:0,dz:0,dy:0,vx:x*v+rand(-.5,.5),vz:z*v+rand(-.5,.5),vy:rand(-3.6,-1.3),rot:0,rv:rand(-.07,.07),life:64,maxLife:64,color:(platformPaint[p.special]||platformPaint.normal)[z>0?'top':'back'],side:(platformPaint[p.special]||platformPaint.normal).side});
  }
  // A bright impact burst remains separate from the large falling wedges.
  let pt=project(ballX,ballZ,p.y);
  for(let i=0;i<12;i++){
   let a=rand(0,TAU),v=rand(1,4);
-  particles.push({x:pt.x,y:pt.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,life:32,maxLife:32,size:rand(2,4.5),color:'#baf4ff',shard:false,glint:true});
+  particles.push({x:pt.x,y:pt.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,life:32,maxLife:32,size:rand(2,4.5),color:'#cee4e9',shard:false,glint:true});
  }
- floatingText(Fever.active(feverState)?'FEVER!':'CRASH!',pt.x,pt.y-38*scale,Fever.active(feverState)?'#ffb535':'#42a2c3');
+ floatingText(Fever.active(feverState)?'FEVER!':'CRASH!',pt.x,pt.y-38*scale,Fever.active(feverState)?'#806933':'#547e8c');
 }
 function renderBreakFx(){
  for(let q of breakFx){
@@ -489,13 +523,13 @@ function renderBreakFx(){
   let face=[worldPoint(a,ringR),worldPoint(b,ringR),worldPoint(a,0)];
   polygon(face,q.color);
   let side=[face[0],face[1],project(Math.sin(b)*ringR+q.dx,Math.cos(b)*ringR+q.dz,q.y+q.dy+12),project(Math.sin(a)*ringR+q.dx,Math.cos(a)*ringR+q.dz,q.y+q.dy+12)];
-  polygon(side,q.color==='#79cfdf'||q.color==='#58aec4'?'#367e94':q.color==='#ffd977'||q.color==='#efb54e'?'#ba7c31':'#a92c4c');
+  polygon(side,q.side);
   ctx.restore();
  }
 }
 function floatingText(text,x,y,color='#fff'){popups.push({text,x,y,life:54,color});}
-function burst(x,y,n=12){for(let i=0;i<n;i++){let a=Math.random()*TAU,s=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:26+Math.random()*16,size:1.5+Math.random()*3,color:Math.random()<.45?"#8cdb5c":"#ff8198",shard:false,glint:i%3===0})}}function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle=backdropPaint.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle='#e2e5eb';for(let i=0;i<14;i++){let x=(i*109+22)%Math.max(W,1),height=50+(i*41)%110;ctx.fillRect(x,H-height,26,height)}ctx.fillStyle=backdropPaint.haze;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.cool;ctx.fillRect(0,0,W,H);// central cylinder, pale and visually behind platforms
-let shaftW=innerR*2*scale;ctx.fillStyle=backdropPaint.shaft;ctx.fillRect(centerX-shaftW/2,0,shaftW,H);ctx.fillStyle='#aeb7c4';ctx.fillRect(centerX-shaftW/2,0,shaftW*.085,H);ctx.fillStyle='rgba(255,255,255,.52)';ctx.fillRect(centerX-shaftW*.20,0,shaftW*.17,H);ctx.fillStyle='rgba(96,109,127,.16)';ctx.fillRect(centerX+shaftW*.31,0,shaftW*.19,H);
+function burst(x,y,n=12){for(let i=0;i<n;i++){let a=Math.random()*TAU,s=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:26+Math.random()*16,size:1.5+Math.random()*3,color:Math.random()<.45?"#94bfa7":"#e9a6b0",shard:false,glint:i%3===0})}}function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle=backdropPaint.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.haze;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.cool;ctx.fillRect(0,0,W,H);// central cylinder, pale and visually behind platforms
+let shaftW=innerR*2*scale;ctx.fillStyle=backdropPaint.shaft;ctx.fillRect(centerX-shaftW/2,0,shaftW,H);ctx.fillStyle='#cfcdc5';ctx.fillRect(centerX-shaftW/2,0,shaftW*.085,H);ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(centerX-shaftW*.20,0,shaftW*.17,H);ctx.fillStyle='rgba(110,105,96,.06)';ctx.fillRect(centerX+shaftW*.31,0,shaftW*.19,H);
 // Stable viewport culling: retain each disk until its entire projected silhouette is outside the screen.
 // A generous margin prevents a disk from popping in/out while the camera follows a bounce.
 let margin=Math.max(190*scale,110);
@@ -509,18 +543,18 @@ if(alive){let landing=platforms.find(p=>!p.passed&&p.y>ballY+contactRadius&&p.y-
 let ballPoint=project(ballX,ballZ,ballY),bx=ballPoint.x,by=ballPoint.y;
 if(alive&&Fever.active(feverState)){
  ctx.save();let glow=ctx.createRadialGradient(bx,by,radius*scale*.5,bx,by,radius*scale*2.6);
- glow.addColorStop(0,'rgba(255,228,85,.45)');glow.addColorStop(1,'rgba(255,165,37,0)');
+ glow.addColorStop(0,'rgba(232,203,134,.28)');glow.addColorStop(1,'rgba(232,203,134,0)');
  ctx.fillStyle=glow;ctx.beginPath();ctx.arc(bx,by,radius*scale*2.6,0,TAU);ctx.fill();
- ctx.strokeStyle='rgba(255,200,63,.9)';ctx.lineWidth=2.3*scale;ctx.beginPath();ctx.arc(bx,by,radius*scale*1.16,0,TAU);ctx.stroke();ctx.globalAlpha=.5;ctx.strokeStyle='#fff4bb';ctx.lineWidth=1.1*scale;ctx.beginPath();ctx.arc(bx,by,radius*scale*1.42,Math.PI*.16,Math.PI*.9);ctx.stroke();ctx.restore();
+ ctx.strokeStyle='rgba(191,163,102,.85)';ctx.lineWidth=2.3*scale;ctx.beginPath();ctx.arc(bx,by,radius*scale*1.16,0,TAU);ctx.stroke();ctx.globalAlpha=.5;ctx.strokeStyle='#fff4bb';ctx.lineWidth=1.1*scale;ctx.beginPath();ctx.arc(bx,by,radius*scale*1.42,Math.PI*.16,Math.PI*.9);ctx.stroke();ctx.restore();
 }
 // Very subtle contact feedback: a translucent halo below the bouncing ball.
-if(alive&&vy<0){ctx.save();ctx.globalAlpha=Math.min(.16,Math.abs(vy)*.012);ctx.strokeStyle='#66c86e';ctx.lineWidth=2*scale;ctx.beginPath();ctx.ellipse(bx,by+radius*scale,18*scale,5*scale,0,0,TAU);ctx.stroke();ctx.restore()}
-for(let t of trail){let alpha=t.life/16;ctx.fillStyle=`rgba(59,183,86,${alpha*.24})`;ctx.beginPath();ctx.arc(t.x,t.y,Math.max(1,radius*scale*alpha*.8),0,TAU);ctx.fill()}for(let q of particles){ctx.globalAlpha=Math.max(0,Math.min(1,q.life/(q.maxLife||42)));ctx.fillStyle=q.color||'#8cdb5c';if(q.shard){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.spin);let sz=q.size*scale;ctx.fillRect(-sz*.5,-sz*.36,sz,sz*.72);ctx.restore()}else{ctx.beginPath();ctx.arc(q.x,q.y,q.size*scale,0,TAU);ctx.fill();if(q.glint){ctx.globalAlpha*=.45;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(q.x-q.size*scale*.25,q.y-q.size*scale*.25,Math.max(.5,q.size*scale*.36),0,TAU);ctx.fill()}}}ctx.globalAlpha=1;
-for(let popup of popups){ctx.save();ctx.globalAlpha=Math.min(1,popup.life/18);ctx.font=`900 ${Math.round(20*scale)}px system-ui`;ctx.textAlign='center';ctx.lineWidth=3*scale;ctx.strokeStyle='#203b35';ctx.strokeText(popup.text,popup.x,popup.y);ctx.fillStyle=popup.color;ctx.fillText(popup.text,popup.x,popup.y);ctx.restore()}
-ctx.save();ctx.translate(bx,by);ctx.scale(1+squash*.65,1-squash*.45);ctx.shadowColor='#192b2c55';ctx.shadowBlur=8*scale;ctx.shadowOffsetY=3*scale;let r=radius*scale;const skin=Skins.byId(skinState.selected)||Skins.CATALOG[0];
+if(alive&&vy<0){ctx.save();ctx.globalAlpha=Math.min(.16,Math.abs(vy)*.012);ctx.strokeStyle='#739f88';ctx.lineWidth=2*scale;ctx.beginPath();ctx.ellipse(bx,by+radius*scale,18*scale,5*scale,0,0,TAU);ctx.stroke();ctx.restore()}
+for(let t of trail){let alpha=t.life/16;ctx.fillStyle=`rgba(115,159,136,${alpha*.24})`;ctx.beginPath();ctx.arc(t.x,t.y,Math.max(1,radius*scale*alpha*.8),0,TAU);ctx.fill()}for(let q of particles){ctx.globalAlpha=Math.max(0,Math.min(1,q.life/(q.maxLife||42)));ctx.fillStyle=q.color||'#94bfa7';if(q.shard){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.spin);let sz=q.size*scale;ctx.fillRect(-sz*.5,-sz*.36,sz,sz*.72);ctx.restore()}else{ctx.beginPath();ctx.arc(q.x,q.y,q.size*scale,0,TAU);ctx.fill();if(q.glint){ctx.globalAlpha*=.45;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(q.x-q.size*scale*.25,q.y-q.size*scale*.25,Math.max(.5,q.size*scale*.36),0,TAU);ctx.fill()}}}ctx.globalAlpha=1;
+for(let popup of popups){ctx.save();ctx.globalAlpha=Math.min(1,popup.life/18);ctx.font=`700 ${Math.round(18*scale)}px system-ui`;ctx.textAlign='center';ctx.lineWidth=3*scale;ctx.strokeStyle='#f7f5f0';ctx.strokeText(popup.text,popup.x,popup.y);ctx.fillStyle=popup.color;ctx.fillText(popup.text,popup.x,popup.y);ctx.restore()}
+ctx.save();ctx.translate(bx,by);ctx.scale(1+squash*.65,1-squash*.45);ctx.shadowColor='#39434a26';ctx.shadowBlur=5*scale;ctx.shadowOffsetY=3*scale;let r=radius*scale;const skin=Skins.byId(skinState.selected)||Skins.CATALOG[0];
 let ballColor=ctx.createRadialGradient(-r*.4,-r*.5,r*.05,0,0,r);
 ballColor.addColorStop(0,skin.light);ballColor.addColorStop(.55,skin.mid);ballColor.addColorStop(1,skin.dark);
-ctx.fillStyle=ballColor;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';ctx.save();ctx.globalAlpha=.42;let sheen=ctx.createRadialGradient(-r*.42,-r*.53,0,-r*.42,-r*.53,r*.68);sheen.addColorStop(0,'#ffffff');sheen.addColorStop(1,'#ffffff00');ctx.fillStyle=sheen;ctx.beginPath();ctx.arc(0,0,r*.97,0,TAU);ctx.fill();ctx.restore();
+ctx.fillStyle=ballColor;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';ctx.save();ctx.globalAlpha=.12;let sheen=ctx.createRadialGradient(-r*.42,-r*.53,0,-r*.42,-r*.53,r*.68);sheen.addColorStop(0,'#ffffff');sheen.addColorStop(1,'#ffffff00');ctx.fillStyle=sheen;ctx.beginPath();ctx.arc(0,0,r*.97,0,TAU);ctx.fill();ctx.restore();
 ctx.save();ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.clip();
 if(skin.pattern==='stripes'){
  for(let i=-2;i<=2;i++){
@@ -536,7 +570,7 @@ if(skin.pattern==='stripes'){
   ctx.beginPath();ctx.ellipse(x*r,y*r,skin.pattern==='seeds'?1.25*scale:2*scale,skin.pattern==='seeds'?2.3*scale:2*scale,0,0,TAU);ctx.fill();
  }
 }
-ctx.restore();ctx.save();ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(.7,scale);ctx.beginPath();ctx.arc(0,0,r*.92,Math.PI*1.1,Math.PI*1.77);ctx.stroke();ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#67d95e';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){
+ctx.restore();ctx.save();ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(.7,scale);ctx.beginPath();ctx.arc(0,0,r*.92,Math.PI*1.1,Math.PI*1.77);ctx.stroke();ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#94bfa7';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){
  // Uma tentativa só pode terminar uma vez: evita bônus e transições repetidos.
  if(mode!=='playing'||!alive)return;
  sfx(win?'win':'lose');
@@ -565,10 +599,10 @@ function completePlatform(p,cause='gap'){
  refreshFeverHud();
  if(activated){
   flash=12;shake=3.5;sfx('fever');
-  floatingText('FEVER ATIVADO!',project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y-57*scale,'#ffc748');
+  floatingText('FEVER ATIVADO!',project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y-57*scale,'#806933');
  } else if(!p.broken)sfx(p.special==='bonus'?'bonus':combo>=3?'combo':'pass');
  if(combo>=2||powered){
-  floatingText(streakReward?'SEQUÊNCIA! +'+points:'+'+points,project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y-35*scale,powered?'#ffc748':combo>=3?'#f6c84e':'#6ce287');
+  floatingText(streakReward?'SEQUÊNCIA! +'+points:'+'+points,project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y-35*scale,powered?'#806933':combo>=3?'#806933':'#47735b');
   comboBadge.textContent=powered?'FEVER x2  •  COMBO '+combo:streakReward?'COMBO x'+combo+'  +'+streakReward+' BÔNUS':'COMBO x'+combo+'  +'+points;
   comboBadge.classList.add('on');
  }else comboBadge.classList.remove('on');
