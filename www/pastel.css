@@ -133,3 +133,8 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 @media (prefers-reduced-motion:reduce) {
  #panel button,#sound,#help,#pause,#progressFill,#feverFill {transition:none}
 }
+
+/* Companion portraits keep the existing cosmetic selection recognizable. */
+.skinThumb {position:relative;border-radius:45% 45% 38% 38%}
+.skinThumb::before {content:"";position:absolute;left:10px;top:14px;width:3px;height:5px;background:#39434a;border-radius:50%;box-shadow:10px 0 #39434a}
+.skinThumb::after {content:"";position:absolute;left:14px;top:21px;width:7px;height:4px;border-bottom:1.5px solid #39434a;border-radius:0 0 50% 50%}

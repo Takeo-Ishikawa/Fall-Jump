@@ -209,7 +209,7 @@
  #overlay{padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom))}
  #panel #panelBack{top:0}
 }
-</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 40</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><circle cx="57" cy="17" r="12" fill="#94BFA7"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: quica</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
+</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 40</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><rect x="46" y="4" width="22" height="25" rx="10" fill="#94BFA7"/><ellipse cx="57" cy="19" rx="8" ry="6" fill="#FFF8E9"/><circle cx="54" cy="17" r="1.2" fill="#39434A"/><circle cx="60" cy="17" r="1.2" fill="#39434A"/><path d="M55 21Q57 23 59 21" stroke="#39434A" stroke-linecap="round"/><path d="M50 28V30M64 28V30" stroke="#527D65" stroke-width="4" stroke-linecap="round"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: quica</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
 <div id="resultSummary" hidden aria-label="Resumo da fase">
  <div class="resultStat"><strong id="resultPlatforms">0/40</strong><small>PLATAFORMAS</small></div>
  <div class="resultStat"><strong id="resultCombo">0</strong><small>MELHOR COMBO</small></div>
@@ -419,8 +419,8 @@ function openGoals(){
 }
 function openShop(){
  mode='shop';alive=false;started=false;pauseBtn.style.display='none';
- showPanel('Aparências','Ganhe 2 moedas a cada 4 plataformas e mais 12 ao concluir uma fase. Escolha sua bola favorita.','Voltar ao menu');
- shopFeedback.textContent='As aparências não alteram as habilidades da bola.';
+ showPanel('Aparências','Ganhe 2 moedas a cada 4 plataformas e mais 12 ao concluir uma fase. Escolha o visual do seu personagem.','Voltar ao menu');
+ shopFeedback.textContent='As aparências não alteram as habilidades do personagem.';
  refreshShop();
 }
 for(const skin of Skins.CATALOG){
@@ -545,6 +545,49 @@ function renderBreakFx(){
   ctx.restore();
  }
 }
+// Fruit companion: all poses use the existing position and bounce clock.
+// Feet reach the original contact radius; no extra animation timer or physics.
+function drawCharacter(x,y){
+ const r=radius*scale,skin=Skins.byId(skinState.selected)||Skins.CATALOG[0];
+ const airborne=started&&alive&&mode==='playing';
+ const lift=airborne?Math.max(-1,Math.min(1,-vy/8)):0;
+ ctx.save();ctx.translate(x,y);ctx.scale(1+squash*.65,1-squash*.45);
+ // Small hands rise during ascent and settle during descent.
+ ctx.fillStyle=skin.dark;
+ for(const side of [-1,1]){
+  ctx.beginPath();ctx.ellipse(side*r*.77,r*(.15-lift*.27),r*.21,r*.29,side*(.3+lift*.5),0,TAU);ctx.fill();
+ }
+ // Feet remain tucked inside the original circular contact silhouette.
+ for(const side of [-1,1]){
+  ctx.beginPath();ctx.ellipse(side*r*.36,r*.77,r*.25,r*.23,side*lift*.18,0,TAU);ctx.fill();
+ }
+ const body=ctx.createLinearGradient(0,-r,0,r);
+ body.addColorStop(0,skin.light);body.addColorStop(1,skin.mid);
+ ctx.fillStyle=body;ctx.shadowColor='#39434a20';ctx.shadowBlur=3*scale;ctx.shadowOffsetY=scale;
+ ctx.beginPath();ctx.moveTo(0,-r);
+ ctx.bezierCurveTo(r*.82,-r,r*.88,-r*.25,r*.78,r*.4);
+ ctx.bezierCurveTo(r*.7,r*.9,-r*.7,r*.9,-r*.78,r*.4);
+ ctx.bezierCurveTo(-r*.88,-r*.25,-r*.82,-r,0,-r);ctx.fill();
+ ctx.shadowColor='transparent';
+ // Keep the fruit identities as quiet markings above the face.
+ ctx.fillStyle=skin.detail;ctx.globalAlpha=.45;
+ for(const side of [-1,0,1]){
+  ctx.beginPath();ctx.ellipse(side*r*.3,-r*.65,r*.065,r*(skin.pattern==='dots'?.065:.16),side*.35,0,TAU);ctx.fill();
+ }
+ ctx.globalAlpha=1;ctx.fillStyle='#fff8e9';
+ ctx.beginPath();ctx.ellipse(0,r*.1,r*.62,r*.43,0,0,TAU);ctx.fill();
+ ctx.fillStyle='#39434a';
+ for(const side of [-1,1]){
+  ctx.beginPath();ctx.ellipse(side*r*.25,-r*.015,r*.085,r*(lift<-.6?.17:.13),0,0,TAU);ctx.fill();
+ }
+ ctx.strokeStyle='#39434a';ctx.lineWidth=Math.max(1,r*.075);ctx.lineCap='round';
+ ctx.beginPath();ctx.moveTo(-r*.14,r*.2);ctx.quadraticCurveTo(0,r*.36,r*.14,r*.2);ctx.stroke();
+ ctx.fillStyle='#e9a6b0';ctx.globalAlpha=.65;
+ for(const side of [-1,1]){
+  ctx.beginPath();ctx.ellipse(side*r*.43,r*.16,r*.095,r*.055,0,0,TAU);ctx.fill();
+ }
+ ctx.restore();
+}
 function floatingText(text,x,y,color='#fff'){popups.push({text,x,y,life:54,color});}
 function burst(x,y,n=12){for(let i=0;i<n;i++){let a=Math.random()*TAU,s=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:26+Math.random()*16,size:1.5+Math.random()*3,color:Math.random()<.45?"#94bfa7":"#e9a6b0",shard:false,glint:i%3===0})}}function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle=backdropPaint.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.haze;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.cool;ctx.fillRect(0,0,W,H);// central cylinder, pale and visually behind platforms
 // Stable viewport culling: retain each disk until its entire projected silhouette is outside the screen.
@@ -570,26 +613,8 @@ if(alive&&Fever.active(feverState)){
 if(alive&&vy<0){ctx.save();ctx.globalAlpha=Math.min(.16,Math.abs(vy)*.012);ctx.strokeStyle='#739f88';ctx.lineWidth=2*scale;ctx.beginPath();ctx.ellipse(bx,by+radius*scale,18*scale,5*scale,0,0,TAU);ctx.stroke();ctx.restore()}
 for(let t of trail){let alpha=t.life/16;ctx.fillStyle=`rgba(115,159,136,${alpha*.24})`;ctx.beginPath();ctx.arc(t.x,t.y,Math.max(1,radius*scale*alpha*.8),0,TAU);ctx.fill()}for(let q of particles){ctx.globalAlpha=Math.max(0,Math.min(1,q.life/(q.maxLife||42)));ctx.fillStyle=q.color||'#94bfa7';if(q.shard){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.spin);let sz=q.size*scale;ctx.fillRect(-sz*.5,-sz*.36,sz,sz*.72);ctx.restore()}else{ctx.beginPath();ctx.arc(q.x,q.y,q.size*scale,0,TAU);ctx.fill();if(q.glint){ctx.globalAlpha*=.45;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(q.x-q.size*scale*.25,q.y-q.size*scale*.25,Math.max(.5,q.size*scale*.36),0,TAU);ctx.fill()}}}ctx.globalAlpha=1;
 for(let popup of popups){ctx.save();ctx.globalAlpha=Math.min(1,popup.life/18);ctx.font=`700 ${Math.round(18*scale)}px system-ui`;ctx.textAlign='center';ctx.lineWidth=3*scale;ctx.strokeStyle='#f7f5f0';ctx.strokeText(popup.text,popup.x,popup.y);ctx.fillStyle=popup.color;ctx.fillText(popup.text,popup.x,popup.y);ctx.restore()}
-ctx.save();ctx.translate(bx,by);ctx.scale(1+squash*.65,1-squash*.45);ctx.shadowColor='#39434a26';ctx.shadowBlur=5*scale;ctx.shadowOffsetY=3*scale;let r=radius*scale;const skin=Skins.byId(skinState.selected)||Skins.CATALOG[0];
-let ballColor=ctx.createRadialGradient(-r*.4,-r*.5,r*.05,0,0,r);
-ballColor.addColorStop(0,skin.light);ballColor.addColorStop(.55,skin.mid);ballColor.addColorStop(1,skin.dark);
-ctx.fillStyle=ballColor;ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.fill();ctx.shadowColor='transparent';ctx.save();ctx.globalAlpha=.12;let sheen=ctx.createRadialGradient(-r*.42,-r*.53,0,-r*.42,-r*.53,r*.68);sheen.addColorStop(0,'#ffffff');sheen.addColorStop(1,'#ffffff00');ctx.fillStyle=sheen;ctx.beginPath();ctx.arc(0,0,r*.97,0,TAU);ctx.fill();ctx.restore();
-ctx.save();ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.clip();
-if(skin.pattern==='stripes'){
- for(let i=-2;i<=2;i++){
-  ctx.beginPath();ctx.strokeStyle=skin.detail;ctx.globalAlpha=.6;ctx.lineWidth=(skin.id==='lemon'?2:3.2)*scale;
-  ctx.moveTo(i*6*scale-r*.15,-r*1.2);
-  ctx.bezierCurveTo(i*4*scale-r*.3,-r*.2,i*7*scale+r*.25,r*.3,i*5*scale+r*.15,r*1.2);
-  ctx.stroke();
- }
-}else{
- const spots=[[-.44,-.44],[-.02,-.61],[.43,-.37],[-.55,.08],[-.13,-.09],[.35,.03],[-.33,.45],[.1,.51],[.54,.39]];
- ctx.fillStyle=skin.detail;
- for(const [x,y] of spots){
-  ctx.beginPath();ctx.ellipse(x*r,y*r,skin.pattern==='seeds'?1.25*scale:2*scale,skin.pattern==='seeds'?2.3*scale:2*scale,0,0,TAU);ctx.fill();
- }
-}
-ctx.restore();ctx.save();ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(.7,scale);ctx.beginPath();ctx.arc(0,0,r*.92,Math.PI*1.1,Math.PI*1.77);ctx.stroke();ctx.restore();ctx.restore();if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#94bfa7';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){
+drawCharacter(bx,by);
+if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#94bfa7';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false){
  // Uma tentativa só pode terminar uma vez: evita bônus e transições repetidos.
  if(mode!=='playing'||!alive)return;
  sfx(win?'win':'lose');
