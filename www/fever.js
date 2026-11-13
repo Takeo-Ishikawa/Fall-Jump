@@ -29,9 +29,9 @@
     state.activations++;
     return true;
   }
-  function onBounce(state) {
+  function onLanding(state) {
     // O Fever que já começou continua ativo até acabar seu tempo.
-    // Uma quicada normal zera somente o progresso incompleto.
+    // Uma aterrissagem normal zera somente o progresso incompleto.
     if (!active(state)) state.charge = 0;
   }
   function tick(state) {
@@ -47,8 +47,8 @@
     if (gap) return 'gap';
     if (danger) return 'lose'; // O Fever não imuniza contra zonas escuras.
     if (fragile || active(state)) return 'smash';
-    return 'bounce';
+    return 'walk';
   }
-  return { create, active, reset, onGap, onBounce, tick, progress, multiplier, contact,
+  return { create, active, reset, onGap, onLanding, tick, progress, multiplier, contact,
     GAP_TARGET, DURATION_FRAMES, SCORE_MULTIPLIER };
 });

@@ -152,7 +152,7 @@
 
   // Teste conservador de rota de queda livre: simula a mesma gravidade,
   // velocidade máxima, altura inicial e planos de contato usados no jogo.
-  // Um jogador ainda pode quicar ou se corrigir; este teste exige uma rota
+  // Um jogador ainda pode caminhar sobre uma plataforma ou se corrigir; este teste exige uma rota
   // de passagem por todas as aberturas sem depender dessas facilidades.
   function simulateRoute(plan) {
     const platforms = plan.platforms;

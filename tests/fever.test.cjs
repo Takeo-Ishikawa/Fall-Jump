@@ -19,15 +19,15 @@ test('cinco passagens pela abertura ativam Fever por 1,5 segundo', () => {
   assert.equal(fever.multiplier(state), 2);
 });
 
-test('quicar cancela carga parcial, mas não interrompe Fever ativado', () => {
+test('pousar cancela carga parcial, mas não interrompe Fever ativado', () => {
   const state = fever.create();
   fever.onGap(state); fever.onGap(state); fever.onGap(state);
-  fever.onBounce(state);
+  fever.onLanding(state);
   assert.equal(state.charge, 0);
   assert.equal(fever.multiplier(state), 1);
   for (let i = 0; i < fever.GAP_TARGET; i++) fever.onGap(state);
   assert.equal(fever.active(state), true);
-  fever.onBounce(state);
+  fever.onLanding(state);
   assert.equal(fever.active(state), true);
 });
 
@@ -63,7 +63,7 @@ test('indicador e reset são determinísticos para novas partidas', () => {
 });
 test('Fever rompe discos normais e bônus, mas jamais neutraliza áreas perigosas', () => {
   const state=fever.create();
-  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'bounce');
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'walk');
   assert.equal(fever.contact(state,{gap:false,danger:false,fragile:true}),'smash');
   assert.equal(fever.contact(state,{gap:false,danger:true,fragile:true}),'lose');
   for(let i=0;i<fever.GAP_TARGET;i++)fever.onGap(state);
@@ -72,6 +72,6 @@ test('Fever rompe discos normais e bônus, mas jamais neutraliza áreas perigosa
   assert.equal(fever.contact(state,{gap:false,danger:true,fragile:false}),'lose');
   assert.equal(fever.contact(state,{gap:true,danger:false,fragile:false}),'gap');
   fever.reset(state);
-  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'bounce');
+  assert.equal(fever.contact(state,{gap:false,danger:false,fragile:false}),'walk');
 });
 

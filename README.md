@@ -50,13 +50,20 @@ O pipeline executa `assembleRelease bundleRelease`, verifica o APK com `apksigne
 
 Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os dados do aplicativo quando o ID e a assinatura forem os mesmos, o versionCode for apropriado e a instalação for aceita. O APK não se atualiza sozinho: é preciso baixar e abrir o arquivo novo.
 
+## Mecânica atual — caminhada pelas plataformas
+O personagem começa apoiado na primeira plataforma. Toque no cenário para começar: ele caminha automaticamente ao redor da coluna. Arraste horizontalmente para girar a torre e conduzir uma abertura até ele. Ao alcançar o vão, o personagem cai verticalmente; ao pousar numa superfície comum, volta a caminhar sem saltar.
+
+Áreas escuras causam derrota mesmo durante Fever. Plataformas azuis quebram no contato, e as douradas preservam o bônus. Cinco aberturas atravessadas em sequência, sem pousar, ativam Fever por 1,5 segundo. Um pouso interrompe o combo e a carga incompleta; pausar congela a caminhada e o temporizador.
+
+Os níveis existentes continuam disponíveis. A simulação do gerador verifica uma rota de queda livre; o equilíbrio da nova caminhada ainda precisa de avaliação em aparelho Android.
+
 ## Desenvolvimento
 Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compilação (depois que os secrets forem configurados). Para compilar apenas quando desejar, também há o botão manual **Run workflow**.
 
 ## Fever — recompensa por quedas consecutivas
-Ao atravessar **5 aberturas sem quicar**, a bola entra em Fever durante **1,5 segundo de simulação**. Nesse intervalo, discos comuns e frágeis podem ser quebrados no contato e os pontos recebidos são dobrados. As partes escuras permanecem perigosas; Fever não concede invulnerabilidade.
+Ao atravessar **5 aberturas sem pousar**, o personagem entra em Fever durante **1,5 segundo de simulação**. Nesse intervalo, discos comuns e frágeis podem ser quebrados no contato e os pontos recebidos são dobrados. As partes escuras permanecem perigosas; Fever não concede invulnerabilidade.
 
-A barra no HUD mostra as passagens que faltam e, após a ativação, o tempo restante. Quicar antes da ativação zera a carga. O temporizador não avança quando o jogo está pausado. A partir da versão 1.3.1, os níveis têm de 40 a 80 plataformas: 40 nos níveis 1–2, aumentando 6 a cada dois níveis, até o máximo de 80 no nível 15.
+A barra no HUD mostra as passagens que faltam e, após a ativação, o tempo restante. Pousar antes da ativação zera a carga. O temporizador não avança quando o jogo está pausado. A partir da versão 1.3.1, os níveis têm de 40 a 80 plataformas: 40 nos níveis 1–2, aumentando 6 a cada dois níveis, até o máximo de 80 no nível 15.
 
 ## Moedas e aparências — versão 1.4
 Cada quatro plataformas concluídas concedem **2 moedas**; finalizar uma fase concede **mais 12 moedas**. As moedas ficam salvas localmente entre partidas e são independentes dos pontos/recorde. Os ganhos não são multiplicados pelo Fever.

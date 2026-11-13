@@ -1,4 +1,4 @@
-const CACHE_NAME='fall-jump-v190-pastel-3';
+const CACHE_NAME='fall-jump-v190-walking-1';
 const FILES=['./index.html','./pastel.css','./level-generator.js','./fever.js','./skins.js','./goals.js'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(FILES)));
