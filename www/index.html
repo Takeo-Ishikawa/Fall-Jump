@@ -209,7 +209,7 @@
  #overlay{padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom))}
  #panel #panelBack{top:0}
 }
-</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 40</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="hint">↔ Arraste para girar a torre e encontrar a abertura</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><rect x="46" y="4" width="22" height="25" rx="10" fill="#94BFA7"/><ellipse cx="57" cy="19" rx="8" ry="6" fill="#FFF8E9"/><circle cx="54" cy="17" r="1.2" fill="#39434A"/><circle cx="60" cy="17" r="1.2" fill="#39434A"/><path d="M55 21Q57 23 59 21" stroke="#39434A" stroke-linecap="round"/><path d="M50 28V30M64 28V30" stroke="#527D65" stroke-width="4" stroke-linecap="round"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: caminhe</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
+</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 40</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="hint">Arraste para caminhar · dois toques para saltar</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><rect x="46" y="4" width="22" height="25" rx="10" fill="#94BFA7"/><ellipse cx="57" cy="19" rx="8" ry="6" fill="#FFF8E9"/><circle cx="54" cy="17" r="1.2" fill="#39434A"/><circle cx="60" cy="17" r="1.2" fill="#39434A"/><path d="M55 21Q57 23 59 21" stroke="#39434A" stroke-linecap="round"/><path d="M50 28V30M64 28V30" stroke="#527D65" stroke-width="4" stroke-linecap="round"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: caminhe</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
 <div id="resultSummary" hidden aria-label="Resumo da fase">
  <div class="resultStat"><strong id="resultPlatforms">0/40</strong><small>PLATAFORMAS</small></div>
  <div class="resultStat"><strong id="resultCombo">0</strong><small>MELHOR COMBO</small></div>
@@ -410,7 +410,7 @@ function showPanel(title,body,action,secondary=false){
  stats.textContent='RECORDE  '+best.toLocaleString('pt-BR')+'  •  PONTOS  '+totalScore.toLocaleString('pt-BR');
  overlay.style.display='flex';
 }
-function menu(){mode='menu';alive=false;started=false;drag=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();updateGoalIndicators();showPanel('Fall Jump','Caminhe. Encontre a abertura. Continue descendo.','Jogar',false)}
+function menu(){mode='menu';alive=false;started=false;drag=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();updateGoalIndicators();showPanel('Fall Jump','Guie seu personagem. Encontre a abertura.','Jogar',false)}
 function openGoals(){
  mode='goals';alive=false;started=false;pauseBtn.style.display='none';
  showPanel('Missões e conquistas','Conclua objetivos, resgate suas moedas e acompanhe a próxima renovação.','Voltar ao menu');
@@ -434,7 +434,7 @@ for(const skin of Skins.CATALOG){
   refreshShop();
  };
 }
-const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,walkSpeed=.012,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,grounded=null,jumping=false,enemies=[];const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
+const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,cameraAngle=0,grounded=null,jumping=false,enemies=[];const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
 let backdropPaint={};
 function refreshBackdropPaint(){
  const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f7f5f0');bg.addColorStop(1,'#efeee8');
@@ -463,8 +463,8 @@ function buildLevel(n){
   refreshFeverHud();
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
-  cancelGesture();jumping=false;walkAngle=0;walkPhase=0;ballX=0;ballZ=walkRadius;grounded=platforms[0];ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=norm(-grounded.angle-grounded.gap/2-.3);alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Arraste para girar · dois toques para saltar'
-}function reset(){level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function project(x,z,y){let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
+  cancelGesture();jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Arraste para caminhar · dois toques para saltar'
+}function reset(){level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function viewDepth(x,z){return x*Math.sin(cameraAngle)+z*Math.cos(cameraAngle)}function project(x,z,y){const viewX=x*Math.cos(cameraAngle)-z*Math.sin(cameraAngle);z=viewDepth(x,z);x=viewX;let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
 const platformPaint={
  normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
  fragile:{top:'#a9ced8',back:'#9bc0cb',side:'#80a7b4',shadow:'#7398a6',edge:'#cee4e9'},
@@ -476,10 +476,10 @@ function renderRing(p,front){
  for(let j=0;j<segs;j++){
   const a=j*step,b=(j+1)*step,mid=(a+b)/2,local=norm(mid-rotation-p.angle);
   if(local<p.gap/2||local>TAU-p.gap/2)continue;
-  if((Math.cos(mid)>=0)!==front)continue;
+  if((Math.cos(mid-cameraAngle)>=0)!==front)continue;
   const dangerous=p.danger&&local>p.gap+.53&&local<p.gap+.53+p.danger;
   const paint=platformPaint[dangerous?'danger':p.special]||platformPaint.normal;
-  pieces.push({z:Math.cos(mid),a,b,paint});
+  pieces.push({z:Math.cos(mid-cameraAngle),a,b,paint});
  }
  pieces.sort((a,b)=>b.z-a.z);
  for(const q of pieces){
@@ -496,7 +496,7 @@ function renderRing(p,front){
    polygon([...inside,...innerBottom.reverse()],q.paint.shadow,true);
   }
   // Exposed radial walls give the opening the same thickness as the rim.
-  for(const [angle,offset,facing] of [[q.a,-step,Math.sin(q.a)],[q.b,step,-Math.sin(q.b)]]){
+  for(const [angle,offset,facing] of [[q.a,-step,Math.sin(q.a-cameraAngle)],[q.b,step,-Math.sin(q.b-cameraAngle)]]){
    const adjacent=norm(angle+offset*.5-rotation-p.angle);
    if(facing>0&&(adjacent<p.gap/2||adjacent>TAU-p.gap/2)){
     const outer=project(Math.sin(angle)*ringR,Math.cos(angle)*ringR,p.y);
@@ -652,7 +652,7 @@ function drawEnemies(front,visible){
  for(const e of enemies){
   const p=e.platform;if(e.defeated||p.passed||p.broken||!visible.includes(p))continue;
   const angle=rotation+p.angle+e.angle,z=Math.cos(angle)*walkRadius;
-  if((z>=0)!==front)continue;
+  if((Math.cos(angle-cameraAngle)>=0)!==front)continue;
   const x=Math.sin(angle)*walkRadius,pt=project(x,z,p.y-enemyHeight),r=enemyRadius*scale;
   const floor=project(x,z,p.y);
   ctx.save();ctx.fillStyle='#53485724';ctx.beginPath();ctx.ellipse(floor.x,floor.y,r*1.1,r*.3,0,0,TAU);ctx.fill();
@@ -690,7 +690,7 @@ let visible=platforms.filter(p=>{let y=project(0,0,p.y).y;return y>-margin&&y<H+
 visible.sort((a,b)=>b.y-a.y);
 for(let p of visible){if(p.broken)continue;renderRing(p,false)}
 drawEnemies(false,visible);
-if(ballZ<0){const pt=project(ballX,ballZ,ballY);drawCharacter(pt.x,pt.y);}
+if(viewDepth(ballX,ballZ)<0){const pt=project(ballX,ballZ,ballY);drawCharacter(pt.x,pt.y);}
 let shaftW=innerR*2*scale;ctx.fillStyle=backdropPaint.shaft;ctx.fillRect(centerX-shaftW/2,0,shaftW,H);ctx.fillStyle='#cfcdc5';ctx.fillRect(centerX-shaftW/2,0,shaftW*.085,H);ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(centerX-shaftW*.20,0,shaftW*.17,H);ctx.fillStyle='rgba(110,105,96,.06)';ctx.fillRect(centerX+shaftW*.31,0,shaftW*.19,H);
 for(let p of visible){if(p.broken)continue;renderRing(p,true)}
 renderBreakFx();
@@ -706,7 +706,7 @@ if(alive&&Fever.active(feverState)){
 }
 for(let t of trail){let alpha=t.life/16;ctx.fillStyle=`rgba(115,159,136,${alpha*.24})`;ctx.beginPath();ctx.arc(t.x,t.y,Math.max(1,radius*scale*alpha*.8),0,TAU);ctx.fill()}for(let q of particles){ctx.globalAlpha=Math.max(0,Math.min(1,q.life/(q.maxLife||42)));ctx.fillStyle=q.color||'#94bfa7';if(q.shard){ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.spin);let sz=q.size*scale;ctx.fillRect(-sz*.5,-sz*.36,sz,sz*.72);ctx.restore()}else{ctx.beginPath();ctx.arc(q.x,q.y,q.size*scale,0,TAU);ctx.fill();if(q.glint){ctx.globalAlpha*=.45;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(q.x-q.size*scale*.25,q.y-q.size*scale*.25,Math.max(.5,q.size*scale*.36),0,TAU);ctx.fill()}}}ctx.globalAlpha=1;
 for(let popup of popups){ctx.save();ctx.globalAlpha=Math.min(1,popup.life/18);ctx.font=`700 ${Math.round(18*scale)}px system-ui`;ctx.textAlign='center';ctx.lineWidth=3*scale;ctx.strokeStyle='#f7f5f0';ctx.strokeText(popup.text,popup.x,popup.y);ctx.fillStyle=popup.color;ctx.fillText(popup.text,popup.x,popup.y);ctx.restore()}
-if(ballZ>=0)drawCharacter(bx,by);
+if(viewDepth(ballX,ballZ)>=0)drawCharacter(bx,by);
 if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.strokeStyle='#94bfa7';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(bx,by-15*scale);ctx.lineTo(bx,by-48*scale-Math.min(vy,14)*2);ctx.stroke();ctx.restore()}if(flash>0){ctx.fillStyle=`rgba(255,255,255,${flash/20*.45})`;ctx.fillRect(0,0,W,H);flash--}}function end(win=false,cause='fall'){
  // Uma tentativa só pode terminar uma vez: evita bônus e transições repetidos.
  if(mode!=='playing'||!alive)return;
@@ -717,7 +717,7 @@ if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.str
  const explanation=win
   ?'Torre concluída! Você recebeu 12 moedas extras. Confira o resumo e avance para a próxima fase.'
   :cause==='enemy'?'Você encostou de lado em um inimigo. Acerte a cabeça durante a descida: três pisões o derrotam e cada acerto faz você quicar.'
-  :levelPassed===0?'Você ainda não atravessou nenhuma plataforma. Procure uma abertura e arraste para girar a torre.'
+  :levelPassed===0?'Você ainda não atravessou nenhuma plataforma. Arraste para conduzir o personagem até uma abertura.'
   :'Você avançou '+levelPassed+' de '+levelTarget+' plataformas. Evite as áreas escuras e tente novamente.';
  showPanel(win?'Nível '+level+' concluído!':'Fim de jogo',explanation,win?'Próximo nível':'Tentar novamente',true);
 }
@@ -747,10 +747,8 @@ function completePlatform(p,cause='gap'){
  burst(project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y,powered?13:combo>=3?12:6);
  if(levelPassed>=levelTarget){flash=9;end(true)}
 }
-function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();if(grounded||jumping){
- walkAngle=norm(walkAngle+walkSpeed);if(grounded)walkPhase+=.22;
- ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;
-}
+function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();const orbitDelta=norm(walkAngle-cameraAngle+Math.PI)-Math.PI;
+ cameraAngle=norm(cameraAngle+orbitDelta*.14);
 if(grounded&&enemyCollision())end(false,'enemy');
 if(grounded&&alive){
  const p=grounded;
@@ -833,7 +831,10 @@ function move(e){
  if(tapCandidate&&Math.hypot(e.clientX-tapCandidate.x,(e.clientY||0)-tapCandidate.y)>tapSlop){
   tapCandidate.moved=true;lastTap=null;
  }
- const delta=e.clientX-lastX;lastX=e.clientX;rotation=norm(rotation+delta*.012);
+ const delta=e.clientX-lastX;lastX=e.clientX;
+ walkAngle=norm(walkAngle+delta*.012);
+ ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;
+ if(grounded)walkPhase+=Math.abs(delta)*.025;
 }
 function up(e){
  if(!tapCandidate||e.pointerId!==tapCandidate.id)return;
@@ -867,11 +868,11 @@ function askLeave(){
 }
 function openGameHelp(){
  drag=false;mode='help';pauseBtn.style.display='none';
- showPanel('Como jogar','Dê dois toques rápidos no cenário para saltar enquanto caminha. O personagem caminha sozinho. Arraste para girar a torre e levar uma abertura até ele. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. Contato de lado é perigoso, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
+ showPanel('Como jogar','Arraste para a esquerda ou direita para caminhar ao redor da plataforma. A câmera acompanha o personagem. Dê dois toques rápidos no cenário para saltar. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. Contato de lado é perigoso, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
 }
 function openMenuHelp(){
  mode='menu-help';
- showPanel('Como jogar','Toque na tela para começar a caminhar. O personagem anda sozinho ao redor da plataforma. Dê dois toques rápidos (ou dois cliques) no cenário para saltar; só é possível saltar quando estiver apoiado. Arraste horizontalmente para girar a torre e passar pelos vãos. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. Contato de lado é perigoso, mesmo com Fever. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
+ showPanel('Como jogar','Arraste horizontalmente para mover o personagem ao redor da plataforma. A câmera gira para acompanhá-lo. Dê dois toques rápidos (ou dois cliques) no cenário para saltar; só é possível saltar quando estiver apoiado. Conduza o personagem até os vãos para descer. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. Contato de lado é perigoso, mesmo com Fever. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
 }
 restartBtn.onclick=()=>{
  initAudio();

@@ -9,18 +9,18 @@ function game(){
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(){return null},setItem(){}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
- g.rotate(0);return g;
+ g.rotate(0);g.position(0);return g;
 }
 function steps(g,n){for(let i=0;i<n;i++)g.step();}
 test('caminha sobre superfície sem impulso vertical; pausa congela posição e passada',()=>{
- const g=game(),initial=g.state();steps(g,60);const walking=g.state();
+ const g=game(),initial=g.state();steps(g,30);assert.equal(g.state().x,initial.x,'sem arraste não caminha');g.move({clientX:230,pointerId:1});steps(g,60);const walking=g.state();
  assert.ok(walking.x>initial.x+30);assert.equal(walking.y,initial.y);assert.equal(walking.vy,0);assert.equal(walking.passed,0);
  g.pause();const paused=g.state();steps(g,120);assert.deepEqual(g.state(),paused);
- g.resume();g.step();assert.ok(g.state().angle>paused.angle);
+ g.move({clientX:250,pointerId:1});assert.deepEqual(g.state(),paused);g.resume();g.down({clientX:170,pointerId:1});g.move({clientX:180,pointerId:1});g.step();assert.ok(g.state().angle>paused.angle);
 });
 test('alcançar abertura inicia queda; pouso na plataforma seguinte não produz salto',()=>{
  const g=game();steps(g,30);const angle=g.state().angle;
@@ -38,17 +38,17 @@ test('plataforma frágil e Fever liberam a queda sem salto',()=>{
  for(const powered of [false,true]){const g=game();if(powered)g.fever();else g.platforms()[0].special='fragile';g.step();assert.equal(g.platforms()[0].broken,true);assert.equal(g.state().passed,1);assert.ok(g.state().vy>0);}
 });
 test('reiniciar restaura posição inicial apoiada e limpa a passada',()=>{
- const g=game();steps(g,90);g.start();assert.equal(g.state().grounded,0);assert.equal(g.state().angle,0);assert.equal(g.state().phase,0);assert.equal(g.state().vy,0);assert.equal(g.state().passed,0);
+ const g=game();steps(g,90);g.start();assert.equal(g.state().grounded,0);assert.equal(g.state().angle,g.spawnAngle());assert.equal(g.state().phase,0);assert.equal(g.state().vy,0);assert.equal(g.state().passed,0);
 });
 
 function tap(g,time,x=170,y=400,duration=40){
  g.down({clientX:x,clientY:y,pointerId:1,timeStamp:time,button:0});
  g.up({clientX:x,clientY:y,pointerId:1,timeStamp:time+duration});
 }
-test('dois toques saltam para frente e pousam sem iniciar outro salto',()=>{
+test('dois toques saltam e permitem ajustar posição no ar sem outro salto',()=>{
  const g=game(),initial=g.state();tap(g,100);assert.equal(g.state().vy,0);
  tap(g,250);assert.ok(g.state().vy<0);assert.equal(g.state().grounded,undefined);
- steps(g,12);assert.ok(g.state().y<initial.y-30);assert.ok(g.state().angle>initial.angle);
+ steps(g,12);assert.ok(g.state().y<initial.y-30);assert.equal(g.state().angle,initial.angle);g.down({clientX:170,pointerId:1});g.move({clientX:190,pointerId:1});assert.ok(g.state().angle>initial.angle);
  steps(g,40);assert.equal(g.state().grounded,0);assert.equal(g.state().vy,0);assert.equal(g.state().y,initial.y);
 });
 test('não permite salto adicional no ar nem durante queda por abertura',()=>{
@@ -147,4 +147,13 @@ test('pausa preserva dano e reação do inimigo; reinício restaura três acerto
  const g=game();g.putEnemy();g.approachEnemy(-5,10);g.step();const e=g.enemies()[0];
  g.pause();const flash=e.hitFlash;steps(g,100);assert.equal(e.hp,2);assert.equal(e.hitFlash,flash);
  g.start();assert.ok(g.enemies().every(enemy=>enemy.hp===3&&!enemy.defeated));
+});
+
+test('arraste move o personagem e a câmera acompanha pelo caminho curto sem girar plataformas',()=>{
+ const g=game(),angles=g.platforms().map(p=>p.angle);
+ g.move({clientX:210,pointerId:1});const target=g.state().angle,firstCamera=g.state().camera;
+ steps(g,80);assert.equal(g.state().angle,target);assert.ok(Math.abs(g.state().camera-target)<.001);
+ assert.equal(g.state().rotation,0);assert.deepEqual(g.platforms().map(p=>p.angle),angles);
+ g.position(.03);g.camera(Math.PI*2-.03);g.step();assert.ok(g.state().camera>Math.PI*2-.03);
+ steps(g,80);assert.ok(Math.abs(g.state().camera-.03)<.001);
 });
