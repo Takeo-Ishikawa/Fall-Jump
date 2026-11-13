@@ -382,6 +382,7 @@ refreshWallet();
 function refreshBest(){bestEl.textContent=best.toLocaleString('pt-BR')}
 function saveBest(){if(totalScore>best){best=totalScore;try{localStorage.setItem(storageKey,String(best))}catch(e){}refreshBest()}}
 function showPanel(title,body,action,secondary=false){
+ cancelGesture();
  overlay.setAttribute('data-screen',mode);
  message.textContent=title;details.textContent=body;restartBtn.textContent=action;
  // Telas secundárias têm um único retorno no topo; sem botão duplicado ao fim da lista.
@@ -433,7 +434,7 @@ for(const skin of Skins.CATALOG){
   refreshShop();
  };
 }
-const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,walkSpeed=.012,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,grounded=null;const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
+const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,walkSpeed=.012,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,grounded=null,jumping=false;const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
 let backdropPaint={};
 function refreshBackdropPaint(){
  const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f7f5f0');bg.addColorStop(1,'#efeee8');
@@ -461,7 +462,7 @@ function buildLevel(n){
   refreshFeverHud();
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
-  walkAngle=0;walkPhase=0;ballX=0;ballZ=walkRadius;grounded=platforms[0];ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=norm(-grounded.angle-grounded.gap/2-.3);alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Toque para caminhar · arraste para girar'
+  cancelGesture();jumping=false;walkAngle=0;walkPhase=0;ballX=0;ballZ=walkRadius;grounded=platforms[0];ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=norm(-grounded.angle-grounded.gap/2-.3);alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Arraste para girar · dois toques para saltar'
 }function reset(){level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function project(x,z,y){let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
 const platformPaint={
  normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
@@ -653,9 +654,11 @@ function completePlatform(p,cause='gap'){
  burst(project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y,powered?13:combo>=3?12:6);
  if(levelPassed>=levelTarget){flash=9;end(true)}
 }
-function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){Fever.tick(feverState);if(frames%6===0)refreshFeverHud();if(grounded){
- walkAngle=norm(walkAngle+walkSpeed);walkPhase+=.22;
+function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){Fever.tick(feverState);if(frames%6===0)refreshFeverHud();if(grounded||jumping){
+ walkAngle=norm(walkAngle+walkSpeed);if(grounded)walkPhase+=.22;
  ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;
+}
+if(grounded){
  const p=grounded;
  const collision=Fever.contact(feverState,{gap:inGap(p),danger:dangerAt(p),fragile:p.special==='fragile'});
  if(collision==='lose')end();
@@ -675,7 +678,7 @@ if(!grounded&&alive){
   if(collision==='smash'){
    p.broken=true;fragments(p);completePlatform(p,'smash');sfx('break');shake=4;break;
   }
-  grounded=p;ballY=p.y-contactRadius;vy=0;squash=.22;combo=0;
+  grounded=p;jumping=false;ballY=p.y-contactRadius;vy=0;squash=.22;combo=0;
   Fever.onLanding(feverState);refreshFeverHud();comboBadge.classList.remove('on');
   break;
  }
@@ -711,7 +714,42 @@ function update(timestamp){
   draw();
   requestAnimationFrame(update);
 }
-function down(e){if(mode!=='playing'||!alive)return;drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';canvas.setPointerCapture?.(e.pointerId)}function move(e){if(!drag||mode!=='playing')return;let delta=e.clientX-lastX;lastX=e.clientX;rotation+=delta*.012;rotation=norm(rotation)}function up(){drag=false}canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);function startGame(next=false,retry=false){
+// Recognize taps on release, so dragging the tower never triggers a jump.
+let tapCandidate=null,lastTap=null;
+const tapWindowMs=280,tapSlop=12;
+function cancelGesture(){drag=false;tapCandidate=null;lastTap=null;}
+function manualJump(){
+ if(mode!=='playing'||!alive||!started||!grounded)return false;
+ grounded=null;jumping=true;vy=-7.6;squash=-.12;
+ tone(280,.12,'sine',.04,170);
+ return true;
+}
+function down(e){
+ if(e.isPrimary===false){cancelGesture();return;}
+ if(mode!=='playing'||!alive||(e.button!==undefined&&e.button!==0))return;
+ drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';
+ tapCandidate={x:e.clientX,y:e.clientY||0,time:e.timeStamp??Date.now(),id:e.pointerId};
+ canvas.setPointerCapture?.(e.pointerId);
+}
+function move(e){
+ if(!drag||mode!=='playing'||(tapCandidate&&e.pointerId!==tapCandidate.id))return;
+ if(tapCandidate&&Math.hypot(e.clientX-tapCandidate.x,(e.clientY||0)-tapCandidate.y)>tapSlop){
+  tapCandidate.moved=true;lastTap=null;
+ }
+ const delta=e.clientX-lastX;lastX=e.clientX;rotation=norm(rotation+delta*.012);
+}
+function up(e){
+ if(!tapCandidate||e.pointerId!==tapCandidate.id)return;
+ const tap=tapCandidate,now=e.timeStamp??Date.now();tapCandidate=null;drag=false;
+ if(mode!=='playing'||!alive||tap.moved||now-tap.time>250||Math.hypot(e.clientX-tap.x,(e.clientY||0)-tap.y)>tapSlop){lastTap=null;return;}
+ if(lastTap&&now-lastTap.time<=tapWindowMs&&Math.hypot(tap.x-lastTap.x,tap.y-lastTap.y)<=tapSlop*2){
+  lastTap=null;manualJump();
+ }else lastTap={x:tap.x,y:tap.y,time:now};
+}
+canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);
+canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',cancelGesture);
+canvas.addEventListener('lostpointercapture',()=>{if(drag)cancelGesture();});
+function startGame(next=false,retry=false){
  resetFrameClock();
  if(next){level++;buildLevel(level)}
  else if(retry){totalScore=0;bonusScore=0;frames=0;buildLevel(level)}
@@ -732,11 +770,11 @@ function askLeave(){
 }
 function openGameHelp(){
  drag=false;mode='help';pauseBtn.style.display='none';
- showPanel('Como jogar','O personagem caminha sozinho. Arraste para girar a torre e levar uma abertura até ele. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
+ showPanel('Como jogar','Dê dois toques rápidos no cenário para saltar enquanto caminha. O personagem caminha sozinho. Arraste para girar a torre e levar uma abertura até ele. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
 }
 function openMenuHelp(){
  mode='menu-help';
- showPanel('Como jogar','Toque na tela para começar a caminhar. O personagem anda sozinho ao redor da plataforma. Arraste horizontalmente para girar a torre e passar pelos vãos. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
+ showPanel('Como jogar','Toque na tela para começar a caminhar. O personagem anda sozinho ao redor da plataforma. Dê dois toques rápidos (ou dois cliques) no cenário para saltar; só é possível saltar quando estiver apoiado. Arraste horizontalmente para girar a torre e passar pelos vãos. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
 }
 restartBtn.onclick=()=>{
  initAudio();

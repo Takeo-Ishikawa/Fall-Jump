@@ -51,7 +51,7 @@ O pipeline executa `assembleRelease bundleRelease`, verifica o APK com `apksigne
 Quando um novo APK for gerado, instale-o sobre o anterior. O Android manterá os dados do aplicativo quando o ID e a assinatura forem os mesmos, o versionCode for apropriado e a instalação for aceita. O APK não se atualiza sozinho: é preciso baixar e abrir o arquivo novo.
 
 ## Mecânica atual — caminhada pelas plataformas
-O personagem começa apoiado na primeira plataforma. Toque no cenário para começar: ele caminha automaticamente ao redor da coluna. Arraste horizontalmente para girar a torre e conduzir uma abertura até ele. Ao alcançar o vão, o personagem cai verticalmente; ao pousar numa superfície comum, volta a caminhar sem saltar.
+O personagem começa apoiado na primeira plataforma. Toque no cenário para começar: ele caminha automaticamente ao redor da coluna. Arraste horizontalmente para girar a torre e conduzir uma abertura até ele. Ao alcançar o vão, o personagem cai verticalmente; ao pousar numa superfície comum, volta a caminhar sem saltar automaticamente. **Dois toques rápidos no cenário (ou dois cliques do mouse) fazem um salto manual para a frente**, disponível apenas quando o personagem está apoiado. Arrastar, manter pressionado ou tocar nos menus não dispara o salto.
 
 Áreas escuras causam derrota mesmo durante Fever. Plataformas azuis quebram no contato, e as douradas preservam o bônus. Cinco aberturas atravessadas em sequência, sem pousar, ativam Fever por 1,5 segundo. Um pouso interrompe o combo e a carga incompleta; pausar congela a caminhada e o temporizador.
 
