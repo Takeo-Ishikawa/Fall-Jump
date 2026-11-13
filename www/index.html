@@ -469,24 +469,42 @@ const platformPaint={
  bonus:{top:'#e8cb86',back:'#dbc07f',side:'#bfa366',shadow:'#ac925b',edge:'#f2dfb3'},
  danger:{top:'#534857',back:'#63566a',side:'#433b48',shadow:'#39313e',edge:'#7a6b80'}
 };
-function renderRing(p){
+function renderRing(p,front){
  const segs=(scale<.85?44:56),step=TAU/segs,pieces=[];
  for(let j=0;j<segs;j++){
   const a=j*step,b=(j+1)*step,mid=(a+b)/2,local=norm(mid-rotation-p.angle);
   if(local<p.gap/2||local>TAU-p.gap/2)continue;
+  if((Math.cos(mid)>=0)!==front)continue;
   const dangerous=p.danger&&local>p.gap+.53&&local<p.gap+.53+p.danger;
   const paint=platformPaint[dangerous?'danger':p.special]||platformPaint.normal;
   pieces.push({z:Math.cos(mid),a,b,paint});
  }
  pieces.sort((a,b)=>b.z-a.z);
  for(const q of pieces){
-  const top=arcPoints(q.a,q.b,p.y,ringR,3),center=project(0,0,p.y);
+  const top=arcPoints(q.a,q.b,p.y,ringR,3);
+  const inside=arcPoints(q.a,q.b,p.y,innerR+5,3);
   const bottom=arcPoints(q.a,q.b,p.y+30,ringR,3);
   if(q.z>-.1){
    const shadow=arcPoints(q.a,q.b,p.y+34,ringR,3);
    polygon([...bottom,...shadow.reverse()],q.paint.shadow,true);
   }
-  polygon([...top,center],q.z>0?q.paint.top:q.paint.back,true);
+  // The annular top leaves the shaft visible through the central opening.
+  if(!front){
+   const innerBottom=arcPoints(q.a,q.b,p.y+30,innerR+5,3);
+   polygon([...inside,...innerBottom.reverse()],q.paint.shadow,true);
+  }
+  // Exposed radial walls give the opening the same thickness as the rim.
+  for(const [angle,offset,facing] of [[q.a,-step,Math.sin(q.a)],[q.b,step,-Math.sin(q.b)]]){
+   const adjacent=norm(angle+offset*.5-rotation-p.angle);
+   if(facing>0&&(adjacent<p.gap/2||adjacent>TAU-p.gap/2)){
+    const outer=project(Math.sin(angle)*ringR,Math.cos(angle)*ringR,p.y);
+    const inner=project(Math.sin(angle)*(innerR+5),Math.cos(angle)*(innerR+5),p.y);
+    const lowerOuter=project(Math.sin(angle)*ringR,Math.cos(angle)*ringR,p.y+30);
+    const lowerInner=project(Math.sin(angle)*(innerR+5),Math.cos(angle)*(innerR+5),p.y+30);
+    polygon([outer,inner,lowerInner,lowerOuter],q.paint.side,true);
+   }
+  }
+  polygon([...top,...inside.slice().reverse()],q.paint.top,true);
   if(q.z>-.1){
    polygon([...top,...bottom.reverse()],q.paint.side,true);
    const edge=arcPoints(q.a,q.b,p.y+2,ringR,3);
@@ -520,7 +538,7 @@ function renderBreakFx(){
   ctx.save();ctx.globalAlpha=Math.min(1,q.life/20);
   const a=q.a+q.rot,b=q.b+q.rot;
   const worldPoint=(ang,r)=>project(Math.sin(ang)*r+q.dx,Math.cos(ang)*r+q.dz,q.y+q.dy);
-  let face=[worldPoint(a,ringR),worldPoint(b,ringR),worldPoint(a,0)];
+  let face=[worldPoint(a,ringR),worldPoint(b,ringR),worldPoint(b,innerR+5),worldPoint(a,innerR+5)];
   polygon(face,q.color);
   let side=[face[0],face[1],project(Math.sin(b)*ringR+q.dx,Math.cos(b)*ringR+q.dz,q.y+q.dy+12),project(Math.sin(a)*ringR+q.dx,Math.cos(a)*ringR+q.dz,q.y+q.dy+12)];
   polygon(side,q.side);
@@ -529,14 +547,15 @@ function renderBreakFx(){
 }
 function floatingText(text,x,y,color='#fff'){popups.push({text,x,y,life:54,color});}
 function burst(x,y,n=12){for(let i=0;i<n;i++){let a=Math.random()*TAU,s=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:26+Math.random()*16,size:1.5+Math.random()*3,color:Math.random()<.45?"#94bfa7":"#e9a6b0",shard:false,glint:i%3===0})}}function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle=backdropPaint.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.haze;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.cool;ctx.fillRect(0,0,W,H);// central cylinder, pale and visually behind platforms
-let shaftW=innerR*2*scale;ctx.fillStyle=backdropPaint.shaft;ctx.fillRect(centerX-shaftW/2,0,shaftW,H);ctx.fillStyle='#cfcdc5';ctx.fillRect(centerX-shaftW/2,0,shaftW*.085,H);ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(centerX-shaftW*.20,0,shaftW*.17,H);ctx.fillStyle='rgba(110,105,96,.06)';ctx.fillRect(centerX+shaftW*.31,0,shaftW*.19,H);
 // Stable viewport culling: retain each disk until its entire projected silhouette is outside the screen.
 // A generous margin prevents a disk from popping in/out while the camera follows a bounce.
 let margin=Math.max(190*scale,110);
 let visible=platforms.filter(p=>{let y=project(0,0,p.y).y;return y>-margin&&y<H+margin});
 // Draw distant/lower disks first, then nearby/upper disks for consistent layering.
 visible.sort((a,b)=>b.y-a.y);
-for(let p of visible){if(p.broken)continue;renderRing(p)}
+for(let p of visible){if(p.broken)continue;renderRing(p,false)}
+let shaftW=innerR*2*scale;ctx.fillStyle=backdropPaint.shaft;ctx.fillRect(centerX-shaftW/2,0,shaftW,H);ctx.fillStyle='#cfcdc5';ctx.fillRect(centerX-shaftW/2,0,shaftW*.085,H);ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(centerX-shaftW*.20,0,shaftW*.17,H);ctx.fillStyle='rgba(110,105,96,.06)';ctx.fillRect(centerX+shaftW*.31,0,shaftW*.19,H);
+for(let p of visible){if(p.broken)continue;renderRing(p,true)}
 renderBreakFx();
 // Landing marker: a soft shadow indicates the next platform directly below the ball.
 if(alive){let landing=platforms.find(p=>!p.passed&&p.y>ballY+contactRadius&&p.y-ballY<spacing*1.6);if(landing&&!inGap(landing)){let pt=project(ballX,ballZ,landing.y-2),distance=Math.max(0,landing.y-ballY);ctx.save();ctx.globalAlpha=.24*Math.max(.2,1-distance/(spacing*1.6));ctx.fillStyle="#22343b";ctx.beginPath();ctx.ellipse(pt.x,pt.y,17*scale,5*scale,0,0,TAU);ctx.fill();ctx.restore()}}
