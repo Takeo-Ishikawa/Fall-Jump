@@ -9,7 +9,7 @@ function game(){
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(){return null},setItem(){}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
@@ -121,4 +121,30 @@ test('pausa congela as patrulhas; retomada move e reinício recria os inimigos',
  g.pause();steps(g,100);assert.deepEqual(g.enemies().map(e=>e.angle),initial);
  g.resume();g.step();assert.notDeepEqual(g.enemies().map(e=>e.angle),initial);
  g.start();assert.deepEqual(g.enemies().map(e=>e.angle),initial);
+});
+
+test('três pisões distintos derrotam o inimigo; todos os acertos fazem quicar',()=>{
+ const g=game();g.putEnemy();const e=g.enemies()[0];
+ for(let hit=1;hit<=3;hit++){
+  g.approachEnemy(-5,10);g.step();assert.equal(e.hp,3-hit);
+  assert.ok(g.state().vy<0);assert.equal(g.state().mode,'playing');assert.equal(g.state().grounded,undefined);
+  assert.equal(e.defeated,hit===3);steps(g,6);assert.equal(e.hp,3-hit,'um contato não pode contar duas vezes');
+ }
+ const stopped=e.angle;g.stepEnemies();assert.equal(e.angle,stopped);
+ g.approachEnemy(10,0);assert.equal(g.collides(),false,'inimigo derrotado não machuca');
+});
+test('contato na subida ou de lado não conta como pisão',()=>{
+ const g=game();g.putEnemy();g.approachEnemy(15,-2);g.step();
+ assert.equal(g.enemies()[0].hp,3);assert.equal(g.state().mode,'gameover');
+ const side=game();side.putEnemy();side.step();assert.equal(side.enemies()[0].hp,3);assert.equal(side.state().mode,'gameover');
+});
+test('queda rápida atravessando a cabeça conta como pisão, inclusive com Fever',()=>{
+ const g=game();g.putEnemy();g.fever();g.approachEnemy(-1,14);g.step();
+ assert.equal(g.enemies()[0].hp,2);assert.ok(g.state().vy<0);assert.equal(g.state().mode,'playing');
+ assert.equal(g.state().passed,0,'pisão não conclui a plataforma nem concede seu bônus');
+});
+test('pausa preserva dano e reação do inimigo; reinício restaura três acertos',()=>{
+ const g=game();g.putEnemy();g.approachEnemy(-5,10);g.step();const e=g.enemies()[0];
+ g.pause();const flash=e.hitFlash;steps(g,100);assert.equal(e.hp,2);assert.equal(e.hitFlash,flash);
+ g.start();assert.ok(g.enemies().every(enemy=>enemy.hp===3&&!enemy.defeated));
 });
