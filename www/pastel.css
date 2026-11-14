@@ -149,3 +149,22 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 #attack:disabled {opacity:.55;cursor:default}
 #attack:focus-visible {outline:3px solid #547e8c;outline-offset:3px}
 #attack:active {transform:scale(.96)}
+
+#healthHud {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px;font-size:9px;color:#47735b;margin:8px 0 10px}
+#healthAmount {font-size:10px;font-weight:650;font-variant-numeric:tabular-nums}
+#healthTrack {width:100%;height:5px;border-radius:8px;background:#e1e8dd;overflow:hidden}
+#healthFill {height:100%;width:100%;background:var(--fj-sage);transition:width .15s}
+#equipmentHero {display:flex;flex-direction:column;align-items:center;padding:10px 0 18px;border-bottom:1px solid var(--fj-line)}
+#equipmentPreview {width:150px;height:150px;touch-action:pan-y}
+#equipmentCharacterName {font-size:16px;color:var(--fj-ink);font-weight:650}
+#panel #equipmentStatus {font-size:12px;margin:5px 0 0}
+#inventoryTitle {font-size:14px;text-align:left;margin:20px 0 10px;color:var(--fj-ink)}
+#equipmentInventory {display:grid;grid-template-columns:1fr}
+#equipmentCard {margin:0;padding:16px;text-align:left;display:grid;grid-template-columns:54px 1fr;gap:8px 12px}
+#swordPortrait {grid-row:1 / 3;font-size:36px;align-self:center}
+#equipmentCard h3 {font-size:16px;margin:0}
+#panel #equipmentCard p {font-size:12px;margin:0;line-height:1.5}
+#panel #equipSword {grid-column:1 / -1;min-height:44px;margin-top:5px}
+@media(max-height:650px){#equipmentPreview{width:110px;height:110px}#equipmentHero{padding:0 0 12px}#inventoryTitle{margin-top:14px}}
+@media(prefers-reduced-motion:reduce){#healthFill{transition:none}}
+@media(max-width:360px){#hud{width:132px;padding:10px}#bestHud,#walletHud{font-size:8px}}

@@ -9,7 +9,7 @@ function game(storage=new Map()){
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(key){return storage.get(key)??null},setItem(key,value){storage.set(key,value)}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
@@ -106,8 +106,8 @@ test('inimigo inverte a direção nas extremidades sem sair do trecho',()=>{
  for(let i=0;i<1000;i++){g.stepEnemies();assert.ok(e.angle>=e.min&&e.angle<=e.max);directions.add(e.direction);}
  assert.equal(directions.size,2);
 });
-test('contato com inimigo causa derrota mesmo durante Fever',()=>{
- for(const powered of [false,true]){const g=game();g.putEnemy();if(powered)g.fever();g.step();assert.equal(g.state().mode,'gameover');}
+test('contato com inimigo tira cinco pontos mesmo durante Fever',()=>{
+ for(const powered of [false,true]){const g=game();g.putEnemy();if(powered)g.fever();g.step();assert.equal(g.state().health,95);assert.equal(g.state().mode,'playing');g.step();assert.equal(g.state().health,95);}
 });
 test('salto suficientemente alto passa por cima; inimigos de plataformas removidas não colidem',()=>{
  const g=game();tap(g,100);tap(g,230);steps(g,12);g.putEnemy();
@@ -135,8 +135,8 @@ test('três pisões distintos derrotam o inimigo; todos os acertos fazem quicar'
 });
 test('contato na subida ou de lado não conta como pisão',()=>{
  const g=game();g.putEnemy();g.approachEnemy(15,-2);g.step();
- assert.equal(g.enemies()[0].hp,3);assert.equal(g.state().mode,'gameover');
- const side=game();side.putEnemy();side.step();assert.equal(side.enemies()[0].hp,3);assert.equal(side.state().mode,'gameover');
+ assert.equal(g.enemies()[0].hp,3);assert.equal(g.state().health,95);assert.equal(g.state().mode,'playing');
+ const side=game();side.putEnemy();side.step();assert.equal(side.enemies()[0].hp,3);assert.equal(side.state().health,95);assert.equal(side.state().mode,'playing');
 });
 test('queda rápida atravessando a cabeça conta como pisão, inclusive com Fever',()=>{
  const g=game();g.putEnemy();g.fever();g.approachEnemy(-1,14);g.step();
@@ -183,4 +183,15 @@ test('golpe segue última direção do arraste e pausa congela recarga',()=>{
  const g=game();g.equip();g.move({clientX:160,pointerId:1});assert.equal(g.state().facing,-1);
  g.putEnemy(-.35);g.enemies()[0].speed=0;g.attack();assert.equal(g.enemies()[0].hp,2);g.pause();const cooldown=g.state().attackCooldown;steps(g,50);assert.equal(g.state().attackCooldown,cooldown);
  g.resume();steps(g,24);assert.equal(g.state().attackCooldown,0);
+});
+
+test('vida começa em 100, dano tem proteção de um segundo e pausa congela a proteção',()=>{
+ const g=game();assert.equal(g.state().health,100);g.hurt();assert.equal(g.state().health,95);g.hurt();assert.equal(g.state().health,95);
+ steps(g,59);g.hurt();assert.equal(g.state().health,95);g.pause();const cooldown=g.state().hurtFrames;steps(g,100);assert.equal(g.state().hurtFrames,cooldown);
+ g.resume();g.step();g.hurt();assert.equal(g.state().health,90);
+});
+test('vida acompanha a próxima fase, volta a 100 em nova tentativa e zero causa derrota',()=>{
+ const g=game();g.hurt();g.next();assert.equal(g.state().health,95);g.start();assert.equal(g.state().health,100);
+ for(let i=0;i<20;i++){g.hurt();if(i<19)steps(g,60);}
+ assert.equal(g.state().health,0);assert.equal(g.state().mode,'gameover');g.start();assert.equal(g.state().health,100);
 });

@@ -107,3 +107,10 @@ test('curva de dificuldade preserva o ciclo de desafio e respiro',()=>{
   assert.ok(intensities[4]<intensities[3]);
  }
 });
+
+ test('aberturas menores mantêm largura entre 0,65 e 1,20 radianos',()=>{
+  const generator=require('../www/level-generator.js');
+  for(let level=1;level<=30;level++)for(const p of generator.generateLevel(level,12345+level).platforms){
+   assert.ok(p.gap>=.65&&p.gap<=1.20);
+  }
+ });

@@ -112,11 +112,11 @@
 
         const angle = i === 0 ? 1.3 : signedAngle(lastAngle + change);
         lastAngle = angle;
-        const minGap = level === 1 ? 1.15 : 0.80;
-        let gap = 1.23 + rng() * 0.23 - intensity * 0.16;
-        if (pattern === 'precision' && level >= 3) gap -= 0.12;
-        if (pattern === 'rest' || pattern === 'plunge') gap += 0.14;
-        gap = clamp(gap, minGap, 1.56);
+        const minGap = level === 1 ? 0.90 : 0.65;
+        let gap = 0.92 + rng() * 0.17 - intensity * 0.12;
+        if (pattern === 'precision' && level >= 3) gap -= 0.09;
+        if (pattern === 'rest' || pattern === 'plunge') gap += 0.10;
+        gap = clamp(gap, minGap, 1.20);
 
         let special = null;
         if (i >= 2 && i < count - 1 && i - lastSpecial >= 3) {
@@ -189,7 +189,7 @@
     for (let i = 0; i < plan.platforms.length; i++) {
       const p = plan.platforms[i];
       if (!Number.isFinite(p.angle) || !Number.isFinite(p.gap) ||
-          p.gap < 0.80 || p.gap > 1.56 || p.y !== i * SPACING ||
+          p.gap < 0.65 || p.gap > 1.20 || p.y !== i * SPACING ||
           p.danger < 0 || p.danger > 0.65) return false;
       if (i < 3 && p.danger !== 0) return false;
       if (i && p.danger && plan.platforms[i - 1].danger) return false;
@@ -203,7 +203,7 @@
     const plan = buildCandidate(level, seed, true);
     plan.platforms.forEach((p, i) => {
       p.angle = signedAngle(1.3 + i * 0.11);
-      p.gap = 1.42;
+      p.gap = 1.06;
       p.danger = 0;
       p.special = null;
     });
