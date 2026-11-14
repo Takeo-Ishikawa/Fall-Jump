@@ -1,15 +1,15 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-function game(){
+function game(storage=new Map()){
  const html=fs.readFileSync(path.join(__dirname,'../www/index.html'),'utf8');
  const source=[...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)].find(m=>!m[1])[2];
  const nodes=new Map(),gradient={addColorStop(){}};
  const ctx=new Proxy({}, {get:(_,k)=>k.startsWith('create')?()=>gradient:()=>{},set:()=>true});
  const node=id=>{if(!nodes.has(id))nodes.set(id,{style:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},addEventListener(){},setPointerCapture(){},getContext:()=>ctx});return nodes.get(id)};
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
- const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(){return null},setItem(){}},requestAnimationFrame(){},URLSearchParams,console};
+ const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(key){return storage.get(key)??null},setItem(key,value){storage.set(key,value)}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
@@ -156,4 +156,31 @@ test('arraste move o personagem e a câmera acompanha pelo caminho curto sem gir
  assert.equal(g.state().rotation,0);assert.deepEqual(g.platforms().map(p=>p.angle),angles);
  g.position(.03);g.camera(Math.PI*2-.03);g.step();assert.ok(g.state().camera>Math.PI*2-.03);
  steps(g,80);assert.ok(Math.abs(g.state().camera-.03)<.001);
+});
+
+test('equipamento pode ser equipado, retirado e restaurado entre sessões',()=>{
+ const storage=new Map(),g=game(storage);assert.equal(g.state().equippedSword,false);g.equipment();
+ assert.equal(g.ui('#equipmentSection').hidden,false);assert.equal(g.ui('#panelBack').style.display,'block');assert.equal(g.ui('#restart').style.display,'none');
+ g.equip();assert.equal(g.state().equippedSword,true);assert.equal(game(storage).state().equippedSword,true);
+ g.equip();assert.equal(game(storage).state().equippedSword,false);
+ assert.equal(game(new Map([['fall-jump-equipment-v1','invalid']])).state().equippedSword,false);
+});
+test('espada só ataca equipada em partida e botão some nos menus',()=>{
+ const g=game();assert.equal(g.attack(),false);g.equip();assert.equal(g.ui('#attack').style.display,'block');
+ g.pause();assert.equal(g.ui('#attack').style.display,'none');assert.equal(g.attack(),false);
+ g.resume();assert.equal(g.ui('#attack').style.display,'block');g.equip();assert.equal(g.ui('#attack').style.display,'none');
+});
+test('golpe atinge apenas à frente, respeita alcance e intervalo e derrota com três acertos',()=>{
+ const g=game();g.equip();g.putEnemy(.35);const e=g.enemies()[0];e.speed=0;
+ for(let hit=1;hit<=3;hit++){
+  assert.equal(g.attack(),true);assert.equal(e.hp,3-hit);assert.equal(g.attack(),false);assert.equal(e.hp,3-hit);steps(g,24);
+ }
+ assert.equal(e.defeated,true);
+ const far=game();far.equip();far.putEnemy(.8);far.attack();assert.equal(far.enemies()[0].hp,3);
+ const behind=game();behind.equip();behind.putEnemy(-.35);behind.attack();assert.equal(behind.enemies()[0].hp,3);
+});
+test('golpe segue última direção do arraste e pausa congela recarga',()=>{
+ const g=game();g.equip();g.move({clientX:160,pointerId:1});assert.equal(g.state().facing,-1);
+ g.putEnemy(-.35);g.enemies()[0].speed=0;g.attack();assert.equal(g.enemies()[0].hp,2);g.pause();const cooldown=g.state().attackCooldown;steps(g,50);assert.equal(g.state().attackCooldown,cooldown);
+ g.resume();steps(g,24);assert.equal(g.state().attackCooldown,0);
 });

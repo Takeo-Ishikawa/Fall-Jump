@@ -230,9 +230,11 @@
  <button id="goalsDailyTab" type="button" role="tab" aria-selected="true">Diárias</button>
  <button id="goalsAchievementTab" type="button" role="tab" aria-selected="false">Conquistas</button>
 </div><div id="goalsDailyGroup" role="tabpanel"><h3>Missões diárias</h3><div id="goalsDay"></div><div id="goalsCountdown" role="timer">Renovação em --:--:--</div><div class="goalsList" id="dailyGoals"><div class="goalRow" id="daily-row-0"><div class="goalTop"><span class="goalName" id="daily-name-0"></span><span class="goalReward" id="daily-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-0"></div></div><div class="goalMeta"><span id="daily-progress-0"></span><span id="daily-status-0"></span></div><button type="button" class="claimReward" id="daily-claim-0" disabled>Em andamento</button></div><div class="goalRow" id="daily-row-1"><div class="goalTop"><span class="goalName" id="daily-name-1"></span><span class="goalReward" id="daily-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-1"></div></div><div class="goalMeta"><span id="daily-progress-1"></span><span id="daily-status-1"></span></div><button type="button" class="claimReward" id="daily-claim-1" disabled>Em andamento</button></div><div class="goalRow" id="daily-row-2"><div class="goalTop"><span class="goalName" id="daily-name-2"></span><span class="goalReward" id="daily-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-2"></div></div><div class="goalMeta"><span id="daily-progress-2"></span><span id="daily-status-2"></span></div><button type="button" class="claimReward" id="daily-claim-2" disabled>Em andamento</button></div></div></div><div id="goalsAchievementGroup" role="tabpanel" hidden><h3>Conquistas permanentes</h3><div class="goalsList" id="achievementGoals"><div class="goalRow" id="ach-row-0"><div class="goalTop"><span class="goalName" id="ach-name-0"></span><span class="goalReward" id="ach-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-0"></div></div><div class="goalMeta"><span id="ach-progress-0"></span><span id="ach-status-0"></span></div><button type="button" class="claimReward" id="ach-claim-0" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-1"><div class="goalTop"><span class="goalName" id="ach-name-1"></span><span class="goalReward" id="ach-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-1"></div></div><div class="goalMeta"><span id="ach-progress-1"></span><span id="ach-status-1"></span></div><button type="button" class="claimReward" id="ach-claim-1" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-2"><div class="goalTop"><span class="goalName" id="ach-name-2"></span><span class="goalReward" id="ach-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-2"></div></div><div class="goalMeta"><span id="ach-progress-2"></span><span id="ach-status-2"></span></div><button type="button" class="claimReward" id="ach-claim-2" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-3"><div class="goalTop"><span class="goalName" id="ach-name-3"></span><span class="goalReward" id="ach-reward-3"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-3"></div></div><div class="goalMeta"><span id="ach-progress-3"></span><span id="ach-status-3"></span></div><button type="button" class="claimReward" id="ach-claim-3" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-4"><div class="goalTop"><span class="goalName" id="ach-name-4"></span><span class="goalReward" id="ach-reward-4"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-4"></div></div><div class="goalMeta"><span id="ach-progress-4"></span><span id="ach-status-4"></span></div><button type="button" class="claimReward" id="ach-claim-4" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-5"><div class="goalTop"><span class="goalName" id="ach-name-5"></span><span class="goalReward" id="ach-reward-5"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-5"></div></div><div class="goalMeta"><span id="ach-progress-5"></span><span id="ach-status-5"></span></div><button type="button" class="claimReward" id="ach-claim-5" disabled>Em andamento</button></div></div></div></div>
-<button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
-<button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
-<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
+<div id="equipmentSection" hidden>
+ <div id="equipmentCard"><span id="swordPortrait" aria-hidden="true">⚔</span><h3>Espada</h3><p>Uma espada leve para atacar à sua frente. Cada golpe tira um ponto de vida dos inimigos próximos.</p><p id="equipmentStatus" role="status"></p><button id="equipSword" type="button">Equipar espada</button></div>
+</div><button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
+<button id="equipmentButton" class="secondary" style="display:none">Equipamentos</button><button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
+<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><button id="attack" type="button" aria-label="Golpear com a espada" style="display:none">Golpear</button><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0,phaseCoins=0,phaseBestCombo=0;const comboBadge=document.querySelector("#comboBadge");
 const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalsCountdown=document.querySelector('#goalsCountdown'),goalToast=document.querySelector('#goalToast'),goalsOverview=document.querySelector('#goalsOverview'),goalsDailyTab=document.querySelector('#goalsDailyTab'),goalsAchievementTab=document.querySelector('#goalsAchievementTab'),goalsDailyGroup=document.querySelector('#goalsDailyGroup'),goalsAchievementGroup=document.querySelector('#goalsAchievementGroup'),goalCelebration=document.querySelector('#goalCelebration'),rewardMedalTitle=document.querySelector('#rewardMedalTitle'),rewardMedalName=document.querySelector('#rewardMedalName'),rewardMedalAmount=document.querySelector('#rewardMedalAmount');
 let goalToastFrames=0,celebrationFrames=0,goalsTab='daily';
@@ -378,6 +380,40 @@ try{best=Math.max(0,Number(localStorage.getItem(storageKey))||0)}catch(e){}
 const bestEl=document.querySelector('#bestScore'),stats=document.querySelector('#stats'),legendEl=document.querySelector('#legend'),restartBtn=document.querySelector('#restart'),menuBtn=document.querySelector('#menuButton'),pauseBtn=document.querySelector('#pause'),
 helpBtn=document.querySelector('#help'),panelBack=document.querySelector('#panelBack'),menuInstructions=document.querySelector('#menuInstructions'),pauseInstructions=document.querySelector('#pauseInstructions'),
 resultSummary=document.querySelector('#resultSummary'),resultPlatforms=document.querySelector('#resultPlatforms'),resultCombo=document.querySelector('#resultCombo'),resultCoins=document.querySelector('#resultCoins');
+const equipmentButton=document.querySelector('#equipmentButton'),equipmentSection=document.querySelector('#equipmentSection'),equipSwordButton=document.querySelector('#equipSword'),equipmentStatus=document.querySelector('#equipmentStatus'),attackButton=document.querySelector('#attack');
+const equipmentKey='fall-jump-equipment-v1';
+let equippedSword=false,facing=1,attackFacing=1,attackCooldown=0,attackFrames=0;
+try{equippedSword=JSON.parse(localStorage.getItem(equipmentKey))?.weapon==='sword';}catch(e){}
+function refreshEquipment(){
+ equipmentStatus.textContent=equippedSword?'Espada equipada':'Nenhuma arma equipada';
+ equipSwordButton.textContent=equippedSword?'Retirar espada':'Equipar espada';
+ equipSwordButton.setAttribute('aria-pressed',String(equippedSword));
+ attackButton.style.display=equippedSword&&mode==='playing'?'block':'none';
+ attackButton.disabled=attackCooldown>0;
+ hint.style.bottom=equippedSword?'calc(88px + env(safe-area-inset-bottom))':'';
+}
+function toggleSword(){
+ equippedSword=!equippedSword;
+ try{localStorage.setItem(equipmentKey,JSON.stringify({weapon:equippedSword?'sword':null}));}catch(e){}
+ refreshEquipment();
+}
+function openEquipment(){
+ mode='equipment';alive=false;started=false;pauseBtn.style.display='none';
+ showPanel('Equipamentos','Escolha o que seu personagem leva para a partida.','Voltar ao menu');
+ refreshEquipment();
+}
+function swordAttack(){
+ if(!equippedSword||mode!=='playing'||!alive||attackCooldown>0)return false;
+ cancelGesture();initAudio();started=true;hint.style.opacity='0';
+ attackCooldown=24;attackFrames=12;attackFacing=facing;
+ tone(340,.10,'triangle',.035,-160);
+ for(const e of enemies){
+  const p=e.platform;if(e.defeated||p.passed||p.broken)continue;
+  const delta=norm(rotation+p.angle+e.angle-walkAngle+Math.PI)-Math.PI;
+  if(delta*facing>=0&&delta*facing<=.48&&Math.abs(ballY-(p.y-enemyHeight))<contactRadius+enemyHeight){damageEnemy(e);}
+ }
+ refreshEquipment();return true;
+}
 refreshWallet();
 function refreshBest(){bestEl.textContent=best.toLocaleString('pt-BR')}
 function saveBest(){if(totalScore>best){best=totalScore;try{localStorage.setItem(storageKey,String(best))}catch(e){}refreshBest()}}
@@ -386,16 +422,19 @@ function showPanel(title,body,action,secondary=false){
  overlay.setAttribute('data-screen',mode);
  message.textContent=title;details.textContent=body;restartBtn.textContent=action;
  // Telas secundárias têm um único retorno no topo; sem botão duplicado ao fim da lista.
- const secondaryScreen=mode==='shop'||mode==='goals'||mode==='menu-help';
+ const secondaryScreen=mode==='shop'||mode==='goals'||mode==='menu-help'||mode==='equipment';
  restartBtn.style.display=secondaryScreen?'none':'block';
  stats.style.display=secondaryScreen?'none':'block';
  menuBtn.style.display=secondary?'block':'none';
  menuBtn.textContent=mode==='confirm-exit'?'Sair da partida':mode==='paused'||mode==='help'?'Sair da partida':'Menu inicial';
  skinsButton.style.display=mode==='menu'?'block':'none';
  goalsButton.style.display=mode==='menu'?'block':'none';
+ equipmentButton.style.display=mode==='menu'?'block':'none';
+ equipmentSection.hidden=mode!=='equipment';
+ attackButton.style.display='none';
  menuInstructions.style.display=mode==='menu'?'block':'none';
  pauseInstructions.style.display=mode==='paused'?'block':'none';
- panelBack.style.display=mode==='shop'||mode==='goals'||mode==='menu-help'?'block':'none';
+ panelBack.style.display=mode==='shop'||mode==='goals'||mode==='menu-help'||mode==='equipment'?'block':'none';
  helpBtn.style.display='none';
  shopSection.hidden=mode!=='shop';
  goalsSection.hidden=mode!=='goals';
@@ -463,7 +502,7 @@ function buildLevel(n){
   refreshFeverHud();
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
-  cancelGesture();jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Arraste para caminhar · dois toques para saltar'
+  cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Arraste para caminhar · dois toques para saltar'
 }function reset(){level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function viewDepth(x,z){return x*Math.sin(cameraAngle)+z*Math.cos(cameraAngle)}function project(x,z,y){const viewX=x*Math.cos(cameraAngle)-z*Math.sin(cameraAngle);z=viewDepth(x,z);x=viewX;let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
 const platformPaint={
  normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
@@ -581,13 +620,25 @@ function drawCharacter(x,y){
  ctx.beginPath();ctx.ellipse(0,r*.1,r*.62,r*.43,0,0,TAU);ctx.fill();
  ctx.fillStyle='#39434a';
  for(const side of [-1,1]){
-  ctx.beginPath();ctx.ellipse(side*r*.25,-r*.015,r*.085,r*(lift<-.6?.17:.13),0,0,TAU);ctx.fill();
+  ctx.beginPath();ctx.ellipse(side*r*.25+facing*r*.06,-r*.015,r*.085,r*(lift<-.6?.17:.13),0,0,TAU);ctx.fill();
  }
  ctx.strokeStyle='#39434a';ctx.lineWidth=Math.max(1,r*.075);ctx.lineCap='round';
  ctx.beginPath();ctx.moveTo(-r*.14,r*.2);ctx.quadraticCurveTo(0,r*.36,r*.14,r*.2);ctx.stroke();
  ctx.fillStyle='#e9a6b0';ctx.globalAlpha=.65;
  for(const side of [-1,1]){
   ctx.beginPath();ctx.ellipse(side*r*.43,r*.16,r*.095,r*.055,0,0,TAU);ctx.fill();
+ }
+ if(equippedSword){
+  ctx.save();ctx.globalAlpha=1;
+  const side=(attackFrames>0?attackFacing:facing)*(Math.cos(walkAngle-cameraAngle)>=0?1:-1);
+  ctx.translate(side*r*.8,r*.12);ctx.scale(side,1);
+  const swing=attackFrames>0?1-attackFrames/12:0;
+  ctx.rotate(attackFrames>0?-.9+swing*1.8:-.6);
+  ctx.strokeStyle='#647e88';ctx.lineWidth=3*scale;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(r*1.4,0);ctx.stroke();
+  ctx.strokeStyle='#d7e8eb';ctx.lineWidth=1.5*scale;ctx.beginPath();ctx.moveTo(r*.3,-scale);ctx.lineTo(r*1.4,-scale);ctx.stroke();
+  ctx.strokeStyle='#b29554';ctx.lineWidth=2*scale;ctx.beginPath();ctx.moveTo(r*.25,-r*.24);ctx.lineTo(r*.25,r*.24);ctx.stroke();
+  if(attackFrames>0){ctx.strokeStyle='#d6c5e5aa';ctx.lineWidth=3*scale;ctx.beginPath();ctx.arc(0,0,r*1.8,-.6,.6);ctx.stroke();}
+  ctx.restore();
  }
  ctx.restore();
 }
@@ -629,6 +680,14 @@ function enemyCollision(){
 }
 // Sweep the feet across the head plane during descent, before platform landing.
 // Upward and side contacts are not stomps; the rebound prevents duplicate hits.
+function damageEnemy(e){
+ if(e.defeated)return;
+ e.hp--;e.hitFlash=12;e.defeated=e.hp===0;
+ const angle=rotation+e.platform.angle+e.angle;
+ const pt=project(Math.sin(angle)*walkRadius,Math.cos(angle)*walkRadius,e.platform.y-2*enemyHeight);
+ burst(pt.x,pt.y,e.defeated?12:5);tone(e.defeated?700:430,.12,'triangle',.045,160);
+ if(e.defeated)floatingText('DERROTADO!',pt.x,pt.y-20*scale,'#665573');
+}
 function resolveEnemyStomp(previousY){
  if(vy<=0)return false;
  for(const e of enemies){
@@ -638,12 +697,8 @@ function resolveEnemyStomp(previousY){
   if(Math.hypot(ballX-x,ballZ-z)>=radius+enemyRadius-2)continue;
   const headY=p.y-2*enemyHeight;
   if(previousY+contactRadius>headY+.001||ballY+contactRadius<headY)continue;
-  e.hp--;e.hitFlash=12;e.defeated=e.hp===0;
+  damageEnemy(e);
   ballY=headY-contactRadius;vy=-7.6;grounded=null;jumping=true;squash=.25;
-  const pt=project(x,z,headY);
-  burst(pt.x,pt.y,e.defeated?12:5);
-  tone(e.defeated?700:430,.12,'triangle',.045,160);
-  if(e.defeated)floatingText('DERROTADO!',pt.x,pt.y-20*scale,'#665573');
   return true;
  }
  return false;
@@ -747,7 +802,7 @@ function completePlatform(p,cause='gap'){
  burst(project(ballX,ballZ,ballY).x,project(ballX,ballZ,ballY).y,powered?13:combo>=3?12:6);
  if(levelPassed>=levelTarget){flash=9;end(true)}
 }
-function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();const orbitDelta=norm(walkAngle-cameraAngle+Math.PI)-Math.PI;
+function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){if(attackCooldown>0){attackCooldown--;if(attackCooldown===0)refreshEquipment();}if(attackFrames>0)attackFrames--;updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();const orbitDelta=norm(walkAngle-cameraAngle+Math.PI)-Math.PI;
  cameraAngle=norm(cameraAngle+orbitDelta*.14);
 if(grounded&&enemyCollision())end(false,'enemy');
 if(grounded&&alive){
@@ -832,6 +887,7 @@ function move(e){
   tapCandidate.moved=true;lastTap=null;
  }
  const delta=e.clientX-lastX;lastX=e.clientX;
+ if(delta!==0)facing=delta>0?1:-1;
  walkAngle=norm(walkAngle+delta*.012);
  ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;
  if(grounded)walkPhase+=Math.abs(delta)*.025;
@@ -854,13 +910,13 @@ function startGame(next=false,retry=false){
  else reset();
  mode='playing';alive=true;started=false;drag=false;overlay.style.display='none';resultSummary.hidden=true;
  pauseBtn.style.display='block';helpBtn.style.display='block';
- hint.style.opacity='1';refreshBest();
+ hint.style.opacity='1';refreshBest();refreshEquipment();
 }
 function resumeGame(){
  resetFrameClock();
  mode='playing';alive=true;drag=false;overlay.style.display='none';
  pauseBtn.style.display='block';helpBtn.style.display='block';
- hint.style.opacity=started?'0':'1';
+ hint.style.opacity=started?'0':'1';refreshEquipment();
 }
 function askLeave(){
  drag=false;mode='confirm-exit';
@@ -868,7 +924,7 @@ function askLeave(){
 }
 function openGameHelp(){
  drag=false;mode='help';pauseBtn.style.display='none';
- showPanel('Como jogar','Arraste para a esquerda ou direita para caminhar ao redor da plataforma. A câmera acompanha o personagem. Dê dois toques rápidos no cenário para saltar. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. Contato de lado é perigoso, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
+ showPanel('Como jogar','Arraste para a esquerda ou direita para caminhar ao redor da plataforma. A câmera acompanha o personagem. Dê dois toques rápidos no cenário para saltar. Com a espada equipada, use Golpear para atacar na última direção em que caminhou. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. Contato de lado é perigoso, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
 }
 function openMenuHelp(){
  mode='menu-help';
@@ -877,7 +933,7 @@ function openMenuHelp(){
 restartBtn.onclick=()=>{
  initAudio();
  if(mode==='confirm-exit'){resumeGame();return}
- if(mode==='shop'||mode==='goals'||mode==='menu-help'){menu();return}
+ if(mode==='shop'||mode==='goals'||mode==='menu-help'||mode==='equipment'){menu();return}
  if(mode==='paused'||mode==='help'){resumeGame();return}
  if(mode==='leveldone')startGame(true);else if(mode==='gameover')startGame(false,true);else startGame(false);
 };
@@ -891,6 +947,7 @@ menuInstructions.onclick=()=>openMenuHelp();
 pauseInstructions.onclick=()=>openGameHelp();
 skinsButton.onclick=()=>openShop();
 goalsButton.onclick=()=>openGoals();
+equipmentButton.onclick=openEquipment;equipSwordButton.onclick=toggleSword;attackButton.onclick=swordAttack;
 pauseBtn.onclick=()=>{
  if(mode!=='playing')return;
  drag=false;mode='paused';pauseBtn.style.display='none';

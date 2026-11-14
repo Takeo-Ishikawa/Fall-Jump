@@ -60,6 +60,11 @@ Inimigos roxos patrulham trechos seguros de algumas plataformas, a partir da qua
 
 Os níveis existentes continuam disponíveis. A simulação do gerador verifica uma rota de queda livre; o equilíbrio da nova caminhada ainda precisa de avaliação em aparelho Android.
 
+## Equipamentos e espada
+No menu, abra **Equipamentos** para equipar ou retirar a espada gratuita. A escolha fica salva localmente, separada das aparências. Com a espada equipada, o personagem a carrega e o botão **Golpear** aparece durante a partida.
+
+Cada golpe atinge inimigos próximos na última direção em que o personagem caminhou e remove um ponto de vida. Há um intervalo curto de 0,4 segundo entre ataques. Três golpes derrotam os inimigos atuais; golpes e pisões também podem ser combinados. A pausa congela a recarga. Sem espada equipada, o botão fica oculto.
+
 ## Desenvolvimento
 Cada alteração em `www/`, `package.json` ou no workflow dispara uma nova compilação (depois que os secrets forem configurados). Para compilar apenas quando desejar, também há o botão manual **Run workflow**.
 
