@@ -1,0 +1,173 @@
+name: Compilar APK direto
+on:
+  workflow_dispatch:
+    inputs:
+      version_code:
+        description: "versionCode: informe um inteiro maior que o da versao instalada"
+        required: true
+        type: number
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-apk-direct-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Obter arquivos
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validar gerador e sintaxe JavaScript
+        run: |
+          node --check www/level-generator.js
+          node --check www/fever.js
+          node --check www/skins.js
+          node --check www/goals.js
+          npm test
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Preparar Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+
+      - name: Instalar dependencias
+        run: npm install --no-audit --no-fund
+
+      - name: Gerar projeto Android
+        run: |
+          npx cap add android
+          npx cap sync android
+
+      - name: Preparar icones e orientacao do Android
+        shell: bash
+        run: |
+          python3 -m venv .ci-icon-venv
+          .ci-icon-venv/bin/python -m pip install --disable-pip-version-check --quiet 'Pillow>=11,<13'
+          .ci-icon-venv/bin/python scripts/generate_android_icons.py
+
+      - name: Verificar assinatura permanente
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [[ -z "${!name}" ]]; then
+              echo "::error::Configure os 4 secrets ANDROID_* em Settings > Secrets and variables > Actions antes de compilar."
+              exit 1
+            fi
+          done
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/fall-jump-signing.jks"
+          chmod 600 "$RUNNER_TEMP/fall-jump-signing.jks"
+          keytool -list -keystore "$RUNNER_TEMP/fall-jump-signing.jks" -storepass "$KEYSTORE_PASSWORD" -alias "$KEY_ALIAS" >/dev/null
+
+      - name: Configurar versao e assinatura no Gradle
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/fall-jump-signing.jks
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          VERSION_CODE: ${{ inputs.version_code }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, re
+          path = pathlib.Path('android/app/build.gradle')
+          source = path.read_text()
+          code = int(os.environ["VERSION_CODE"])
+          if not 1 <= code <= 2100000000:
+              raise RuntimeError("versionCode fora do limite")
+          source, n = re.subn(r'(?m)^(\s*)versionCode\s+\d+', lambda m: m.group(1)+f'versionCode {code}', source, count=1)
+          if n != 1:
+              raise RuntimeError("versionCode nao encontrado")
+          source, n = re.subn(r'(?m)^(\s*)versionName\s+["\'][^"\']+["\']', lambda m: m.group(1)+f'versionName "1.7.1.{code}"', source, count=1)
+          if n != 1:
+              raise RuntimeError("versionName nao encontrado")
+          signing = """
+              signingConfigs {
+                  permanentRelease {
+                      storeFile file(System.getenv("KEYSTORE_FILE"))
+                      storePassword System.getenv("KEYSTORE_PASSWORD")
+                      keyAlias System.getenv("KEY_ALIAS")
+                      keyPassword System.getenv("KEY_PASSWORD")
+                  }
+              }
+          """
+          source, n = re.subn(r'(?m)^\s*buildTypes\s*\{', lambda m: signing + '\n    buildTypes {', source, count=1)
+          if n != 1:
+              raise RuntimeError("buildTypes nao encontrado")
+          source, n = re.subn(r'(?m)^(\s*)release\s*\{', lambda m: m.group(0)+'\n'+m.group(1)+'    signingConfig signingConfigs.permanentRelease', source, count=1)
+          if n != 1:
+              raise RuntimeError("release nao encontrado")
+          path.write_text(source)
+          print(f"Android versionCode = {code}")
+          PY
+
+      - name: Compilar APK assinado
+        working-directory: android
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/fall-jump-signing.jks
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon assembleRelease
+
+      - name: Verificar assinatura e exportar APK
+        env:
+          BUILD_NUMBER: ${{ inputs.version_code }}
+        shell: bash
+        run: |
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          test -s "$APK"
+          BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$APK"
+          mkdir -p dist
+          cp "$APK" "dist/Fall-Jump-v1.7.1.${BUILD_NUMBER}.apk"
+          echo "APK assinado e verificado."
+
+      - name: Publicar APK para download direto
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_NUMBER: ${{ inputs.version_code }}
+        shell: bash
+        run: |
+          TAG="apk-v1.7.1.${BUILD_NUMBER}"
+          APK="dist/Fall-Jump-v1.7.1.${BUILD_NUMBER}.apk"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$TAG" "$APK" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "Fall Jump 1.7.1.${BUILD_NUMBER} (APK Android)" \
+              --notes "APK assinado para instalacao direta no Android, sem extrair ZIP." \
+              --prerelease
+          fi
+          DOWNLOAD_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/download/${TAG}/$(basename "$APK")"
+          {
+            echo "### APK pronto para instalar"
+            echo
+            echo "[Baixar APK diretamente](${DOWNLOAD_URL})"
+            echo
+            echo "Arquivo: $(basename "$APK"). Baixe o APK; nao e necessario extrair ZIP."
+          } >> "$GITHUB_STEP_SUMMARY"

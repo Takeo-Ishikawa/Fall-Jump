@@ -1,4 +1,4 @@
-# Fall Jump — HTML5 e APK Android
+# Fall Jump — HTML5, APK e AAB Android
 
 Jogo casual HTML5/Canvas 2D (versão 1.8.3, polimento visual em validação), empacotado para Android via Capacitor 7.
 
@@ -20,7 +20,8 @@ Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda 
 - `tests/level-generator.test.cjs`: testes automatizados de variedade, segurança e reprodutibilidade.
 - `scripts/generate_android_icons.py`: gera ícones Android e fixa a orientação vertical durante a compilação.
 - `capacitor.config.json`: identidade fixa do aplicativo (`com.takeoishikawa.falljump`).
-- `.github/workflows/android-apk.yml`: cria **APK de release assinado, com download direto** no GitHub Actions, usando a mesma identidade Android e o mesmo versionCode.
+- `.github/workflows/android-apk.yml`: workflow original, gera **APK e AAB assinados**, publica em Releases e disponibiliza cópias em Artifacts.
+- `.github/workflows/android-apk-direct.yml`: workflow manual separado, gera **somente APK assinado**, com download direto na Release e sem Artifacts em ZIP.
 - `package.json`: dependências do Capacitor.
 
 ## Como garantir atualizações sem desinstalar
@@ -40,10 +41,15 @@ O Android exige **o mesmo applicationId e a mesma chave de assinatura**, além d
    ```
    O comando copia o Base64 ao clipboard. Cole no valor do secret (não em arquivos do repositório).
 
-## Gerar APK para download direto
-Abra **Actions > Compilar APK direto > Run workflow** e selecione o branch que deseja compilar (para as mudanças atuais, `feat/minimal-pastel-style`).
+## Gerar APK e AAB pelo workflow original
+Abra **Actions > Compilar APK e AAB atualizaveis > Run workflow**. O workflow original foi restaurado: compila `assembleRelease bundleRelease`, verifica as duas assinaturas, tenta publicar ambos em Releases e mantém cópias em Artifacts. Ele também continua sendo executado automaticamente pelos pushes em `main` nos caminhos configurados.
 
-Após uma execução bem-sucedida, clique em **Baixar APK diretamente** no resumo da execução. O arquivo também estará em **[Releases](https://github.com/Takeo-Ishikawa/Fall-Jump/releases)**, como `Fall-Jump-v1.7.1.N.apk`.
+## Gerar somente APK para download direto
+Abra **Actions > Compilar APK direto > Run workflow**, selecione o branch que deseja compilar (para as mudanças atuais, `feat/minimal-pastel-style`) e preencha `version_code` com um inteiro maior que o da versão instalada. Esse workflow é somente manual.
+
+Os contadores dos workflows são independentes. O workflow original continua usando seu `github.run_number`; o direto usa o `version_code` informado. Para alternar entre eles e instalar uma atualização, o APK escolhido precisa ter um código compatível com a instalação atual. Não altere a chave de assinatura.
+
+Após uma execução bem-sucedida, clique em **Baixar APK diretamente** no resumo da execução. O arquivo também estará na Release com tag `apk-v1.7.1.N`, em **[Releases](https://github.com/Takeo-Ishikawa/Fall-Jump/releases)**, como `Fall-Jump-v1.7.1.N.apk`.
 
 O workflow executa somente `assembleRelease`, verifica a assinatura com `apksigner` e publica o arquivo `.apk` diretamente na Release. Ele não gera AAB nem envia arquivos para a seção Artifacts, que fornece downloads em ZIP. Os links de código-fonte ZIP/TAR que o GitHub exibe nas Releases são automáticos; para instalar o jogo, escolha o arquivo `.apk`.
 
@@ -123,7 +129,7 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - Mantenha um backup offline da mesma chave e das senhas. Se perder a chave, não poderá atualizar instalações existentes pelo mesmo fluxo.
 - **Não instale builds debug efêmeras** sobre o aplicativo assinado; use sempre o APK de release do workflow.
 - O código web e a assinatura ficam separados; o código do jogo pode evoluir sem mudar a identidade Android.
-- O workflow atual gera APK para distribuição manual e teste. A publicação futura via Google Play pode exigir um fluxo separado para AAB.
+- O workflow direto gera APK para distribuição manual e teste. O workflow original também gera AAB para a publicação futura via Google Play.
 - **Play App Signing exige uma decisão de chave:** o Google usa uma chave de assinatura do app para entregar APKs aos usuários, que pode ser diferente da chave de upload do AAB. Os APKs atualmente instalados manualmente só poderão receber atualizações da Play Store sem reinstalação se a assinatura distribuída pela loja for compatível com a atual. Antes do primeiro lançamento, planejar cuidadosamente o uso da chave existente no Play App Signing.
 - Não enviar o AAB à loja nem configurar assinatura no Play Console sem revisar primeiro os requisitos e o `CHECKLIST_PUBLICACAO.md`.
 
