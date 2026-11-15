@@ -45,9 +45,9 @@ O Android exige **o mesmo applicationId e a mesma chave de assinatura**, além d
 Abra **Actions > Compilar APK e AAB atualizaveis > Run workflow**. O workflow original foi restaurado: compila `assembleRelease bundleRelease`, verifica as duas assinaturas, tenta publicar ambos em Releases e mantém cópias em Artifacts. Ele também continua sendo executado automaticamente pelos pushes em `main` nos caminhos configurados.
 
 ## Gerar somente APK para download direto
-Abra **Actions > Compilar APK direto > Run workflow**, selecione o branch que deseja compilar (para as mudanças atuais, `feat/minimal-pastel-style`) e preencha `version_code` com um inteiro maior que o da versão instalada. Zero não é permitido: se o APK anterior usava o código 41, por exemplo, informe `42`. O campo é validado no início, antes de instalar dependências ou preparar a assinatura. Esse workflow é somente manual.
+Abra **Actions > Compilar APK direto > Run workflow** e selecione o branch que deseja compilar (para as mudanças atuais, `feat/minimal-pastel-style`). **Deixe `version_code` vazio para seleção automática.** Esse workflow é somente manual.
 
-Os contadores dos workflows são independentes. O workflow original continua usando seu `github.run_number`; o direto usa o `version_code` informado. Para alternar entre eles e instalar uma atualização, o APK escolhido precisa ter um código compatível com a instalação atual. Não altere a chave de assinatura.
+O workflow consulta as tags de versões publicadas e escolhe um `versionCode` maior que todos os códigos encontrados, considerando também o contador da execução. Se você informar um valor inferior ao já publicado, ele será aumentado automaticamente. Os dois workflows mantêm a mesma chave de assinatura; o original continua usando seu contador normal. Para instalar uma atualização, use um código superior ao instalado no celular. Uma versão instalada manualmente com código maior que todos os publicados exige informar esse valor superior no campo opcional.
 
 Após uma execução bem-sucedida, clique em **Baixar APK diretamente** no resumo da execução. O arquivo também estará na Release com tag `apk-v1.7.1.N`, em **[Releases](https://github.com/Takeo-Ishikawa/Fall-Jump/releases)**, como `Fall-Jump-v1.7.1.N.apk`.
 

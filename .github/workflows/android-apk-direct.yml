@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
     inputs:
       version_code:
-        description: "Inteiro positivo maior que o instalado (ex.: 42). Zero nao e permitido."
-        required: true
+        description: "Opcional: deixe vazio para gerar automaticamente a proxima versao."
+        required: false
         type: string
 
 permissions:
@@ -27,14 +27,38 @@ jobs:
           python3 - <<'PYTHON'
           import os, re, sys
           raw = os.environ.get("VERSION_CODE", "")
-          if not re.fullmatch(r"[1-9][0-9]{0,9}", raw) or int(raw) > 2100000000:
-              print("::error::version_code invalido. Informe um inteiro de 1 a 2100000000, maior que o da versao instalada. Zero, decimais e campo vazio nao sao permitidos.")
+          if raw and (not re.fullmatch(r"[1-9][0-9]{0,9}", raw) or int(raw) > 2100000000):
+              print("::error::version_code invalido. Informe um inteiro de 1 a 2100000000, maior que o da versao instalada. Deixe vazio para versao automatica; zero e decimais nao sao permitidos.")
               sys.exit(1)
-          print("versionCode validado: " + raw)
+          print("versionCode solicitado: " + (raw or "automatico"))
           PYTHON
 
       - name: Obter arquivos
         uses: actions/checkout@v4
+
+      - name: Selecionar versao superior as publicadas
+        id: version
+        env:
+          REQUESTED_CODE: ${{ inputs.version_code }}
+          RUN_NUMBER: ${{ github.run_number }}
+        shell: bash
+        run: |
+          git ls-remote --tags origin > "$RUNNER_TEMP/fall-jump-tags.txt"
+          python3 - <<'PYTHON'
+          import os, pathlib, re
+          refs = pathlib.Path(os.environ["RUNNER_TEMP"], "fall-jump-tags.txt").read_text()
+          published = [int(n) for n in re.findall(r"refs/tags/(?:apk-)?v[0-9]+\.[0-9]+\.[0-9]+\.([0-9]+)(?:\^\{\})?$", refs, re.M)]
+          highest = max(published, default=0)
+          requested = int(os.environ.get("REQUESTED_CODE") or 0)
+          code = max(highest + 1, requested, int(os.environ["RUN_NUMBER"]))
+          if code > 2100000000:
+              raise RuntimeError("Nao ha versionCode disponivel dentro do limite Android")
+          if requested and requested <= highest:
+              print(f"::warning::Codigo solicitado {requested} inferior ou igual ao publicado {highest}; usando {code} para permitir atualizacao.")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"code={code}\n")
+          print(f"versionCode selecionado: {code}; maior codigo publicado: {highest}")
+          PYTHON
 
       - name: Preparar Node.js
         uses: actions/setup-node@v4
@@ -99,7 +123,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          VERSION_CODE: ${{ inputs.version_code }}
+          VERSION_CODE: ${{ steps.version.outputs.code }}
         shell: bash
         run: |
           python3 - <<'PY'
@@ -148,7 +172,7 @@ jobs:
 
       - name: Verificar assinatura e exportar APK
         env:
-          BUILD_NUMBER: ${{ inputs.version_code }}
+          BUILD_NUMBER: ${{ steps.version.outputs.code }}
         shell: bash
         run: |
           APK="android/app/build/outputs/apk/release/app-release.apk"
@@ -162,7 +186,7 @@ jobs:
       - name: Publicar APK para download direto
         env:
           GH_TOKEN: ${{ github.token }}
-          BUILD_NUMBER: ${{ inputs.version_code }}
+          BUILD_NUMBER: ${{ steps.version.outputs.code }}
         shell: bash
         run: |
           TAG="apk-v1.7.1.${BUILD_NUMBER}"
