@@ -83,6 +83,30 @@
     return 3 + Math.floor(rng() * 3);
   }
   function platformCount(level) {return 5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));}
+  const FIRST_LEVEL_CHAPTERS = [
+    {from:0,title:'Primeiros passos',tip:'Arraste para caminhar e procure a abertura.'},
+    {from:20,title:'Trilha dourada',tip:'Plataformas douradas dão pontos extras. Explore o caminho.'},
+    {from:60,title:'Encontro na torre',tip:'Salte na cabeça dos inimigos. Com a espada equipada, você também pode golpear.'},
+    {from:100,title:'Descida azul',tip:'Plataformas azuis quebram ao tocar. Prepare a próxima queda.'},
+    {from:140,title:'Reta final',tip:'Alterne o caminho e evite as partes escuras. A chegada está perto!'}
+  ];
+  function firstLevelChapter(passed){return FIRST_LEVEL_CHAPTERS.filter(c=>c.from<=passed).at(-1)||FIRST_LEVEL_CHAPTERS[0];}
+  function shapeFirstLevel(plan){
+    for(let i=0;i<plan.count;i++){
+      const p=plan.platforms[i];p.special=null;p.danger=0;
+      if(i<20)p.gap=Math.max(.94,p.gap);
+      else if(i<60){p.gap=Math.max(.90,p.gap);if(i%8===6)p.special='bonus';}
+      else if(i<100){p.gap=Math.max(.82,p.gap);if(i%12===0)p.danger=.32;}
+      else if(i<140){p.gap=Math.max(.82,p.gap);if(i%8===0)p.special='fragile';else if(i%8===4)p.special='bonus';}
+      else{
+        if(i%10===6)p.danger=.4;
+        if(i%12===3)p.special='bonus';else if(i%12===9)p.special='fragile';
+      }
+      if(i===plan.count-1){p.special=null;p.danger=0;}
+    }
+    plan.chapters=FIRST_LEVEL_CHAPTERS.map(c=>({...c}));
+    return plan;
+  }
   function buildCandidate(level, seed, safeMode) {
     const rng = randomFromSeed(seed);
     const difficulty = difficultyFor(level);
@@ -97,7 +121,11 @@
     let i = 0;
 
     while (i < count) {
-      const pattern = i === 0 ? OPENING_PATTERNS[difficulty.phase] : pickPattern(rng, level, difficulty.phase, lastPattern);
+      let pattern = i === 0 ? OPENING_PATTERNS[difficulty.phase] : pickPattern(rng, level, difficulty.phase, lastPattern);
+      if(level===1){
+        const choices=i<20?['rest','spiral']:i<60?['plunge','spiral','zigzag']:i<100?['switchback','spiral']:i<140?['plunge','rest']:['zigzag','precision','spiral'];
+        pattern=choices[segments.length%choices.length];
+      }
       lastPattern = pattern;
       const from = i;
       const length = Math.min(count - i, segmentLength(pattern, rng));
@@ -221,6 +249,7 @@
     for (let attempt = 0; attempt < 24; attempt++) {
       const candidateSeed = (base + Math.imul(attempt, 0x9e3779b1)) >>> 0;
       const plan = buildCandidate(n, candidateSeed, attempt >= 12);
+      if(n===1)shapeFirstLevel(plan);
       if (validateLevel(plan)) {
         plan.attempts = attempt + 1;
         return plan;
@@ -233,6 +262,6 @@
 
   return {
     generateLevel, validateLevel, simulateRoute, difficultyFor, platformCount,
-    randomSeed, signedAngle, SPACING, FAIR_TURN_PER_FRAME
+    randomSeed, signedAngle, SPACING, FAIR_TURN_PER_FRAME, FIRST_LEVEL_CHAPTERS, firstLevelChapter
   };
 });

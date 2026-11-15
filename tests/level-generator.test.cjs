@@ -123,3 +123,13 @@ test('tamanho das fases e progresso coincidem e a dificuldade aumentou sem usar 
   assert.ok(plan.platforms.some(p=>p.danger>0));assert.ok(plan.platforms.reduce((n,p)=>n+p.gap,0)/plan.count<.9);
  }
 });
+
+test('primeira fase tem cinco trechos distintos com introdução segura e especiais distribuídas',()=>{
+ for(const seed of [0,123,98765]){
+  const plan=generator.generateLevel(1,seed);assert.equal(plan.count,200);assert.equal(plan.chapters.length,5);assert.ok(generator.validateLevel(plan));
+  assert.ok(plan.platforms.slice(0,20).every(p=>!p.danger&&!p.special));assert.ok(plan.platforms.slice(20,60).some(p=>p.special==='bonus'));
+  assert.ok(plan.platforms.slice(60,100).some(p=>p.danger));assert.ok(plan.platforms.slice(100,140).some(p=>p.special==='fragile'));
+  assert.equal(generator.firstLevelChapter(0).from,0);assert.equal(generator.firstLevelChapter(20).from,20);assert.equal(generator.firstLevelChapter(199).from,140);
+ }
+ assert.equal(generator.generateLevel(2,123).chapters,undefined,'demais fases mantêm o gerador atual');
+});

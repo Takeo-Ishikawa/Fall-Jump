@@ -73,6 +73,11 @@ Inimigos roxos patrulham trechos seguros de algumas plataformas, a partir da qua
 
 Os níveis existentes continuam disponíveis. A simulação do gerador verifica uma rota de queda livre; o equilíbrio da nova caminhada ainda precisa de avaliação em aparelho Android.
 
+## Primeira fase — uma pequena jornada
+A fase 1 mantém 200 plataformas e agora tem cinco trechos: **Primeiros passos** (1–20), **Trilha dourada** (21–60), **Encontro na torre** (61–100), **Descida azul** (101–140) e **Reta final** (141–200). O início não tem zonas escuras nem plataformas especiais. Douradas, patrulhas, perigos e azuis aparecem em momentos definidos, com uma dica curta na entrada de cada trecho. O nome do trecho aparece no HUD.
+
+Há oito patrulhas distribuídas ao longo da fase, com aviso antes do primeiro encontro. Atravessar 50, 100 e 150 plataformas concede **5 moedas extras por marco**, uma vez em cada tentativa, além dos ganhos normais e do bônus de conclusão. A pausa interrompe o tempo das dicas. As outras fases continuam com a configuração atual.
+
 ## Equipamentos e espada
 No menu, abra **Equipamentos**: a prévia do personagem fica no centro, cercada por seis espaços de equipamento — arma, capacete, luva, bota, calça e armadura. Abaixo fica o inventário com seis itens básicos gratuitos. Toque em um espaço ou item para selecioná-lo e use Equipar/Retirar. Cada categoria pode ser trocada independentemente, com atualização imediata do visual. A espada é funcional; as cinco peças de roupa são cosméticas e não alteram a vida, defesa ou dano. A escolha fica salva localmente, separada das aparências. Com a espada equipada, o personagem a carrega e o botão **Golpear** aparece durante a partida.
 

@@ -217,7 +217,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#resultSummary').hidden,false);
   assert.equal(node('#resultPlatforms').textContent,'200 / 200');
   assert.equal(node('#resultCombo').textContent,'200');
-  assert.equal(node('#resultCoins').textContent,'+112');
+  assert.equal(node('#resultCoins').textContent,'+127');
   assert.equal(node('#progressCount').textContent,'200 / 200');
   const completedWallet=node('#coinCount').textContent;
   browser.__fjTest.end(true);
