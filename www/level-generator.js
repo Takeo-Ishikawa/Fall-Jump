@@ -3,10 +3,10 @@
  */
 (function (root, factory) {
   'use strict';
-  const generator = factory();
+  const generator = factory(typeof module!=='undefined'&&module.exports?require('./course.js'):root.FallJumpCourse);
   if (typeof module !== 'undefined' && module.exports) module.exports = generator;
   if (root) root.FallJumpLevelGenerator = generator;
-})(typeof window !== 'undefined' ? window : null, function () {
+})(typeof window !== 'undefined' ? window : null, function (Course) {
   'use strict';
 
   const TAU = Math.PI * 2;
@@ -82,31 +82,7 @@
     if (pattern === 'spiral' || pattern === 'zigzag') return 4 + Math.floor(rng() * 3);
     return 3 + Math.floor(rng() * 3);
   }
-  function platformCount(level) {return 5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));}
-  const FIRST_LEVEL_CHAPTERS = [
-    {from:0,title:'Primeiros passos',tip:'Arraste para caminhar e procure a abertura.'},
-    {from:20,title:'Trilha dourada',tip:'Plataformas douradas dão pontos extras. Explore o caminho.'},
-    {from:60,title:'Encontro na torre',tip:'Salte na cabeça dos inimigos. Com a espada equipada, você também pode golpear.'},
-    {from:100,title:'Descida azul',tip:'Plataformas azuis quebram ao tocar. Prepare a próxima queda.'},
-    {from:140,title:'Reta final',tip:'Alterne o caminho e evite as partes escuras. A chegada está perto!'}
-  ];
-  function firstLevelChapter(passed){return FIRST_LEVEL_CHAPTERS.filter(c=>c.from<=passed).at(-1)||FIRST_LEVEL_CHAPTERS[0];}
-  function shapeFirstLevel(plan){
-    for(let i=0;i<plan.count;i++){
-      const p=plan.platforms[i];p.special=null;p.danger=0;
-      if(i<20)p.gap=Math.max(.94,p.gap);
-      else if(i<60){p.gap=Math.max(.90,p.gap);if(i%8===6)p.special='bonus';}
-      else if(i<100){p.gap=Math.max(.82,p.gap);if(i%12===0)p.danger=.32;}
-      else if(i<140){p.gap=Math.max(.82,p.gap);if(i%8===0)p.special='fragile';else if(i%8===4)p.special='bonus';}
-      else{
-        if(i%10===6)p.danger=.4;
-        if(i%12===3)p.special='bonus';else if(i%12===9)p.special='fragile';
-      }
-      if(i===plan.count-1){p.special=null;p.danger=0;}
-    }
-    plan.chapters=FIRST_LEVEL_CHAPTERS.map(c=>({...c}));
-    return plan;
-  }
+  function platformCount(level) {if(level===1)return 12;return 5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));}
   function buildCandidate(level, seed, safeMode) {
     const rng = randomFromSeed(seed);
     const difficulty = difficultyFor(level);
@@ -186,6 +162,7 @@
   // de passagem por todas as aberturas sem depender dessas facilidades.
   function simulateRoute(plan) {
     const platforms = plan.platforms;
+    if(plan.experimental)return {ok:Course.validate(plan),failedAt:-1,frames:0,clearance:Infinity};
     let y = -76, vy = 0, rotation = -(platforms[0]?.angle||0), index = 0;
     const maxFrames = Math.ceil((platforms.length * SPACING + 76) / MAX_FALL_SPEED) + 120;
     let worstClearance = Infinity;
@@ -217,6 +194,7 @@
   function validateLevel(plan) {
     if (!plan || !Array.isArray(plan.platforms) || plan.platforms.length !== plan.count) return false;
     if (plan.count !== platformCount(plan.level)) return false;
+    if(plan.experimental)return Course.validate(plan);
     for (let i = 0; i < plan.platforms.length; i++) {
       const p = plan.platforms[i];
       if (!Number.isFinite(p.angle) || !Number.isFinite(p.gap) ||
@@ -246,10 +224,10 @@
   function generateLevel(level, originalSeed) {
     const n = Math.max(1, Math.floor(level) || 1);
     const base = originalSeed === undefined ? randomSeed() : (Number(originalSeed) >>> 0);
+    if(n===1)return Course.generate(base);
     for (let attempt = 0; attempt < 24; attempt++) {
       const candidateSeed = (base + Math.imul(attempt, 0x9e3779b1)) >>> 0;
       const plan = buildCandidate(n, candidateSeed, attempt >= 12);
-      if(n===1)shapeFirstLevel(plan);
       if (validateLevel(plan)) {
         plan.attempts = attempt + 1;
         return plan;
@@ -262,6 +240,6 @@
 
   return {
     generateLevel, validateLevel, simulateRoute, difficultyFor, platformCount,
-    randomSeed, signedAngle, SPACING, FAIR_TURN_PER_FRAME, FIRST_LEVEL_CHAPTERS, firstLevelChapter
+    randomSeed, signedAngle, SPACING, FAIR_TURN_PER_FRAME
   };
 });

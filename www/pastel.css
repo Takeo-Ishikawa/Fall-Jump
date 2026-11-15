@@ -270,3 +270,4 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 #phaseGuide strong {display:block;font-size:12px;font-weight:650;margin-bottom:4px;color:#47735b}
 #phaseGuide span {display:block;font-size:11px;line-height:1.45;color:var(--fj-muted)}
 @media(max-height:550px){#phaseGuide{bottom:calc(105px + env(safe-area-inset-bottom));padding:8px 12px}}
+#courseMap {position:absolute;right:14px;top:max(126px,calc(env(safe-area-inset-top) + 112px));width:92px;height:92px;background:#fffdf9e8;border:1px solid var(--fj-line);border-radius:18px;pointer-events:none;touch-action:none}

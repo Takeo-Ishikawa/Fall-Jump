@@ -35,7 +35,7 @@ test('estrutura HTML tem menus e indicadores reais, sem IDs duplicados ou divs a
 test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
   const html = fs.readFileSync(path.join(root, 'www/index.html'), 'utf8');
   const tags = [...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)];
-  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js', 'skins.js', 'goals.js', 'progression.js']);
+  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['course.js', 'level-generator.js', 'fever.js', 'skins.js', 'goals.js', 'progression.js']);
   const inline = tags.find(x => !x[1])?.[2];
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
@@ -76,7 +76,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   let scheduledFrame;
   const browser = {
     innerWidth: 390, innerHeight: 780, location: { protocol: 'file:', search: '' },
-    addEventListener(event,listener) {windowEvents[event]=listener}, FallJumpLevelGenerator: require('../www/level-generator.js'),
+    addEventListener(event,listener) {windowEvents[event]=listener}, FallJumpCourse:require('../www/course.js'), FallJumpLevelGenerator: require('../www/level-generator.js'),
     FallJumpFever: require('../www/fever.js'),
     FallJumpSkins: require('../www/skins.js'),
     FallJumpProgression: require('../www/progression.js'), FallJumpGoals: require('../www/goals.js')
@@ -157,7 +157,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#goalsSection').hidden,true);
   assert.equal(node('#restart').style.display,'block');
   node('#restart').onclick(); // Iniciar a partida
-  assert.equal(node('#progressCount').textContent,'0 / 200');
+  assert.equal(node('#progressCount').textContent,'0 / 12');
   assert.equal(node('#resultSummary').hidden,true);
   assert.equal(node('#help').style.display,'block');
   node('#help').onclick(); // Ajuda acessível durante a partida
@@ -203,7 +203,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(node('#stageSeed').textContent.includes('FASE #'));
   assert.ok(Number(node('#score').textContent) >= 0);
   const platforms=browser.__fjTest.getPlatforms();
-  assert.equal(platforms.length,200);
+  assert.equal(platforms.length,12);
   browser.__fjTest.completePlatform(platforms[0]);
   const firstScore=node('#score').textContent;
   const firstProgress=node('#progressCount').textContent;
@@ -215,10 +215,10 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   for(const platform of platforms.slice(1))browser.__fjTest.completePlatform(platform);
   assert.equal(node('#message').textContent,'Nível 1 concluído!');
   assert.equal(node('#resultSummary').hidden,false);
-  assert.equal(node('#resultPlatforms').textContent,'200 / 200');
-  assert.equal(node('#resultCombo').textContent,'200');
-  assert.equal(node('#resultCoins').textContent,'+127');
-  assert.equal(node('#progressCount').textContent,'200 / 200');
+  assert.equal(node('#resultPlatforms').textContent,'12 / 12');
+  assert.equal(node('#resultCombo').textContent,'12');
+  assert.equal(node('#resultCoins').textContent,'+18');
+  assert.equal(node('#progressCount').textContent,'12 / 12');
   const completedWallet=node('#coinCount').textContent;
   browser.__fjTest.end(true);
   browser.__fjTest.end(false);

@@ -1,19 +1,20 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-function game(storage=new Map()){
+function game(storage=new Map(),experimental=false){
  const html=fs.readFileSync(path.join(__dirname,'../www/index.html'),'utf8');
  const source=[...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)].find(m=>!m[1])[2];
  const nodes=new Map(),gradient={addColorStop(){}};
  const ctx=new Proxy({}, {get:(_,k)=>k.startsWith('create')?()=>gradient:()=>{},set:()=>true});
  const node=id=>{if(!nodes.has(id))nodes.set(id,{style:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},addEventListener(){},setPointerCapture(){},getBoundingClientRect:()=>({left:0,top:0,width:100,height:100}),getContext:()=>ctx});return nodes.get(id)};
- const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpProgression:require('../www/progression.js'),FallJumpGoals:require('../www/goals.js')};
+ const win={addEventListener(){},FallJumpCourse:require('../www/course.js'),FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpProgression:require('../www/progression.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(key){return storage.get(key)??null},setItem(key,value){storage.set(key,value)}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={complete:n=>{for(const p of platforms.slice(0,n))completePlatform(p)},guide:()=>({frames:guideFrames,title:document.querySelector('#phaseGuideTitle').textContent,display:phaseGuide.style.display}),buy:buyTalent,journey:()=>Progression.normalize(journey),selectGear:selectEquipment,gear:()=>({...equipment}),cancelPointer:cancelCanvasPointer,stickDown:downJoystick,stickMove:moveJoystick,stickUp:upJoystick,hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,coins:skinState.coins,phaseCoins,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,poseTime,lookFacing,bodyFacing,landingPose,stick:joystickAxis,stickPointer:joystickPointer,pending:walkPending,velocity:walkVelocity,gait:gaitBlend,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={jump:manualJump,coursePlace:(index,lane,cell,above=0)=>{for(let i=0;i<index;i++)platforms[i].passed=true;levelPassed=index;const p=platforms[index];placeOnCourse(p);walkRadius=Course.radius(lane);walkAngle=norm(p.angle+(cell+.5)*Course.STEP);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;const tile=courseTile(p);ballY=p.y-(tile?.height||0)-contactRadius-above;grounded=above?null:p;jumping=above>0;vy=0;},complete:n=>{for(const p of platforms.slice(0,n))completePlatform(p)},guide:()=>({frames:guideFrames,title:document.querySelector('#phaseGuideTitle').textContent,display:phaseGuide.style.display}),buy:buyTalent,journey:()=>Progression.normalize(journey),selectGear:selectEquipment,gear:()=>({...equipment}),cancelPointer:cancelCanvasPointer,stickDown:downJoystick,stickMove:moveJoystick,stickUp:upJoystick,hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,r:walkRadius,radialAxis,courseIndex,angle:walkAngle,camera:cameraAngle,rotation,coins:skinState.coins,phaseCoins,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,poseTime,lookFacing,bodyFacing,landingPose,stick:joystickAxis,stickPointer:joystickPointer,pending:walkPending,velocity:walkVelocity,gait:gaitBlend,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
- for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
- g.rotate(0);g.position(0);return g;
+ if(!experimental){for(const p of g.platforms()){p.course=null;p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
+ g.rotate(0);g.position(0);}
+ return g;
 }
 function steps(g,n){for(let i=0;i<n;i++)g.step();}
 test('caminha sobre superfície sem impulso vertical; pausa congela posição e passada',()=>{
@@ -38,7 +39,7 @@ test('plataforma frágil e Fever liberam a queda sem salto',()=>{
  for(const powered of [false,true]){const g=game();if(powered)g.fever();else g.platforms()[0].special='fragile';g.step();assert.equal(g.platforms()[0].broken,true);assert.equal(g.state().passed,1);assert.ok(g.state().vy>0);}
 });
 test('reiniciar restaura posição inicial apoiada e limpa a passada',()=>{
- const g=game();steps(g,90);g.start();assert.equal(g.state().grounded,0);assert.equal(g.state().angle,g.spawnAngle());assert.equal(g.state().phase,0);assert.equal(g.state().vy,0);assert.equal(g.state().passed,0);
+ const g=game();steps(g,90);g.start();assert.equal(g.state().grounded,0);assert.ok(Math.abs(g.state().angle-require('../www/course.js').STEP*.5)<1e-12);assert.equal(g.state().phase,0);assert.equal(g.state().vy,0);assert.equal(g.state().passed,0);
 });
 
 function tap(g,time,x=170,y=400,duration=40){
@@ -93,8 +94,9 @@ test('patrulhas são determinísticas e evitam início, aberturas, perigo e disc
   const disks=generator.generateLevel(level,level*12345).platforms;
   const patrols=g.makeEnemies(disks);
   assert.equal(JSON.stringify(patrols),JSON.stringify(g.makeEnemies(disks)));
-  assert.ok(patrols.length>0&&patrols.length<disks.length/3);
+  assert.ok(patrols.length>0);if(level>1)assert.ok(patrols.length<disks.length/3);
   for(const e of patrols){
+   if(e.platform.course){for(const angle of [e.min,e.angle,e.max])assert.ok(require('../www/course.js').tileAt(e.platform.course,angle,e.radius));continue;}
    assert.ok(disks.indexOf(e.platform)>=3);assert.notEqual(e.platform.special,'fragile');
    assert.ok(e.min>e.platform.gap/2&&e.max<Math.PI*2-e.platform.gap/2);
    if(e.platform.danger)assert.ok(e.min>e.platform.gap+.53+e.platform.danger);
@@ -260,11 +262,25 @@ test('falha ao salvar talento não consome moedas nem libera a melhoria',()=>{
  assert.equal(g.buy('vitality'),false);assert.equal(g.journey().talents.vitality,0);assert.equal(JSON.parse(storage.get(S.KEY)).coins,200);
 });
 
-test('primeira fase apresenta trechos, bonifica marcos uma vez e congela as dicas na pausa',()=>{
- const g=game();assert.equal(g.guide().title,'Primeiros passos');g.complete(9);assert.equal(g.guide().title,'Um novo encontro');g.complete(20);assert.equal(g.guide().title,'Trilha dourada');
- g.complete(50);assert.equal(g.state().phaseCoins,29);const coins=g.state().coins;g.complete(50);assert.equal(g.state().coins,coins);
- g.pause();const remaining=g.guide().frames;steps(g,100);assert.equal(g.guide().frames,remaining);assert.equal(g.guide().display,'none');g.resume();assert.equal(g.guide().display,'block');
- g.complete(100);assert.equal(g.guide().title,'Descida azul');assert.equal(g.state().phaseCoins,60);
- g.complete(150);assert.equal(g.state().phaseCoins,89);g.complete(200);assert.equal(g.state().phaseCoins,127);assert.equal(g.guide().display,'none');
- g.next();assert.equal(g.guide().display,'none');assert.equal(g.guide().frames,0);
+
+
+test('percurso permite mudar de faixa com joystick vertical e para ao soltar',()=>{
+ const g=game(new Map(),true),initial=g.state();g.stickDown({clientX:50,clientY:20,pointerId:1});steps(g,10);assert.ok(g.state().r>initial.r+10);assert.equal(g.state().angle,initial.angle);
+ g.stickMove({clientX:50,clientY:80,pointerId:1});steps(g,20);assert.ok(g.state().r<initial.r);g.stickUp({pointerId:1});const stopped=g.state().r;steps(g,10);assert.equal(g.state().r,stopped);
+});
+test('somente saída dourada conclui a área; queda fora do caminho causa dano e retorno',()=>{
+ const fallen=game(new Map(),true);fallen.coursePlace(0,1,12);steps(fallen,35);assert.equal(fallen.state().health,90);assert.equal(fallen.state().passed,0);assert.equal(fallen.state().grounded,0);
+ const exit=game(new Map(),true);exit.coursePlace(0,1,7);exit.step();assert.equal(exit.state().passed,1);steps(exit,60);assert.equal(exit.state().courseIndex,1);assert.equal(exit.state().grounded,205);assert.equal(exit.state().health,100);
+});
+test('obstáculo impede caminhar, mas pode ser saltado e permite pouso no degrau',()=>{
+ const g=game(new Map(),true);g.coursePlace(5,1,2);g.stickDown({clientX:80,clientY:50,pointerId:1});steps(g,12);
+ const p=g.platforms()[5],C=require('../www/course.js');assert.ok(((g.state().angle-p.angle+Math.PI*2)%(Math.PI*2))<3*C.STEP);
+ assert.equal(g.jump(),true);steps(g,10);g.stickUp({pointerId:1});steps(g,60);assert.equal(g.state().grounded,p.y);assert.ok(g.state().y<p.y-20,'pousou acima do piso base');assert.equal(g.state().health,100);
+});
+test('salto atravessa ilhas; ponte cede quando se fica parado e a pausa congela seu tempo',()=>{
+ const islands=game(new Map(),true);islands.coursePlace(3,1,3);islands.jump();islands.stickDown({clientX:80,clientY:50,pointerId:1});steps(islands,28);islands.stickUp({pointerId:1});steps(islands,50);assert.equal(islands.state().grounded,615);assert.equal(islands.state().health,100);assert.equal(islands.state().passed,3);
+ const bridge=game(new Map(),true);bridge.coursePlace(4,1,4);const tile=bridge.platforms()[4].course.tiles.find(t=>t.lane===1&&t.cell===4);steps(bridge,20);bridge.pause();steps(bridge,100);assert.equal(tile.standFrames,20);bridge.resume();steps(bridge,26);assert.equal(tile.collapsed,true);steps(bridge,35);assert.equal(bridge.state().health,90);assert.equal(bridge.state().passed,4);assert.equal(tile.collapsed,false);
+});
+test('moedas opcionais não são concedidas novamente após retorno à entrada',()=>{
+ const g=game(new Map(),true);g.coursePlace(0,2,3);g.step();assert.equal(g.state().phaseCoins,2);g.step();assert.equal(g.state().phaseCoins,2);g.coursePlace(0,1,12);steps(g,35);g.coursePlace(0,2,3);g.step();assert.equal(g.state().phaseCoins,2);
 });

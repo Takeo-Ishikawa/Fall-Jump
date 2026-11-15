@@ -209,9 +209,9 @@
  #overlay{padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom))}
  #panel #panelBack{top:0}
 }
-</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="healthHud"><span>VIDA</span><strong id="healthAmount">100 / 100</strong><div id="healthTrack"><div id="healthFill"></div></div></div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 200</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><div id="phaseGuide" role="status" style="display:none"><strong id="phaseGuideTitle"></strong><span id="phaseGuideText"></span></div><div id="hint">Arraste para caminhar · dois toques para saltar</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><rect x="46" y="4" width="22" height="25" rx="10" fill="#94BFA7"/><ellipse cx="57" cy="19" rx="8" ry="6" fill="#FFF8E9"/><circle cx="54" cy="17" r="1.2" fill="#39434A"/><circle cx="60" cy="17" r="1.2" fill="#39434A"/><path d="M55 21Q57 23 59 21" stroke="#39434A" stroke-linecap="round"/><path d="M50 28V30M64 28V30" stroke="#527D65" stroke-width="4" stroke-linecap="round"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: caminhe</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
+</style><link rel="stylesheet" href="pastel.css"></head><body><canvas id="game"></canvas><div id="hud"><small id="level">NÍVEL 1</small><div id="stagePattern" style="font-size:10px;font-weight:750;letter-spacing:.06em;color:#657181;margin-top:3px">APRENDIZADO</div><div id="stageSeed" style="font-size:9px;font-weight:650;letter-spacing:.04em;color:#8d9ca6;margin-top:2px">FASE #00000000</div><div id="score">0</div><div id="healthHud"><span>VIDA</span><strong id="healthAmount">100 / 100</strong><div id="healthTrack"><div id="healthFill"></div></div></div><div id="progress"><div id="progressFill"></div></div><div id="progressMeta"><span>PROGRESSO</span><span id="progressCount">0 / 12</span></div><div id="bestHud">RECORDE: <span id="bestScore">0</span></div><div id="walletHud">MOEDAS: <span id="coinCount">0</span></div><div id="feverHud" aria-label="Energia Fever"><div id="feverLabel"><span>FEVER</span><span id="feverAmount">0/5</span></div><div id="feverTrack"><div id="feverFill"></div></div></div></div><button id="sound" aria-label="Desativar sons" title="Ativar ou desativar sons">♫</button><button id="help" aria-label="Instruções">?</button><button id="pause" aria-label="Pausar jogo">Ⅱ</button><div id="comboBadge"></div><div id="goalToast" role="status"></div><div id="goalCelebration" aria-hidden="true"><div id="rewardMedal"><div id="rewardMedalTitle">CONQUISTA RESGATADA!</div><div id="rewardMedalName"></div><div id="rewardMedalAmount"></div></div><span class="rewardSpark" style="--dx:-135px;--dy:-135px;--rot:-120deg;--delay:0ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:-92px;--dy:-182px;--rot:-220deg;--delay:50ms;--spark:#f47889"></span><span class="rewardSpark" style="--dx:-25px;--dy:-195px;--rot:-125deg;--delay:15ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:45px;--dy:-190px;--rot:140deg;--delay:65ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:108px;--dy:-160px;--rot:270deg;--delay:10ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:146px;--dy:-100px;--rot:120deg;--delay:90ms;--spark:#ef758d"></span><span class="rewardSpark" style="--dx:-148px;--dy:95px;--rot:-40deg;--delay:40ms;--spark:#a9d86b"></span><span class="rewardSpark" style="--dx:-109px;--dy:142px;--rot:160deg;--delay:75ms;--spark:#f0bd56"></span><span class="rewardSpark" style="--dx:-28px;--dy:174px;--rot:240deg;--delay:20ms;--spark:#ed8a96"></span><span class="rewardSpark" style="--dx:51px;--dy:173px;--rot:110deg;--delay:60ms;--spark:#8bd4cf"></span><span class="rewardSpark" style="--dx:119px;--dy:136px;--rot:290deg;--delay:85ms;--spark:#eab23c"></span><span class="rewardSpark" style="--dx:150px;--dy:66px;--rot:60deg;--delay:30ms;--spark:#9cc970"></span></div><canvas id="courseMap" width="184" height="184" role="img" aria-label="Mapa da área, com saída dourada e posição do personagem" style="display:none"></canvas><div id="phaseGuide" role="status" style="display:none"><strong id="phaseGuideTitle"></strong><span id="phaseGuideText"></span></div><div id="hint">Arraste para caminhar · dois toques para saltar</div><div id="overlay"><div id="panel"><button id="panelBack" type="button">‹ Voltar</button><div id="brandMark" aria-hidden="true"><svg viewBox="0 0 120 104" fill="none"><path d="M57 36V96" stroke="#DDDAD3" stroke-width="14" stroke-linecap="round"/><path d="M89 44C82 38 69 35 57 35C35 35 17 42 17 51C17 60 35 67 57 67C65 67 73 66 79 64" stroke="#E9A6B0" stroke-width="9" stroke-linecap="round"/><path d="M89 73C82 67 69 64 57 64C35 64 17 71 17 80C17 89 35 96 57 96C65 96 73 95 79 93" stroke="#A9CED8" stroke-width="9" stroke-linecap="round"/><rect x="46" y="4" width="22" height="25" rx="10" fill="#94BFA7"/><ellipse cx="57" cy="19" rx="8" ry="6" fill="#FFF8E9"/><circle cx="54" cy="17" r="1.2" fill="#39434A"/><circle cx="60" cy="17" r="1.2" fill="#39434A"/><path d="M55 21Q57 23 59 21" stroke="#39434A" stroke-linecap="round"/><path d="M50 28V30M64 28V30" stroke="#527D65" stroke-width="4" stroke-linecap="round"/></svg></div><h2 id="message">Fim de jogo</h2><p id="details"></p><div id="legend" aria-label="Tipos de plataformas"><span><i></i>Normal: caminhe</span><span class="fragile"><i></i>Azul: quebra</span><span class="bonus"><i></i>Dourada: bônus</span><span class="danger"><i></i>Escura: perigo</span></div><p id="stats" class="subline"></p>
 <div id="resultSummary" hidden aria-label="Resumo da fase">
- <div class="resultStat"><strong id="resultPlatforms">0/200</strong><small>PLATAFORMAS</small></div>
+ <div class="resultStat"><strong id="resultPlatforms">0/12</strong><small id="resultPlatformsLabel">PLATAFORMAS</small></div>
  <div class="resultStat"><strong id="resultCombo">0</strong><small>MELHOR COMBO</small></div>
  <div class="resultStat"><strong id="resultCoins">+0</strong><small>MOEDAS</small></div>
 </div>
@@ -234,15 +234,15 @@
 <div id="worldTop"><span class="homeEyebrow">SUA JORNADA</span><span id="homeCoins">0 moedas</span></div>
 <div class="worldHeading"><span id="worldStageTag">FASE 01</span><h3 id="worldTitle">Jardim de névoa</h3><p id="worldState">Uma nova jornada começa aqui</p></div>
 <div id="worldArt" aria-hidden="true"><svg viewBox="0 0 280 210" fill="none"><ellipse cx="140" cy="184" rx="85" ry="14" fill="#dedfd5"/><path d="M140 36V179" stroke="#d6d4cb" stroke-width="27" stroke-linecap="round"/><path d="M198 73C184 62 162 57 140 57C98 57 64 70 64 85C64 100 98 113 140 113C153 113 166 112 179 108" stroke="#c88c99" stroke-width="15"/><path d="M198 65C184 54 162 49 140 49C98 49 64 62 64 77C64 92 98 105 140 105C153 105 166 104 179 100" stroke="#e9a6b0" stroke-width="15"/><path d="M198 128C184 117 162 112 140 112C98 112 64 125 64 140C64 155 98 168 140 168C153 168 166 167 179 163" stroke="#80a7b4" stroke-width="15"/><path d="M198 120C184 109 162 104 140 104C98 104 64 117 64 132C64 147 98 160 140 160C153 160 166 159 179 155" stroke="#a9ced8" stroke-width="15"/><rect x="126" y="24" width="28" height="32" rx="12" fill="#94bfa7"/><ellipse cx="140" cy="44" rx="10" ry="7" fill="#fff8e9"/><circle cx="136" cy="42" r="1.5" fill="#39434a"/><circle cx="144" cy="42" r="1.5" fill="#39434a"/></svg></div>
-<div id="worldRecord"><div><span>Melhor avanço</span><strong id="worldBest">0 / 200</strong></div><div id="worldTrack"><div id="worldFill"></div><span id="worldMarker" aria-hidden="true"></span></div><small id="worldRecordHint">Plataformas atravessadas nesta fase</small></div>
+<div id="worldRecord"><div><span>Melhor avanço</span><strong id="worldBest">0 / 12</strong></div><div id="worldTrack"><div id="worldFill"></div><span id="worldMarker" aria-hidden="true"></span></div><small id="worldRecordHint">Plataformas atravessadas nesta fase</small></div>
 <div class="stageListHeader"><strong>Escolha uma fase</strong><span id="worldPageLabel">1–6</span></div><div id="stageGrid"><button id="stage-0" class="stageChoice" type="button"><strong id="stage-number-0">1</strong><span id="stage-status-0"></span></button><button id="stage-1" class="stageChoice" type="button"><strong id="stage-number-1">2</strong><span id="stage-status-1"></span></button><button id="stage-2" class="stageChoice" type="button"><strong id="stage-number-2">3</strong><span id="stage-status-2"></span></button><button id="stage-3" class="stageChoice" type="button"><strong id="stage-number-3">4</strong><span id="stage-status-3"></span></button><button id="stage-4" class="stageChoice" type="button"><strong id="stage-number-4">5</strong><span id="stage-status-4"></span></button><button id="stage-5" class="stageChoice" type="button"><strong id="stage-number-5">6</strong><span id="stage-status-5"></span></button></div><div id="stagePagination"><button id="stagesPrevious" type="button" aria-label="Fases anteriores">‹</button><span id="worldUnlocked">1 fase liberada</span><button id="stagesNext" type="button" aria-label="Próximas fases">›</button></div></div><div id="talentsSection" hidden><div id="talentWallet"></div><p class="talentIntro">Aprenda e melhore talentos permanentes com as moedas das partidas.</p><div class="talentCard"><div class="talentHeading"><h3>Vitalidade</h3><span id="talent-rank-vitality">0 / 3</span></div><p id="talent-desc-vitality"></p><button id="talent-buy-vitality" type="button">Aprender</button></div><div class="talentCard"><div class="talentHeading"><h3>Espada ágil</h3><span id="talent-rank-agility">0 / 3</span></div><p id="talent-desc-agility"></p><button id="talent-buy-agility" type="button">Aprender</button></div><div class="talentCard"><div class="talentHeading"><h3>Fôlego protetor</h3><span id="talent-rank-guard">0 / 3</span></div><p id="talent-desc-guard"></p><button id="talent-buy-guard" type="button">Aprender</button></div><p id="talentFeedback" role="status"></p></div><div id="equipmentSection" hidden><div id="equipmentStage"><div class="gearColumn"><button id="slot-weapon" class="gearSlot" type="button" aria-label="Arma" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36 35 8l5 2-1 5-24 24M9 30l13 12M7 42l7-8"/></svg><span>Arma</span><small id="slot-state-weapon">Vazio</small></button><button id="slot-helmet" class="gearSlot" type="button" aria-label="Capacete" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 34V23a14 14 0 0 1 28 0v11l-8 5V25H18v14z"/><path d="M18 15h12"/></svg><span>Capacete</span><small id="slot-state-helmet">Vazio</small></button><button id="slot-gloves" class="gearSlot" type="button" aria-label="Luva" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 39 8 28v-9l4-2 4 8V10l5-1 2 15V8l5 1 1 15 3-12 5 2-1 18-8 8z"/></svg><span>Luva</span><small id="slot-state-gloves">Vazio</small></button></div><div id="equipmentHero"><canvas id="equipmentPreview" width="240" height="240" role="img" aria-label="Prévia do personagem com os equipamentos selecionados"></canvas><strong id="equipmentCharacterName">Seu personagem</strong><p id="equipmentStatus" role="status"></p></div><div class="gearColumn"><button id="slot-boots" class="gearSlot" type="button" aria-label="Bota" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8h17v22l9 5v7H9v-9l5-5z"/><path d="M19 17h9m-9 6h9M10 37h27"/></svg><span>Bota</span><small id="slot-state-boots">Vazio</small></button><button id="slot-pants" class="gearSlot" type="button" aria-label="Calça" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9h24l3 31H27l-3-18-3 18H9z"/><path d="M13 16h22m-11-7v8"/></svg><span>Calça</span><small id="slot-state-pants">Vazio</small></button><button id="slot-armor" class="gearSlot" type="button" aria-label="Armadura" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 8-9 5 5 12 3-2-3 17h22l-3-17 3 2 5-12-9-5-7 5z"/><path d="M24 14v25m-8-10h16"/></svg><span>Armadura</span><small id="slot-state-armor">Vazio</small></button></div></div><div class="inventoryHeading"><h3 id="inventoryTitle">Inventário</h3><span>6 itens básicos</span></div><div id="equipmentInventory"><button id="item-weapon" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36 35 8l5 2-1 5-24 24M9 30l13 12M7 42l7-8"/></svg><small>Arma</small><strong>Espada</strong><span id="item-state-weapon">Disponível</span></button><button id="item-helmet" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 34V23a14 14 0 0 1 28 0v11l-8 5V25H18v14z"/><path d="M18 15h12"/></svg><small>Capacete</small><strong>Capuz de linho</strong><span id="item-state-helmet">Disponível</span></button><button id="item-gloves" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 39 8 28v-9l4-2 4 8V10l5-1 2 15V8l5 1 1 15 3-12 5 2-1 18-8 8z"/></svg><small>Luva</small><strong>Luvas macias</strong><span id="item-state-gloves">Disponível</span></button><button id="item-boots" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8h17v22l9 5v7H9v-9l5-5z"/><path d="M19 17h9m-9 6h9M10 37h27"/></svg><small>Bota</small><strong>Botas de trilha</strong><span id="item-state-boots">Disponível</span></button><button id="item-pants" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9h24l3 31H27l-3-18-3 18H9z"/><path d="M13 16h22m-11-7v8"/></svg><small>Calça</small><strong>Calça de viagem</strong><span id="item-state-pants">Disponível</span></button><button id="item-armor" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 8-9 5 5 12 3-2-3 17h22l-3-17 3 2 5-12-9-5-7 5z"/><path d="M24 14v25m-8-10h16"/></svg><small>Armadura</small><strong>Colete de linho</strong><span id="item-state-armor">Disponível</span></button></div><div id="equipmentCard"><div><strong id="equipmentSelectionName">Espada</strong><p id="equipmentSelectionDesc"></p></div><button id="equipSword" type="button">Equipar espada</button></div></div><button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
 <button id="equipmentButton" class="secondary" style="display:none">Equipamentos</button><button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
-<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><nav id="homeNav" aria-label="Navegação principal" style="display:none"><button id="navInventory" type="button"><span aria-hidden="true">▣</span><small>Inventário</small></button><button id="navWorld" type="button"><span aria-hidden="true">◎</span><small>Mundo</small></button><button id="navTalents" type="button"><span aria-hidden="true">✦</span><small>Talentos</small></button><button id="navShop" type="button"><span aria-hidden="true">◇</span><small>Loja</small></button></nav><div id="joystick" role="slider" tabindex="0" aria-label="Mover personagem para a esquerda ou direita" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" style="display:none"><span class="joystickGuide" aria-hidden="true">‹　›</span><span id="joystickKnob" aria-hidden="true"></span></div><button id="attack" type="button" aria-label="Golpear com a espada" style="display:none">Golpear</button><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script src="progression.js"></script><script>
+<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><nav id="homeNav" aria-label="Navegação principal" style="display:none"><button id="navInventory" type="button"><span aria-hidden="true">▣</span><small>Inventário</small></button><button id="navWorld" type="button"><span aria-hidden="true">◎</span><small>Mundo</small></button><button id="navTalents" type="button"><span aria-hidden="true">✦</span><small>Talentos</small></button><button id="navShop" type="button"><span aria-hidden="true">◇</span><small>Loja</small></button></nav><div id="joystick" role="slider" tabindex="0" aria-label="Mover personagem ao redor e entre as faixas" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" style="display:none"><span class="joystickGuide" aria-hidden="true">‹　›</span><span id="joystickKnob" aria-hidden="true"></span></div><button id="attack" type="button" aria-label="Golpear com a espada" style="display:none">Golpear</button><script src="course.js"></script><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script src="progression.js"></script><script>
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0,phaseCoins=0,phaseBestCombo=0;const comboBadge=document.querySelector("#comboBadge");
 const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalsCountdown=document.querySelector('#goalsCountdown'),goalToast=document.querySelector('#goalToast'),goalsOverview=document.querySelector('#goalsOverview'),goalsDailyTab=document.querySelector('#goalsDailyTab'),goalsAchievementTab=document.querySelector('#goalsAchievementTab'),goalsDailyGroup=document.querySelector('#goalsDailyGroup'),goalsAchievementGroup=document.querySelector('#goalsAchievementGroup'),goalCelebration=document.querySelector('#goalCelebration'),rewardMedalTitle=document.querySelector('#rewardMedalTitle'),rewardMedalName=document.querySelector('#rewardMedalName'),rewardMedalAmount=document.querySelector('#rewardMedalAmount');
 let goalToastFrames=0,celebrationFrames=0,goalsTab='daily';
 let guideFrames=0,chapterStart=-1;
-const phaseGuide=document.querySelector('#phaseGuide');
+const phaseGuide=document.querySelector('#phaseGuide'),courseMap=document.querySelector('#courseMap');
 let goalsState;
 try{goalsState=Goals.load(localStorage,Goals.localDay(new Date()))}catch(e){goalsState=Goals.create(Goals.localDay(new Date()))}
 function saveGoalsState(){try{Goals.save(localStorage,goalsState)}catch(e){}}
@@ -388,6 +388,7 @@ resultSummary=document.querySelector('#resultSummary'),resultPlatforms=document.
 const equipmentButton=document.querySelector('#equipmentButton'),equipmentSection=document.querySelector('#equipmentSection'),equipSwordButton=document.querySelector('#equipSword'),equipmentStatus=document.querySelector('#equipmentStatus'),attackButton=document.querySelector('#attack');
 const joystick=document.querySelector('#joystick'),joystickKnob=document.querySelector('#joystickKnob');
 let joystickAxis=0,joystickPointer=null,joystickOrigin=null;
+const Course=window.FallJumpCourse;
 const Progression=window.FallJumpProgression;
 let journey=Progression.load(localStorage),worldPage=Math.floor((journey.selected-1)/6);
 const worldSection=document.querySelector('#worldSection'),talentsSection=document.querySelector('#talentsSection'),homeNav=document.querySelector('#homeNav');
@@ -407,7 +408,7 @@ function refreshWorld(){
  document.querySelector('#worldStageTag').textContent='FASE '+String(n).padStart(2,'0');
  document.querySelector('#worldTitle').textContent=names[(n-1)%names.length];
  document.querySelector('#worldState').textContent=journey.completed[n]?'Concluída · jogue novamente para melhorar seu recorde':best?'Seu melhor avanço fica guardado aqui':'Uma nova jornada começa aqui';
- document.querySelector('#worldBest').textContent=best+' / '+total;
+ document.querySelector('#worldBest').textContent=best+' / '+total;document.querySelector('#worldRecordHint').textContent=n===1?'Áreas exploradas nesta fase':'Plataformas atravessadas nesta fase';
  document.querySelector('#worldFill').style.width=percent+'%';document.querySelector('#worldMarker').style.left=percent+'%';
  document.querySelector('#worldRecord').setAttribute('aria-label','Melhor avanço na fase '+n+': '+best+' de '+total);
  document.querySelector('#worldPageLabel').textContent=(worldPage*6+1)+'–'+Math.min(Progression.MAX_LEVEL,worldPage*6+6);
@@ -458,11 +459,11 @@ function refreshHealth(){
  document.querySelector('#healthHud').setAttribute('aria-label','Vida: '+health+' de '+maxHealth());
 }
 function resetHealth(){health=maxHealth();hurtFrames=0;refreshHealth();}
-function hurtByEnemy(){
+function hurtByEnemy(amount=5,cause='enemy'){
  if(mode!=='playing'||!alive||hurtFrames>0)return;
- health=Math.max(0,health-5);hurtFrames=60+journey.talents.guard*10;refreshHealth();
+ health=Math.max(0,health-amount);hurtFrames=60+journey.talents.guard*10;refreshHealth();
  tone(150,.12,'triangle',.035,-60);
- if(health===0)end(false,'enemy');
+ if(health===0)end(false,cause);
 }
 function renderEquipmentPreview(){
  const c=document.querySelector('#equipmentPreview'),paint=c.getContext('2d');
@@ -519,8 +520,10 @@ function swordAttack(){
  tone(340,.10,'triangle',.035,-160);
  for(const e of enemies){
   const p=e.platform;if(e.defeated||p.passed||p.broken)continue;
-  const delta=norm(rotation+p.angle+e.angle-walkAngle+Math.PI)-Math.PI;
-  if(delta*facing>=0&&delta*facing<=.48&&Math.abs(ballY-(p.y-enemyHeight))<contactRadius+enemyHeight){damageEnemy(e);}
+  const angle=rotation+p.angle+e.angle,r=e.radius||108;
+  const dx=Math.sin(angle)*r-ballX,dz=Math.cos(angle)*r-ballZ;
+  const forward=(dx*Math.cos(walkAngle)-dz*Math.sin(walkAngle))*facing;
+  if(forward>=-2&&Math.hypot(dx,dz)<=52&&Math.abs(ballY-(p.y-enemyHeight))<contactRadius+enemyHeight)damageEnemy(e);
  }
  refreshEquipment();return true;
 }
@@ -560,7 +563,7 @@ function showPanel(title,body,action,secondary=false){
  legendEl.hidden=mode!=='menu'&&mode!=='menu-help'&&mode!=='help';
  stats.textContent='RECORDE  '+best.toLocaleString('pt-BR')+'  •  PONTOS  '+totalScore.toLocaleString('pt-BR');
  document.querySelector('#panel').scrollTop=0;
- phaseGuide.style.display='none';overlay.style.display='flex';
+ phaseGuide.style.display='none';courseMap.style.display='none';overlay.style.display='flex';
 }
 function menu(){mode='menu';alive=false;started=false;drag=false;hint.style.opacity='0';pauseBtn.style.display='none';goalToast.style.opacity='0';goalToastFrames=0;refreshWallet();if(Goals.refreshDay(goalsState,Goals.localDay(new Date())))saveGoalsState();updateGoalIndicators();showPanel('Fall Jump','Guie seu personagem. Encontre a abertura.','Jogar',false);worldPage=Math.floor((journey.selected-1)/6);refreshWorld();}
 function openGoals(){
@@ -586,7 +589,7 @@ for(const skin of Skins.CATALOG){
   refreshShop();
  };
 }
-const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,walkPending=0,walkVelocity=0,gaitBlend=0,poseTime=0,lookFacing=1,bodyFacing=1,landingPose=0,cameraAngle=0,grounded=null,jumping=false,enemies=[];const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
+const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let walkRadius=108,radialAxis=0,radialVelocity=0,courseIndex=0;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,walkPending=0,walkVelocity=0,gaitBlend=0,poseTime=0,lookFacing=1,bodyFacing=1,landingPose=0,cameraAngle=0,grounded=null,jumping=false,enemies=[];const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
 let backdropPaint={};
 function refreshBackdropPaint(){
  const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f7f5f0');bg.addColorStop(1,'#efeee8');
@@ -601,15 +604,20 @@ function showPhaseGuide(title,text){
  guideFrames=260;hint.style.opacity='0';phaseGuide.style.display=mode==='playing'?'block':'none';
 }
 function firstStageProgress(initial=false){
- if(level!==1){phaseGuide.style.display='none';return;}
- const chapter=window.FallJumpLevelGenerator.firstLevelChapter(levelPassed);
- stagePatternEl.style.display='block';stagePatternEl.textContent=chapter.title;
- const changed=chapterStart!==chapter.from;chapterStart=chapter.from;
- let bonus=0;
- if(!initial&&levelPassed>0&&levelPassed<levelTarget&&levelPassed%50===0){bonus=creditCoins(5);phaseCoins+=bonus;}
- if(initial||changed)showPhaseGuide(chapter.title,chapter.tip+(bonus?' +'+bonus+' moedas pelo avanço!':''));
- else if(levelPassed===9)showPhaseGuide('Um novo encontro','Um inimigo vem aí. Dois toques para saltar; três pisões o derrotam.');
- else if(bonus)showPhaseGuide('Você está avançando!','Marco de '+levelPassed+' plataformas · +'+bonus+' moedas. Continue descendo!');
+ const area=platforms[Math.min(levelPassed,platforms.length-1)]?.course;
+ if(!area){phaseGuide.style.display='none';return;}
+ stagePatternEl.style.display='block';stagePatternEl.textContent=area.title;
+ if(initial||chapterStart!==area.index){chapterStart=area.index;showPhaseGuide('Área '+(area.index+1)+' · '+area.title,area.tip);}
+}
+function placeOnCourse(p){
+ const entry=p.course.entry;courseIndex=p.course.index;walkRadius=Course.radius(entry.lane);walkAngle=norm(p.angle+(entry.cell+.5)*Course.STEP);
+ ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=p.y-contactRadius;vy=0;grounded=p;jumping=false;
+ cancelGesture();radialVelocity=0;combo=0;Fever.onLanding(feverState);refreshFeverHud();comboBadge.classList.remove('on');
+}
+function resetCourseFall(p){
+ const previousHealth=health;hurtByEnemy(10,'course');if(!alive)return;
+ for(const t of p.course.tiles){t.collapsed=false;t.standFrames=0;}
+ placeOnCourse(p);showPhaseGuide('De volta ao caminho',health<previousHealth?'Você caiu fora do percurso e perdeu 10 de vida. Tente usar o salto.':'Você caiu fora do percurso. A proteção evitou o dano; tente usar o salto.');
 }
 function buildLevel(n){
   const generator=window.FallJumpLevelGenerator;
@@ -631,16 +639,54 @@ function buildLevel(n){
   refreshFeverHud();
   stagePatternEl.style.display='none';stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   guideFrames=0;chapterStart=-1;phaseGuide.style.display='none';
+  document.querySelector('#resultPlatformsLabel').textContent=plan.experimental?'ÁREAS':'PLATAFORMAS';feverHud.style.display=plan.experimental?'none':'block';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
-  cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;walkPending=0;walkVelocity=0;gaitBlend=0;poseTime=0;lookFacing=1;bodyFacing=1;landingPose=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Toque e arraste para mover · dois toques para saltar'
-}function reset(){resetHealth();level=journey.selected;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function viewDepth(x,z){return x*Math.sin(cameraAngle)+z*Math.cos(cameraAngle)}function project(x,z,y){const viewX=x*Math.cos(cameraAngle)-z*Math.sin(cameraAngle);z=viewDepth(x,z);x=viewX;let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
+  walkRadius=108;radialVelocity=0;courseIndex=0;cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;walkPending=0;walkVelocity=0;gaitBlend=0;poseTime=0;lookFacing=1;bodyFacing=1;landingPose=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent=plan.experimental?'Joystick: gire e mude de faixa · dois toques para saltar':'Toque e arraste para mover · dois toques para saltar';if(platforms[0].course){placeOnCourse(platforms[0]);cameraAngle=walkAngle;}
+}function reset(){resetHealth();level=journey.selected;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function viewDepth(x,z){return x*Math.sin(cameraAngle)+z*Math.cos(cameraAngle)}function project(x,z,y){const viewX=x*Math.cos(cameraAngle)-z*Math.sin(cameraAngle);z=viewDepth(x,z);x=viewX;let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function courseTile(p){return p.course?Course.tileAt(p.course,norm(walkAngle-p.angle),walkRadius):null;}function inGap(p){if(p.course){const tile=courseTile(p);return !tile||tile.exit;}let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(p.course)return false;if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
 const platformPaint={
  normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
  fragile:{top:'#a9ced8',back:'#9bc0cb',side:'#80a7b4',shadow:'#7398a6',edge:'#cee4e9'},
  bonus:{top:'#e8cb86',back:'#dbc07f',side:'#bfa366',shadow:'#ac925b',edge:'#f2dfb3'},
  danger:{top:'#534857',back:'#63566a',side:'#433b48',shadow:'#39313e',edge:'#7a6b80'}
 };
+function drawCourseMap(){
+ const p=platforms[levelPassed];
+ if(mode!=='playing'||!p?.course){courseMap.style.display='none';return;}
+ courseMap.style.display='block';const paint=courseMap.getContext('2d');paint.setTransform(2,0,0,2,0,0);paint.clearRect(0,0,92,92);
+ paint.fillStyle='#d6d4cb';paint.beginPath();paint.arc(46,46,9,0,TAU);paint.fill();
+ for(const t of p.course.tiles){
+  if(t.collapsed)continue;
+  const a=p.angle+t.cell*Course.STEP-cameraAngle,b=a+Course.STEP,inner=(Course.INNER+t.lane*Course.WIDTH)*.22,outer=inner+Course.WIDTH*.22;
+  paint.fillStyle=t.exit?'#c6a352':t.fragile?'#a9ced8':t.height?'#a69ab8':'#e9a6b0';
+  paint.beginPath();for(let j=0;j<=3;j++){const angle=a+(b-a)*j/3;const x=46+Math.sin(angle)*outer,y=46+Math.cos(angle)*outer;if(j===0)paint.moveTo(x,y);else paint.lineTo(x,y);}for(let j=3;j>=0;j--){const angle=a+(b-a)*j/3;paint.lineTo(46+Math.sin(angle)*inner,46+Math.cos(angle)*inner);}paint.closePath();paint.fill();
+ }
+ paint.fillStyle='#39434a';paint.strokeStyle='#fffdf9';paint.lineWidth=1.2;paint.beginPath();paint.arc(46+Math.sin(walkAngle-cameraAngle)*walkRadius*.22,46+Math.cos(walkAngle-cameraAngle)*walkRadius*.22,3,0,TAU);paint.fill();paint.stroke();
+}
+function renderCourseArea(p,front){
+ const tiles=p.course.tiles.filter(t=>!t.collapsed&&((Math.cos(p.angle+(t.cell+.5)*Course.STEP-cameraAngle)>=0)===front));
+ tiles.sort((a,b)=>Math.cos(p.angle+(a.cell+.5)*Course.STEP-cameraAngle)-Math.cos(p.angle+(b.cell+.5)*Course.STEP-cameraAngle));
+ for(const t of tiles){
+  const a=p.angle+t.cell*Course.STEP,b=a+Course.STEP,inner=Course.INNER+t.lane*Course.WIDTH,outer=inner+Course.WIDTH;
+  const y=p.y-t.height,top=arcPoints(a,b,y,outer,3),inside=arcPoints(a,b,y,inner,3),bottom=arcPoints(a,b,p.y+18,outer,3);
+  const paint=t.exit?platformPaint.bonus:t.fragile?platformPaint.fragile:platformPaint.normal;
+  if(front)polygon([...top,...bottom.reverse()],paint.side,true);
+  else{const lower=arcPoints(a,b,p.y+18,inner,3);polygon([...inside,...lower.reverse()],paint.shadow,true);}
+  for(const angle of [a,b]){
+   const x1=Math.sin(angle)*inner,z1=Math.cos(angle)*inner,x2=Math.sin(angle)*outer,z2=Math.cos(angle)*outer;
+   polygon([project(x1,z1,y),project(x2,z2,y),project(x2,z2,p.y+18),project(x1,z1,p.y+18)],paint.side,true);
+  }
+  polygon([...top,...inside.slice().reverse()],paint.top,true);
+  if(t.height){ctx.strokeStyle=paint.edge;ctx.lineWidth=scale;ctx.beginPath();ctx.moveTo(top[0].x,top[0].y);for(const pt of top)ctx.lineTo(pt.x,pt.y);ctx.stroke();}
+  const center=project(Math.sin((a+b)/2)*Course.radius(t.lane),Math.cos((a+b)/2)*Course.radius(t.lane),y-2);
+  if(t.coin&&!t.collected){ctx.fillStyle='#fff0b5';ctx.strokeStyle='#a98942';ctx.lineWidth=scale;ctx.beginPath();ctx.ellipse(center.x,center.y-5*scale,4*scale,5*scale,0,0,TAU);ctx.fill();ctx.stroke();}
+  if(t.fragile){ctx.strokeStyle=t.standFrames>20?'#507c8c':'#e1f2f5';ctx.lineWidth=scale;ctx.beginPath();ctx.moveTo(center.x-7*scale,center.y);ctx.lineTo(center.x,center.y+2*scale);ctx.lineTo(center.x+6*scale,center.y-2*scale);ctx.stroke();}
+  if(t.exit){
+   ctx.fillStyle='#806933';ctx.font=`700 ${Math.round(14*scale)}px system-ui`;ctx.textAlign='center';ctx.fillText('↓',center.x,center.y+4*scale);
+  }
+ }
+}
 function renderRing(p,front){
+ if(p.course){renderCourseArea(p,front);return;}
  const segs=(scale<.85?44:56),step=TAU/segs,pieces=[];
  for(let j=0;j<segs;j++){
   const a=j*step,b=(j+1)*step,mid=(a+b)/2,local=norm(mid-rotation-p.angle);
@@ -796,9 +842,10 @@ const enemyRadius=11,enemyHeight=enemyRadius/verticalScale;
 function createEnemies(disks){
  const result=[],patrolEvery=level>=6?3:4;
  disks.forEach((p,index)=>{
+  if(p.course){const patrol=p.course.patrol;if(patrol){const min=(patrol.from+.4)*Course.STEP,max=(patrol.to+.6)*Course.STEP;result.push({platform:p,min,max,angle:(min+max)/2,direction:1,speed:.006,radius:Course.radius(patrol.lane),phase:0,hp:3,hitFlash:0,defeated:false});}return;}
   const scheduled=level===1?[12,36,64,88,116,148,164,184].includes(index):index%patrolEvery===patrolEvery-1;
   if(index<3||!scheduled||p.special==='fragile')return;
-  const clearance=(radius+enemyRadius)/walkRadius+.12;
+  const clearance=(radius+enemyRadius)/108+.12;
   const safeStart=p.danger?p.gap+.53+p.danger+clearance:p.gap/2+clearance;
   const safeEnd=TAU-p.gap/2-clearance;
   if(safeEnd-safeStart<.8)return;
@@ -823,7 +870,7 @@ function enemyCollision(){
   const p=e.platform;
   if(e.defeated||p.passed||p.broken)return false;
   const angle=rotation+p.angle+e.angle;
-  const x=Math.sin(angle)*walkRadius,z=Math.cos(angle)*walkRadius;
+  const x=Math.sin(angle)*(e.radius||108),z=Math.cos(angle)*(e.radius||108);
   return Math.hypot(ballX-x,ballZ-z)<radius+enemyRadius-2&&
    Math.abs(ballY-(p.y-enemyHeight))<contactRadius+enemyHeight-3;
  });
@@ -834,7 +881,7 @@ function damageEnemy(e){
  if(e.defeated)return;
  e.hp--;e.hitFlash=12;e.defeated=e.hp===0;
  const angle=rotation+e.platform.angle+e.angle;
- const pt=project(Math.sin(angle)*walkRadius,Math.cos(angle)*walkRadius,e.platform.y-2*enemyHeight);
+ const pt=project(Math.sin(angle)*(e.radius||108),Math.cos(angle)*(e.radius||108),e.platform.y-2*enemyHeight);
  burst(pt.x,pt.y,e.defeated?12:5);tone(e.defeated?700:430,.12,'triangle',.045,160);
  if(e.defeated)floatingText('DERROTADO!',pt.x,pt.y-20*scale,'#665573');
 }
@@ -843,7 +890,7 @@ function resolveEnemyStomp(previousY){
  for(const e of enemies){
   const p=e.platform;if(e.defeated||p.passed||p.broken)continue;
   const angle=rotation+p.angle+e.angle;
-  const x=Math.sin(angle)*walkRadius,z=Math.cos(angle)*walkRadius;
+  const x=Math.sin(angle)*(e.radius||108),z=Math.cos(angle)*(e.radius||108);
   if(Math.hypot(ballX-x,ballZ-z)>=radius+enemyRadius-2)continue;
   const headY=p.y-2*enemyHeight;
   if(previousY+contactRadius>headY+.001||ballY+contactRadius<headY)continue;
@@ -856,9 +903,9 @@ function resolveEnemyStomp(previousY){
 function drawEnemies(front,visible){
  for(const e of enemies){
   const p=e.platform;if(e.defeated||p.passed||p.broken||!visible.includes(p))continue;
-  const angle=rotation+p.angle+e.angle,z=Math.cos(angle)*walkRadius;
+  const angle=rotation+p.angle+e.angle,z=Math.cos(angle)*(e.radius||108);
   if((Math.cos(angle-cameraAngle)>=0)!==front)continue;
-  const x=Math.sin(angle)*walkRadius,pt=project(x,z,p.y-enemyHeight),r=enemyRadius*scale;
+  const x=Math.sin(angle)*(e.radius||108),pt=project(x,z,p.y-enemyHeight),r=enemyRadius*scale;
   const floor=project(x,z,p.y);
   ctx.save();ctx.fillStyle='#53485724';ctx.beginPath();ctx.ellipse(floor.x,floor.y,r*1.1,r*.3,0,0,TAU);ctx.fill();
   ctx.translate(pt.x,pt.y);
@@ -886,7 +933,7 @@ function drawEnemies(front,visible){
  }
 }
 function floatingText(text,x,y,color='#fff'){popups.push({text,x,y,life:54,color});}
-function burst(x,y,n=12){for(let i=0;i<n;i++){let a=Math.random()*TAU,s=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:26+Math.random()*16,size:1.5+Math.random()*3,color:Math.random()<.45?"#94bfa7":"#e9a6b0",shard:false,glint:i%3===0})}}function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle=backdropPaint.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.haze;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.cool;ctx.fillRect(0,0,W,H);// central cylinder, pale and visually behind platforms
+function burst(x,y,n=12){for(let i=0;i<n;i++){let a=Math.random()*TAU,s=1.5+Math.random()*3.5;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,life:26+Math.random()*16,size:1.5+Math.random()*3,color:Math.random()<.45?"#94bfa7":"#e9a6b0",shard:false,glint:i%3===0})}}function draw(){drawCourseMap();ctx.clearRect(0,0,W,H);ctx.fillStyle=backdropPaint.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.haze;ctx.fillRect(0,0,W,H);ctx.fillStyle=backdropPaint.cool;ctx.fillRect(0,0,W,H);// central cylinder, pale and visually behind platforms
 // Stable viewport culling: retain each disk until its entire projected silhouette is outside the screen.
 // A generous margin keeps disks visible while the camera follows the descent.
 let margin=Math.max(190*scale,110);
@@ -921,6 +968,7 @@ if(combo>=2&&vy>5){ctx.save();ctx.globalAlpha=Math.min(.6,(combo-1)*.12);ctx.str
  if(win){Progression.record(journey,level,levelPassed,true);saveJourney();levelsCompleted++;phaseCoins+=creditCoins(Skins.coinsForLevel());recordGoalEvent({wins:1})}
  const explanation=win
   ?'Torre concluída! Você recebeu 12 moedas extras. Confira o resumo e avance para a próxima fase.'
+  :cause==='course'?'Você ficou sem vida ao cair fora do percurso. Use os saltos e procure a saída dourada.'
   :cause==='enemy'?'Sua vida chegou a zero. Cada contato com inimigos tira 5 pontos. Use a espada ou acerte a cabeça para derrotá-los.'
   :levelPassed===0?'Você ainda não atravessou nenhuma plataforma. Arraste para conduzir o personagem até uma abertura.'
   :'Você avançou '+levelPassed+' de '+levelTarget+' plataformas. Evite as áreas escuras e tente novamente.';
@@ -962,7 +1010,8 @@ function updateCharacterPose(){
  landingPose*=.78;
 }
 function stepWalking(){
- const usingStick=joystickPointer!==null||joystickAxis!==0;
+ const previousAngle=walkAngle,previousRadius=walkRadius;
+ const usingStick=joystickPointer!==null||joystickAxis!==0||radialAxis!==0;
  const desired=usingStick?joystickAxis*.04:Math.max(-.04,Math.min(.04,walkPending*.45));
  walkVelocity+=(desired-walkVelocity)*.5;
  let step=walkVelocity;
@@ -974,10 +1023,17 @@ function stepWalking(){
  if(Math.abs(walkPending)<.0003){step+=walkPending;walkPending=0;walkVelocity=0;}
  }
  walkAngle=norm(walkAngle+step);
+ const currentArea=platforms[levelPassed];
+ if(currentArea?.course){
+  radialVelocity+=(radialAxis*1.8-radialVelocity)*.5;walkRadius=Math.max(58,Math.min(158,walkRadius+radialVelocity));
+  const tile=courseTile(currentArea),height=tile?.height||0,feetAbove=currentArea.y-(ballY+contactRadius);
+  if(tile&&!tile.exit&&height>feetAbove+6){walkAngle=previousAngle;walkRadius=previousRadius;}
+ }
  ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;
- const pace=grounded?Math.min(1,Math.abs(step)/.04):0;
+ const distance=Math.hypot(step*walkRadius,walkRadius-previousRadius);
+ const pace=grounded?Math.min(1,distance/4.3):0;
  gaitBlend+=(pace-gaitBlend)*.3;
- if(grounded)walkPhase+=Math.abs(step)*6;
+ if(grounded)walkPhase+=distance*.056;
 }
 function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started&&guideFrames>0){guideFrames--;if(guideFrames===0)phaseGuide.style.display='none';}
 if(mode==='playing'&&alive)updateCharacterPose();if(mode==='playing'&&alive&&started){if(hurtFrames>0)hurtFrames--;if(attackCooldown>0){attackCooldown--;if(attackCooldown===0)refreshEquipment();}if(attackFrames>0)attackFrames--;updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();stepWalking();
@@ -986,6 +1042,15 @@ if(mode==='playing'&&alive)updateCharacterPose();if(mode==='playing'&&alive&&sta
 if(grounded&&enemyCollision())hurtByEnemy();
 if(grounded&&alive){
  const p=grounded;
+ const tile=courseTile(p);
+ if(p.course){
+  if(tile?.coin&&!tile.collected){tile.collected=true;phaseCoins+=creditCoins(2);sfx('bonus');}
+  if(tile?.fragile){tile.standFrames++;if(tile.standFrames>=45){tile.collapsed=true;sfx('break');}}
+  if(!tile||tile.collapsed){grounded=null;}
+  else if(tile.exit){grounded=null;completePlatform(p,'gap');}
+  else if(p.y-tile.height>ballY+contactRadius+6){grounded=null;}
+  else ballY=p.y-tile.height-contactRadius;
+ }else{
  const collision=Fever.contact(feverState,{gap:inGap(p),danger:dangerAt(p),fragile:p.special==='fragile'});
  if(collision==='lose')end();
  else if(collision==='gap'||collision==='smash'){
@@ -993,13 +1058,22 @@ if(grounded&&alive){
   if(collision==='smash'){p.broken=true;fragments(p);sfx('break');shake=4;}
   completePlatform(p,collision);
  }
+ }
 }
 if(!grounded&&alive){
  const prev=ballY;vy=Math.min(vy+gravity,14);ballY+=vy;
  resolveEnemyStomp(prev);
  for(const p of platforms){
   if(vy<0)break;
-  if(p.passed||prev+contactRadius>p.y||ballY+contactRadius<p.y)continue;
+  if(p.passed)continue;
+  if(p.course&&p.course.index!==courseIndex){if(prev+contactRadius<=p.y&&ballY+contactRadius>=p.y){placeOnCourse(p);firstStageProgress();break;}continue;}
+  const tile=courseTile(p),surfaceY=p.y-(tile?.height||0);
+  if(prev+contactRadius>surfaceY||ballY+contactRadius<surfaceY)continue;
+  if(p.course){
+   if(tile?.exit){completePlatform(p,'gap');break;}
+   if(!tile)continue;
+   landingPose=Math.min(1,vy/14);grounded=p;jumping=false;ballY=surfaceY-contactRadius;vy=0;squash=.22;combo=0;Fever.onLanding(feverState);refreshFeverHud();break;
+  }
   const collision=Fever.contact(feverState,{gap:inGap(p),danger:dangerAt(p),fragile:p.special==='fragile'});
   if(collision==='gap'){completePlatform(p,'gap');break;}
   if(collision==='lose'){end();break;}
@@ -1011,6 +1085,8 @@ if(!grounded&&alive){
   break;
  }
 }
+const activeCourse=platforms[levelPassed];
+if(alive&&activeCourse?.course&&activeCourse.course.index===courseIndex&&ballY+contactRadius>activeCourse.y+80)resetCourseFall(activeCourse);
 if(alive&&enemyCollision())hurtByEnemy();
 // Follow vertical descent without bobbing as the character circles the shaft.
 const currentPlatformY=Math.min(levelPassed,platforms.length-1)*spacing;
@@ -1048,7 +1124,7 @@ let tapCandidate=null,lastTap=null;
 const tapWindowMs=280,tapSlop=12;
 function cancelGesture(resetStick=true){drag=false;tapCandidate=null;lastTap=null;walkPending=0;walkVelocity=0;if(resetStick)resetJoystick();}
 function resetJoystick(){
- const pointer=joystickPointer;joystickPointer=null;joystickAxis=0;joystickOrigin=null;
+ const pointer=joystickPointer;joystickPointer=null;joystickAxis=0;radialAxis=0;radialVelocity=0;joystickOrigin=null;
  joystick.style.display='none';
  joystickKnob.style.transform='translate(-50%, -50%)';
  joystick.setAttribute('aria-valuenow','0');
@@ -1060,6 +1136,7 @@ function moveJoystick(e){
  let x=e.clientX-(joystickOrigin?.x??box.left+box.width/2),y=(e.clientY||0)-(joystickOrigin?.y??box.top+box.height/2);
  const length=Math.hypot(x,y);if(length>limit){x*=limit/length;y*=limit/length;}
  const raw=x/limit;joystickAxis=Math.abs(raw)<.15?0:Math.sign(raw)*(Math.abs(raw)-.15)/.85;
+ const vertical=-y/limit;radialAxis=Math.abs(vertical)<.15?0:Math.sign(vertical)*(Math.abs(vertical)-.15)/.85;
  if(joystickAxis!==0)facing=joystickAxis>0?1:-1;
  joystickKnob.style.transform=`translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
  joystick.setAttribute('aria-valuenow',String(Math.round(joystickAxis*100)));
@@ -1077,10 +1154,10 @@ function upJoystick(e){
 joystick.addEventListener('pointerdown',downJoystick);joystick.addEventListener('pointermove',moveJoystick);
 joystick.addEventListener('pointerup',upJoystick);joystick.addEventListener('pointercancel',upJoystick);joystick.addEventListener('lostpointercapture',upJoystick);
 joystick.addEventListener('keydown',e=>{
- if(mode!=='playing'||!alive||!['ArrowLeft','ArrowRight'].includes(e.key))return;
- e.preventDefault();started=true;hint.style.opacity='0';joystickAxis=e.key==='ArrowRight'?1:-1;facing=joystickAxis;
+ if(mode!=='playing'||!alive||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;
+ e.preventDefault();started=true;hint.style.opacity='0';if(e.key==='ArrowUp'||e.key==='ArrowDown')radialAxis=e.key==='ArrowUp'?1:-1;else{joystickAxis=e.key==='ArrowRight'?1:-1;facing=joystickAxis;}
 });
-joystick.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){resetJoystick();walkVelocity=0;}});
+joystick.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){resetJoystick();walkVelocity=0;}});
 joystick.addEventListener('blur',()=>{resetJoystick();walkVelocity=0;});
 function manualJump(){
  if(mode!=='playing'||!alive||!started||!grounded)return false;
@@ -1148,11 +1225,14 @@ function askLeave(){
 }
 function openGameHelp(){
  drag=false;mode='help';pauseBtn.style.display='none';
- showPanel('Como jogar','Toque e arraste no cenário para revelar o joystick e caminhar. Quanto mais deslocar para os lados, maior a velocidade. Solte para parar e ocultar o controle. A câmera acompanha o personagem. Dê dois toques rápidos no cenário para saltar. Com a espada equipada, use Golpear para atacar na última direção em que caminhou. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. O personagem tem 100 de vida. Contatos laterais com inimigos tiram 5 pontos, com um segundo de proteção após cada dano, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
+ const movement='Toque e arraste para revelar o joystick. Solte para parar. A câmera acompanha o personagem. Dê dois toques rápidos para saltar; enquanto segura o joystick, use outro dedo para os dois toques. ';
+ const courseHelp='Mova para os lados para contornar a torre e para cima/baixo para mudar de faixa. Procure a saída dourada indicada no minimapa. Salte entre ilhas e para subir degraus. As pontes azuis cedem se você demorar sobre elas. Cair fora do caminho tira 10 de vida e devolve você à entrada. ';
+ const ringHelp='Procure os vãos para descer e evite as áreas escuras. Azuis quebram, douradas dão bônus. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns. ';
+ showPanel('Como jogar',movement+(platforms[0]?.course?courseHelp:ringHelp)+'Inimigos precisam de três pisões na cabeça; cada acerto faz você quicar. O contato tira 5 de vida, com um segundo de proteção após o dano. Com a espada equipada, use Golpear para atacar na direção em que caminhou.','Continuar',true);
 }
 function openMenuHelp(){
  mode='menu-help';
- showPanel('Como jogar','Toque e arraste no cenário: o joystick aparece no ponto de toque para mover o personagem. Ao soltar, ele desaparece e o personagem para. A câmera gira para acompanhá-lo. Dê dois toques rápidos (ou dois cliques) no cenário para saltar; só é possível saltar quando estiver apoiado. Conduza o personagem até os vãos para descer. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. O personagem tem 100 de vida. Contatos laterais com inimigos tiram 5 pontos, com um segundo de proteção após cada dano, mesmo com Fever. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
+ showPanel('Como jogar','Toque e arraste para revelar o joystick; solte para parar. Dois toques rápidos fazem o personagem saltar. Na primeira fase, explore 12 áreas: use o joystick para os lados e para cima/baixo, salte entre ilhas e procure as saídas douradas. Cair fora do caminho tira 10 de vida e retorna à entrada. Nas demais fases, procure os vãos e evite as áreas escuras. Inimigos precisam de três pisões e tiram 5 de vida por contato. Equipe a espada no inventário para usar o botão Golpear.','Voltar ao menu');
 }
 restartBtn.onclick=()=>{
  initAudio();

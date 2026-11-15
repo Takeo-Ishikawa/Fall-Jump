@@ -16,8 +16,8 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
       const plan = generator.generateLevel(level, (level * 7919 + i * 104729) >>> 0);
       assert.ok(generator.validateLevel(plan), 'nível inválido: ' + level + ', seed ' + plan.seed);
       assert.ok(generator.simulateRoute(plan).ok, 'sem rota válida');
-      assert.equal(plan.platforms.length, 5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2))));
-      assert.ok(plan.platforms.length >= 200 && plan.platforms.length <= 400);
+      assert.equal(plan.platforms.length, level===1?12:5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2))));
+      assert.ok(level===1?plan.platforms.length===12:plan.platforms.length >= 200 && plan.platforms.length <= 400);
       assert.ok(plan.platforms.every((p, j) => p.y === j * generator.SPACING));
       assert.equal(plan.platforms[0].danger, 0);
       for (let j = 1; j < plan.platforms.length; j++) {
@@ -32,6 +32,7 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
 test('torres maiores combinam trechos longos, com diferentes identidades de desafio', () => {
   for (const level of [1, 2, 3, 4, 5, 10, 13]) {
     const plan = generator.generateLevel(level, 424242);
+    if(plan.experimental){assert.equal(plan.platforms.length,12);continue;}
     const segmentLength = s => s.to - s.from + 1;
     assert.ok(plan.segments.length >= 4, 'fase inteira não pode ser um padrão único');
     assert.ok(plan.segments.every(s => segmentLength(s) >= 1));
@@ -93,7 +94,7 @@ test('auditoria de variedade e segurança em diferentes ciclos de dificuldade', 
    layouts.add(signature);
    for(const segment of plan.segments)patterns.add(segment.type);
   }
-  assert.ok(layouts.size>=20,`fase ${level}: diversidade insuficiente (${layouts.size}/24)`);
+  assert.ok(level===1?layouts.size===1:layouts.size>=20,`fase ${level}: diversidade insuficiente (${layouts.size}/24)`);
   assert.ok(patterns.size>=2,`fase ${level}: poucos tipos de trecho`);
  }
 });
@@ -110,7 +111,7 @@ test('curva de dificuldade preserva o ciclo de desafio e respiro',()=>{
 
  test('aberturas menores mantêm largura entre 0,55 e 1,00 radianos',()=>{
   const generator=require('../www/level-generator.js');
-  for(let level=1;level<=30;level++)for(const p of generator.generateLevel(level,12345+level).platforms){
+  for(let level=2;level<=30;level++)for(const p of generator.generateLevel(level,12345+level).platforms){
    assert.ok(p.gap>=.55&&p.gap<=1.00);
   }
  });
@@ -118,18 +119,8 @@ test('curva de dificuldade preserva o ciclo de desafio e respiro',()=>{
 test('tamanho das fases e progresso coincidem e a dificuldade aumentou sem usar rota de emergência',()=>{
  const progress=require('../www/progression.js');
  for(let level=1;level<=100;level++)assert.equal(generator.platformCount(level),progress.count(level));
- for(const level of [1,3,6,15]){
+ for(const level of [2,3,6,15]){
   const plan=generator.generateLevel(level,123);assert.equal(plan.fallback,undefined);assert.equal(plan.count,5*(40+Math.min(40,6*Math.floor((level-1)/2))));
   assert.ok(plan.platforms.some(p=>p.danger>0));assert.ok(plan.platforms.reduce((n,p)=>n+p.gap,0)/plan.count<.9);
  }
-});
-
-test('primeira fase tem cinco trechos distintos com introdução segura e especiais distribuídas',()=>{
- for(const seed of [0,123,98765]){
-  const plan=generator.generateLevel(1,seed);assert.equal(plan.count,200);assert.equal(plan.chapters.length,5);assert.ok(generator.validateLevel(plan));
-  assert.ok(plan.platforms.slice(0,20).every(p=>!p.danger&&!p.special));assert.ok(plan.platforms.slice(20,60).some(p=>p.special==='bonus'));
-  assert.ok(plan.platforms.slice(60,100).some(p=>p.danger));assert.ok(plan.platforms.slice(100,140).some(p=>p.special==='fragile'));
-  assert.equal(generator.firstLevelChapter(0).from,0);assert.equal(generator.firstLevelChapter(20).from,20);assert.equal(generator.firstLevelChapter(199).from,140);
- }
- assert.equal(generator.generateLevel(2,123).chapters,undefined,'demais fases mantêm o gerador atual');
 });
