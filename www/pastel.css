@@ -178,3 +178,36 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 
 /* The floating control is a visual overlay; the canvas owns its touch gesture. */
 #joystick {pointer-events:none}
+/* Equipment overview: six slots surround the companion, inventory stays below. */
+#overlay[data-screen="equipment"] #panel {width:min(480px,100%);padding:24px 18px 18px}
+#overlay[data-screen="equipment"] #details {margin:6px 0 18px;font-size:12px}
+#equipmentStage {display:grid;grid-template-columns:64px minmax(0,1fr) 64px;gap:8px;align-items:stretch;padding:12px 0 18px;border-bottom:1px solid var(--fj-line)}
+.gearColumn {display:flex;flex-direction:column;gap:8px}
+#equipmentHero {border:0;justify-content:center;padding:0;min-width:0;background:radial-gradient(ellipse at center,#e8ede5 0,transparent 68%)}
+#equipmentPreview {width:100%;height:auto;aspect-ratio:1;max-height:none}
+#equipmentCharacterName {font-size:14px}
+#panel #equipmentStatus {font-size:10px;color:var(--fj-muted);margin-top:4px}
+#panel .gearSlot {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:72px;padding:7px 3px;border-radius:14px;border:1px solid var(--fj-line);background:#f1efe9;color:#7b8787;font-weight:550;line-height:1.2}
+.gearSlot svg {width:26px;height:26px;opacity:.45}
+.gearSlot span {font-size:10px;color:var(--fj-ink)}
+.gearSlot small {font-size:8px;color:var(--fj-muted);font-weight:500}
+#panel .gearSlot.equipped {background:#edf3eb;border-color:#b4cbb7;color:#567661}
+.gearSlot.equipped svg {opacity:1}
+#panel .gearSlot.selected {border:2px solid #7d9eaa;padding:6px 2px;background:#edf3f3}
+.inventoryHeading {display:flex;justify-content:space-between;align-items:center;margin:18px 0 12px}
+#inventoryTitle {margin:0;font-size:15px}
+.inventoryHeading>span {font-size:10px;color:var(--fj-muted)}
+#equipmentInventory {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#panel #equipmentInventory .gearItem {position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;min-height:118px;padding:10px 5px;border:1px solid var(--fj-line);border-radius:15px;background:#f3f1ec;color:#647e88;line-height:1.2}
+.gearItem svg {width:34px;height:34px;margin-bottom:2px}
+.gearItem small {font-size:9px;color:var(--fj-muted);font-weight:500}
+.gearItem strong {font-size:11px;color:var(--fj-ink);font-weight:650}
+.gearItem>span {font-size:8px;color:var(--fj-muted);margin-top:auto}
+#panel #equipmentInventory .gearItem.selected {border:2px solid #7d9eaa;padding:9px 4px;background:#edf3f3}
+#panel #equipmentInventory .gearItem.equipped>span {color:#47735b;font-weight:700}
+#equipmentCard {position:sticky;bottom:-18px;z-index:4;display:block;margin:16px 0 0;padding:14px 0 18px;background:var(--fj-surface);border:0;border-top:1px solid var(--fj-line);border-radius:0}
+#equipmentSelectionName {font-size:14px;color:var(--fj-ink)}
+#panel #equipmentSelectionDesc {font-size:11px;margin:4px 0 12px;line-height:1.45;color:var(--fj-muted)}
+#panel #equipSword {margin-top:0;min-height:46px}
+@media(max-height:650px){#equipmentStage{grid-template-columns:58px minmax(0,1fr) 58px;gap:6px;padding-top:4px}#panel .gearSlot{min-height:64px;padding-top:5px;padding-bottom:5px}#equipmentPreview{max-width:160px}#panel #equipmentInventory .gearItem{min-height:108px}}
+#overlay[data-screen="equipment"] #panelBack {width:100%;background:var(--fj-surface);border:0;border-bottom:1px solid var(--fj-line);border-radius:0;box-shadow:none;margin:0 0 12px;padding:9px 0}

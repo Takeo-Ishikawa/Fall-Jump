@@ -67,7 +67,7 @@ Inimigos roxos patrulham trechos seguros de algumas plataformas, a partir da qua
 Os níveis existentes continuam disponíveis. A simulação do gerador verifica uma rota de queda livre; o equilíbrio da nova caminhada ainda precisa de avaliação em aparelho Android.
 
 ## Equipamentos e espada
-No menu, abra **Equipamentos**: a parte superior mostra o personagem com a aparência e a arma selecionadas; a parte inferior contém o inventário, por enquanto apenas com uma espada gratuita para equipar ou retirar. A escolha fica salva localmente, separada das aparências. Com a espada equipada, o personagem a carrega e o botão **Golpear** aparece durante a partida.
+No menu, abra **Equipamentos**: a prévia do personagem fica no centro, cercada por seis espaços de equipamento — arma, capacete, luva, bota, calça e armadura. Abaixo fica o inventário com seis itens básicos gratuitos. Toque em um espaço ou item para selecioná-lo e use Equipar/Retirar. Cada categoria pode ser trocada independentemente, com atualização imediata do visual. A espada é funcional; as cinco peças de roupa são cosméticas e não alteram a vida, defesa ou dano. A escolha fica salva localmente, separada das aparências. Com a espada equipada, o personagem a carrega e o botão **Golpear** aparece durante a partida.
 
 Cada golpe atinge inimigos próximos na última direção em que o personagem caminhou e remove um ponto de vida. Há um intervalo curto de 0,4 segundo entre ataques. Três golpes derrotam os inimigos atuais; golpes e pisões também podem ser combinados. A pausa congela a recarga. Sem espada equipada, o botão fica oculto.
 

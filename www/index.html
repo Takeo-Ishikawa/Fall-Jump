@@ -230,9 +230,7 @@
  <button id="goalsDailyTab" type="button" role="tab" aria-selected="true">Diárias</button>
  <button id="goalsAchievementTab" type="button" role="tab" aria-selected="false">Conquistas</button>
 </div><div id="goalsDailyGroup" role="tabpanel"><h3>Missões diárias</h3><div id="goalsDay"></div><div id="goalsCountdown" role="timer">Renovação em --:--:--</div><div class="goalsList" id="dailyGoals"><div class="goalRow" id="daily-row-0"><div class="goalTop"><span class="goalName" id="daily-name-0"></span><span class="goalReward" id="daily-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-0"></div></div><div class="goalMeta"><span id="daily-progress-0"></span><span id="daily-status-0"></span></div><button type="button" class="claimReward" id="daily-claim-0" disabled>Em andamento</button></div><div class="goalRow" id="daily-row-1"><div class="goalTop"><span class="goalName" id="daily-name-1"></span><span class="goalReward" id="daily-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-1"></div></div><div class="goalMeta"><span id="daily-progress-1"></span><span id="daily-status-1"></span></div><button type="button" class="claimReward" id="daily-claim-1" disabled>Em andamento</button></div><div class="goalRow" id="daily-row-2"><div class="goalTop"><span class="goalName" id="daily-name-2"></span><span class="goalReward" id="daily-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="daily-fill-2"></div></div><div class="goalMeta"><span id="daily-progress-2"></span><span id="daily-status-2"></span></div><button type="button" class="claimReward" id="daily-claim-2" disabled>Em andamento</button></div></div></div><div id="goalsAchievementGroup" role="tabpanel" hidden><h3>Conquistas permanentes</h3><div class="goalsList" id="achievementGoals"><div class="goalRow" id="ach-row-0"><div class="goalTop"><span class="goalName" id="ach-name-0"></span><span class="goalReward" id="ach-reward-0"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-0"></div></div><div class="goalMeta"><span id="ach-progress-0"></span><span id="ach-status-0"></span></div><button type="button" class="claimReward" id="ach-claim-0" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-1"><div class="goalTop"><span class="goalName" id="ach-name-1"></span><span class="goalReward" id="ach-reward-1"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-1"></div></div><div class="goalMeta"><span id="ach-progress-1"></span><span id="ach-status-1"></span></div><button type="button" class="claimReward" id="ach-claim-1" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-2"><div class="goalTop"><span class="goalName" id="ach-name-2"></span><span class="goalReward" id="ach-reward-2"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-2"></div></div><div class="goalMeta"><span id="ach-progress-2"></span><span id="ach-status-2"></span></div><button type="button" class="claimReward" id="ach-claim-2" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-3"><div class="goalTop"><span class="goalName" id="ach-name-3"></span><span class="goalReward" id="ach-reward-3"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-3"></div></div><div class="goalMeta"><span id="ach-progress-3"></span><span id="ach-status-3"></span></div><button type="button" class="claimReward" id="ach-claim-3" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-4"><div class="goalTop"><span class="goalName" id="ach-name-4"></span><span class="goalReward" id="ach-reward-4"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-4"></div></div><div class="goalMeta"><span id="ach-progress-4"></span><span id="ach-status-4"></span></div><button type="button" class="claimReward" id="ach-claim-4" disabled>Em andamento</button></div><div class="goalRow" id="ach-row-5"><div class="goalTop"><span class="goalName" id="ach-name-5"></span><span class="goalReward" id="ach-reward-5"></span></div><div class="goalTrack"><div class="goalFill" id="ach-fill-5"></div></div><div class="goalMeta"><span id="ach-progress-5"></span><span id="ach-status-5"></span></div><button type="button" class="claimReward" id="ach-claim-5" disabled>Em andamento</button></div></div></div></div>
-<div id="equipmentSection" hidden><div id="equipmentHero"><canvas id="equipmentPreview" width="240" height="240" role="img" aria-label="Prévia do personagem com o equipamento selecionado"></canvas><strong id="equipmentCharacterName">Seu personagem</strong><p id="equipmentStatus" role="status"></p></div><h3 id="inventoryTitle">Inventário</h3><div id="equipmentInventory">
- <div id="equipmentCard"><span id="swordPortrait" aria-hidden="true">⚔</span><h3>Espada</h3><p>Uma espada leve para atacar à sua frente. Cada golpe tira um ponto de vida dos inimigos próximos.</p><button id="equipSword" type="button">Equipar espada</button></div></div>
-</div><button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
+<div id="equipmentSection" hidden><div id="equipmentStage"><div class="gearColumn"><button id="slot-weapon" class="gearSlot" type="button" aria-label="Arma" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36 35 8l5 2-1 5-24 24M9 30l13 12M7 42l7-8"/></svg><span>Arma</span><small id="slot-state-weapon">Vazio</small></button><button id="slot-helmet" class="gearSlot" type="button" aria-label="Capacete" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 34V23a14 14 0 0 1 28 0v11l-8 5V25H18v14z"/><path d="M18 15h12"/></svg><span>Capacete</span><small id="slot-state-helmet">Vazio</small></button><button id="slot-gloves" class="gearSlot" type="button" aria-label="Luva" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 39 8 28v-9l4-2 4 8V10l5-1 2 15V8l5 1 1 15 3-12 5 2-1 18-8 8z"/></svg><span>Luva</span><small id="slot-state-gloves">Vazio</small></button></div><div id="equipmentHero"><canvas id="equipmentPreview" width="240" height="240" role="img" aria-label="Prévia do personagem com os equipamentos selecionados"></canvas><strong id="equipmentCharacterName">Seu personagem</strong><p id="equipmentStatus" role="status"></p></div><div class="gearColumn"><button id="slot-boots" class="gearSlot" type="button" aria-label="Bota" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8h17v22l9 5v7H9v-9l5-5z"/><path d="M19 17h9m-9 6h9M10 37h27"/></svg><span>Bota</span><small id="slot-state-boots">Vazio</small></button><button id="slot-pants" class="gearSlot" type="button" aria-label="Calça" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9h24l3 31H27l-3-18-3 18H9z"/><path d="M13 16h22m-11-7v8"/></svg><span>Calça</span><small id="slot-state-pants">Vazio</small></button><button id="slot-armor" class="gearSlot" type="button" aria-label="Armadura" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 8-9 5 5 12 3-2-3 17h22l-3-17 3 2 5-12-9-5-7 5z"/><path d="M24 14v25m-8-10h16"/></svg><span>Armadura</span><small id="slot-state-armor">Vazio</small></button></div></div><div class="inventoryHeading"><h3 id="inventoryTitle">Inventário</h3><span>6 itens básicos</span></div><div id="equipmentInventory"><button id="item-weapon" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36 35 8l5 2-1 5-24 24M9 30l13 12M7 42l7-8"/></svg><small>Arma</small><strong>Espada</strong><span id="item-state-weapon">Disponível</span></button><button id="item-helmet" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 34V23a14 14 0 0 1 28 0v11l-8 5V25H18v14z"/><path d="M18 15h12"/></svg><small>Capacete</small><strong>Capuz de linho</strong><span id="item-state-helmet">Disponível</span></button><button id="item-gloves" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 39 8 28v-9l4-2 4 8V10l5-1 2 15V8l5 1 1 15 3-12 5 2-1 18-8 8z"/></svg><small>Luva</small><strong>Luvas macias</strong><span id="item-state-gloves">Disponível</span></button><button id="item-boots" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8h17v22l9 5v7H9v-9l5-5z"/><path d="M19 17h9m-9 6h9M10 37h27"/></svg><small>Bota</small><strong>Botas de trilha</strong><span id="item-state-boots">Disponível</span></button><button id="item-pants" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9h24l3 31H27l-3-18-3 18H9z"/><path d="M13 16h22m-11-7v8"/></svg><small>Calça</small><strong>Calça de viagem</strong><span id="item-state-pants">Disponível</span></button><button id="item-armor" class="gearItem" type="button" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 8-9 5 5 12 3-2-3 17h22l-3-17 3 2 5-12-9-5-7 5z"/><path d="M24 14v25m-8-10h16"/></svg><small>Armadura</small><strong>Colete de linho</strong><span id="item-state-armor">Disponível</span></button></div><div id="equipmentCard"><div><strong id="equipmentSelectionName">Espada</strong><p id="equipmentSelectionDesc"></p></div><button id="equipSword" type="button">Equipar espada</button></div></div><button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
 <button id="equipmentButton" class="secondary" style="display:none">Equipamentos</button><button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
 <button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><div id="joystick" role="slider" tabindex="0" aria-label="Mover personagem para a esquerda ou direita" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" style="display:none"><span class="joystickGuide" aria-hidden="true">‹　›</span><span id="joystickKnob" aria-hidden="true"></span></div><button id="attack" type="button" aria-label="Golpear com a espada" style="display:none">Golpear</button><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0,phaseCoins=0,phaseBestCombo=0;const comboBadge=document.querySelector("#comboBadge");
@@ -384,9 +382,12 @@ const equipmentButton=document.querySelector('#equipmentButton'),equipmentSectio
 const joystick=document.querySelector('#joystick'),joystickKnob=document.querySelector('#joystickKnob');
 let joystickAxis=0,joystickPointer=null,joystickOrigin=null;
 const equipmentKey='fall-jump-equipment-v1';
+const equipmentCatalog=[{"slot": "weapon", "label": "Arma", "id": "sword", "name": "Espada", "description": "Um golpe próximo tira um ponto de vida do inimigo."}, {"slot": "helmet", "label": "Capacete", "id": "linen-hood", "name": "Capuz de linho", "description": "Uma peça leve para personalizar a cabeça."}, {"slot": "gloves", "label": "Luva", "id": "soft-gloves", "name": "Luvas macias", "description": "Um par de luvas para acompanhar cada movimento."}, {"slot": "boots", "label": "Bota", "id": "trail-boots", "name": "Botas de trilha", "description": "Botas confortáveis para os pés do personagem."}, {"slot": "pants", "label": "Calça", "id": "travel-pants", "name": "Calça de viagem", "description": "Uma calça simples para completar o visual."}, {"slot": "armor", "label": "Armadura", "id": "linen-vest", "name": "Colete de linho", "description": "Um colete leve. As roupas são visuais por enquanto."}];
+let equipment=Object.fromEntries(equipmentCatalog.map(item=>[item.slot,null])),selectedEquipmentSlot='weapon';
 let health=100,hurtFrames=0;
 let equippedSword=false,facing=1,attackFacing=1,attackCooldown=0,attackFrames=0;
-try{equippedSword=JSON.parse(localStorage.getItem(equipmentKey))?.weapon==='sword';}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem(equipmentKey));for(const item of equipmentCatalog){if(saved?.[item.slot]===item.id)equipment[item.slot]=item.id;}}catch(e){}
+equippedSword=equipment.weapon==='sword';
 function refreshHealth(){
  document.querySelector('#healthAmount').textContent=health+' / 100';
  document.querySelector('#healthFill').style.width=health+'%';
@@ -407,23 +408,44 @@ function renderEquipmentPreview(){
  document.querySelector('#equipmentCharacterName').textContent=Skins.byId(skinState.selected).name;
 }
 function refreshEquipment(){
- equipmentStatus.textContent=equippedSword?'Espada equipada':'Nenhuma arma equipada';
- equipSwordButton.textContent=equippedSword?'Retirar espada':'Equipar espada';
- equipSwordButton.setAttribute('aria-pressed',String(equippedSword));
+ const selected=equipmentCatalog.find(item=>item.slot===selectedEquipmentSlot);
+ const isEquipped=equipment[selected.slot]===selected.id;
+ equipmentStatus.textContent=Object.values(equipment).filter(Boolean).length+' de 6 equipados';
+ document.querySelector('#equipmentSelectionName').textContent=selected.name;
+ document.querySelector('#equipmentSelectionDesc').textContent=selected.description;
+ equipSwordButton.textContent=(isEquipped?'Retirar ':'Equipar ')+(selected.slot==='weapon'?'espada':selected.name.toLocaleLowerCase('pt-BR'));
+ equipSwordButton.setAttribute('aria-pressed',String(isEquipped));
+ for(const item of equipmentCatalog){
+  const worn=equipment[item.slot]===item.id,active=item.slot===selectedEquipmentSlot;
+  for(const prefix of ['slot-','item-']){
+   const button=document.querySelector('#'+prefix+item.slot);
+   button.classList.toggle('selected',active);button.classList.toggle('equipped',worn);
+   button.setAttribute('aria-pressed',String(active));
+   button.setAttribute('aria-label',item.label+': '+item.name+(worn?', equipado':', disponível'));
+  }
+  document.querySelector('#slot-state-'+item.slot).textContent=worn?'Equipado':'Vazio';
+  document.querySelector('#item-state-'+item.slot).textContent=worn?'Equipado':'Disponível';
+ }
  attackButton.style.display=equippedSword&&mode==='playing'?'block':'none';
  attackButton.disabled=attackCooldown>0;
  hint.style.bottom='calc(144px + env(safe-area-inset-bottom))';
  joystick.style.display=mode==='playing'&&joystickPointer!==null?'block':'none';
  if(mode==='equipment')renderEquipmentPreview();
 }
+function selectEquipment(slot){
+ if(!equipmentCatalog.some(item=>item.slot===slot))return;
+ selectedEquipmentSlot=slot;refreshEquipment();
+}
 function toggleSword(){
- equippedSword=!equippedSword;
- try{localStorage.setItem(equipmentKey,JSON.stringify({weapon:equippedSword?'sword':null}));}catch(e){}
+ const item=equipmentCatalog.find(item=>item.slot===selectedEquipmentSlot);
+ equipment[item.slot]=equipment[item.slot]===item.id?null:item.id;
+ equippedSword=equipment.weapon==='sword';
+ try{localStorage.setItem(equipmentKey,JSON.stringify(equipment));}catch(e){}
  refreshEquipment();
 }
 function openEquipment(){
  mode='equipment';alive=false;started=false;pauseBtn.style.display='none';
- showPanel('Equipamentos','Escolha o que seu personagem leva para a partida.','Voltar ao menu');
+ showPanel('Equipamentos','Monte seu visual. Selecione um item para equipar.','Voltar ao menu');
  refreshEquipment();
 }
 function swordAttack(){
@@ -633,11 +655,12 @@ function drawCharacter(x,y,paint=ctx,preview=false){
  }
  if(!preview&&hurtFrames>0&&Math.floor(hurtFrames/5)%2===0)ctx.globalAlpha=.45;
  // Small hands rise during ascent and settle during descent.
- ctx.fillStyle=skin.dark;
+ ctx.fillStyle=equipment.gloves?'#a89ab8':skin.dark;
  for(const side of [-1,1]){
   ctx.beginPath();ctx.ellipse(side*r*(.79-stride*.08),r*(.15-lift*.27+side*stride*.20),r*.21,r*.29,side*(.3+lift*.5)-side*stride*.40,0,TAU);ctx.fill();
  }
  // Feet remain tucked inside the original circular contact silhouette.
+ ctx.fillStyle=equipment.boots?'#6e777d':skin.dark;
  for(const side of [-1,1]){
   ctx.beginPath();ctx.ellipse(side*r*(.36+stride*.10),r*(.77-Math.max(0,side*stride)*.30),r*.26,r*.23,side*lift*.18-side*stride*.28,0,TAU);ctx.fill();
  }
@@ -649,6 +672,9 @@ function drawCharacter(x,y,paint=ctx,preview=false){
  ctx.bezierCurveTo(r*.7,r*.9,-r*.7,r*.9,-r*.78,r*.4);
  ctx.bezierCurveTo(-r*.88,-r*.25,-r*.82,-r,0,-r);ctx.fill();
  ctx.shadowColor='transparent';
+ if(equipment.pants){ctx.fillStyle='#a3b7c6';ctx.beginPath();ctx.ellipse(0,r*.55,r*.65,r*.25,0,0,TAU);ctx.fill();ctx.strokeStyle='#788e9d';ctx.lineWidth=scale;ctx.beginPath();ctx.moveTo(0,r*.48);ctx.lineTo(0,r*.76);ctx.stroke();}
+ if(equipment.armor){ctx.fillStyle='#b8c6b0';ctx.beginPath();ctx.moveTo(-r*.7,r*.06);ctx.lineTo(-r*.6,r*.5);ctx.quadraticCurveTo(0,r*.68,r*.6,r*.5);ctx.lineTo(r*.7,r*.06);ctx.lineTo(r*.45,-r*.05);ctx.quadraticCurveTo(0,r*.32,-r*.45,-r*.05);ctx.closePath();ctx.fill();}
+ if(equipment.helmet){ctx.fillStyle='#a69ab8';ctx.beginPath();ctx.ellipse(0,-r*.63,r*.8,r*.43,0,Math.PI,TAU);ctx.lineTo(r*.74,-r*.4);ctx.quadraticCurveTo(0,-r*.65,-r*.74,-r*.4);ctx.closePath();ctx.fill();ctx.strokeStyle='#81748f';ctx.lineWidth=scale;ctx.beginPath();ctx.moveTo(-r*.74,-r*.4);ctx.quadraticCurveTo(0,-r*.65,r*.74,-r*.4);ctx.stroke();}
  // Keep the fruit identities as quiet markings above the face.
  ctx.fillStyle=skin.detail;ctx.globalAlpha=.45;
  for(const side of [-1,0,1]){
@@ -1060,6 +1086,7 @@ menuInstructions.onclick=()=>openMenuHelp();
 pauseInstructions.onclick=()=>openGameHelp();
 skinsButton.onclick=()=>openShop();
 goalsButton.onclick=()=>openGoals();
+for(const item of equipmentCatalog){for(const prefix of ['slot-','item-'])document.querySelector('#'+prefix+item.slot).onclick=()=>selectEquipment(item.slot);}
 equipmentButton.onclick=openEquipment;equipSwordButton.onclick=toggleSword;attackButton.onclick=swordAttack;
 attackButton.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!attackButton.disabled){e.preventDefault();swordAttack();}});
 pauseBtn.onclick=()=>{
