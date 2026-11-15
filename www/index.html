@@ -498,7 +498,7 @@ for(const skin of Skins.CATALOG){
   refreshShop();
  };
 }
-const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,walkPending=0,walkVelocity=0,gaitBlend=0,cameraAngle=0,grounded=null,jumping=false,enemies=[];const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
+const progressFill=document.querySelector("#progressFill"),progressCountEl=document.querySelector('#progressCount'),stagePatternEl=document.querySelector('#stagePattern'),stageSeedEl=document.querySelector('#stageSeed');const TAU=Math.PI*2,spacing=205,walkRadius=108,radius=13,verticalScale=.86,contactRadius=radius/verticalScale,ringR=148,innerR=43,gravity=.32;let ballX=0,ballZ=walkRadius,walkAngle=0,walkPhase=0,walkPending=0,walkVelocity=0,gaitBlend=0,poseTime=0,lookFacing=1,bodyFacing=1,landingPose=0,cameraAngle=0,grounded=null,jumping=false,enemies=[];const rand=(a,b)=>a+Math.random()*(b-a),norm=a=>((a%TAU)+TAU)%TAU;function resize(){W=Math.max(1,document.documentElement.clientWidth||innerWidth);H=Math.max(1,innerHeight);const maxPixels=1750000;dpr=Math.min(devicePixelRatio||1,2,Math.sqrt(maxPixels/(W*H)));canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(.67,Math.min(W/390,H/780,1.28)*1.08);centerX=W*.5;ballScreenY=H*.43;refreshBackdropPaint()}
 let backdropPaint={};
 function refreshBackdropPaint(){
  const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f7f5f0');bg.addColorStop(1,'#efeee8');
@@ -527,7 +527,7 @@ function buildLevel(n){
   refreshFeverHud();
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
-  cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;walkPending=0;walkVelocity=0;gaitBlend=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Use o joystick · dois toques no cenário para saltar'
+  cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;walkPending=0;walkVelocity=0;gaitBlend=0;poseTime=0;lookFacing=1;bodyFacing=1;landingPose=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Use o joystick · dois toques no cenário para saltar'
 }function reset(){resetHealth();level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function viewDepth(x,z){return x*Math.sin(cameraAngle)+z*Math.cos(cameraAngle)}function project(x,z,y){const viewX=x*Math.cos(cameraAngle)-z*Math.sin(cameraAngle);z=viewDepth(x,z);x=viewX;let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
 const platformPaint={
  normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
@@ -619,16 +619,27 @@ function drawCharacter(x,y,paint=ctx,preview=false){
  const airborne=started&&alive&&!grounded&&mode==='playing';
  const stride=grounded&&!preview?Math.sin(walkPhase)*gaitBlend:0;
  const lift=airborne?Math.max(-1,Math.min(1,-vy/8)):0;
- ctx.save();ctx.translate(x,y);if(!preview){ctx.scale(1+squash*.65,1-squash*.45);if(grounded){ctx.translate(0,-Math.abs(stride)*r*.05);ctx.rotate(walkVelocity/.04*.045);}}
+ const breathing=!preview&&grounded?(1-gaitBlend)*Math.sin(poseTime*2.3)*.012:0;
+ ctx.save();ctx.translate(x,y);
+ if(!preview){
+  // Deform around the feet so the landing compression stays attached to the floor.
+  ctx.translate(0,r*.96);
+  const impact=grounded?landingPose:0;
+  ctx.scale((1+squash*.65+impact*.08)*(.92+.08*Math.abs(bodyFacing)),1-squash*.45-impact*.08+breathing);
+  ctx.rotate(grounded?walkVelocity/.04*.08:0);
+  ctx.translate(0,-r*.96);
+  if(grounded)ctx.translate(0,-Math.abs(stride)*r*.075);
+  else ctx.scale(1-Math.max(0,lift)*.04,1+Math.max(0,lift)*.07);
+ }
  if(!preview&&hurtFrames>0&&Math.floor(hurtFrames/5)%2===0)ctx.globalAlpha=.45;
  // Small hands rise during ascent and settle during descent.
  ctx.fillStyle=skin.dark;
  for(const side of [-1,1]){
-  ctx.beginPath();ctx.ellipse(side*r*.77,r*(.15-lift*.27),r*.21,r*.29,side*(.3+lift*.5)+stride*.3,0,TAU);ctx.fill();
+  ctx.beginPath();ctx.ellipse(side*r*(.79-stride*.08),r*(.15-lift*.27+side*stride*.20),r*.21,r*.29,side*(.3+lift*.5)-side*stride*.40,0,TAU);ctx.fill();
  }
  // Feet remain tucked inside the original circular contact silhouette.
  for(const side of [-1,1]){
-  ctx.beginPath();ctx.ellipse(side*r*.36,r*(.77-Math.max(0,side*stride)*.18),r*.25,r*.23,side*lift*.18+stride*.18,0,TAU);ctx.fill();
+  ctx.beginPath();ctx.ellipse(side*r*(.36+stride*.10),r*(.77-Math.max(0,side*stride)*.30),r*.26,r*.23,side*lift*.18-side*stride*.28,0,TAU);ctx.fill();
  }
  const body=ctx.createLinearGradient(0,-r,0,r);
  body.addColorStop(0,skin.light);body.addColorStop(1,skin.mid);
@@ -643,11 +654,12 @@ function drawCharacter(x,y,paint=ctx,preview=false){
  for(const side of [-1,0,1]){
   ctx.beginPath();ctx.ellipse(side*r*.3,-r*.65,r*.065,r*(skin.pattern==='dots'?.065:.16),side*.35,0,TAU);ctx.fill();
  }
+ ctx.save();ctx.translate((preview?1:lookFacing)*r*.10,0);
  ctx.globalAlpha=1;ctx.fillStyle='#fff8e9';
  ctx.beginPath();ctx.ellipse(0,r*.1,r*.62,r*.43,0,0,TAU);ctx.fill();
  ctx.fillStyle='#39434a';
  for(const side of [-1,1]){
-  ctx.beginPath();ctx.ellipse(side*r*.25+facing*r*.06,-r*.015,r*.085,r*(lift<-.6?.17:.13),0,0,TAU);ctx.fill();
+  ctx.beginPath();ctx.ellipse(side*r*.25+(preview?1:lookFacing)*r*.04,-r*.015,r*.085,r*(lift<-.6?.17:.13),0,0,TAU);ctx.fill();
  }
  ctx.strokeStyle='#39434a';ctx.lineWidth=Math.max(1,r*.075);ctx.lineCap='round';
  ctx.beginPath();ctx.moveTo(-r*.14,r*.2);ctx.quadraticCurveTo(0,r*.36,r*.14,r*.2);ctx.stroke();
@@ -655,6 +667,7 @@ function drawCharacter(x,y,paint=ctx,preview=false){
  for(const side of [-1,1]){
   ctx.beginPath();ctx.ellipse(side*r*.43,r*.16,r*.095,r*.055,0,0,TAU);ctx.fill();
  }
+ ctx.restore();
  if(equippedSword){
   ctx.save();ctx.globalAlpha=1;
   const side=(attackFrames>0?attackFacing:facing)*(Math.cos(walkAngle-cameraAngle)>=0?1:-1);
@@ -831,6 +844,13 @@ function completePlatform(p,cause='gap'){
 }
 // Input is consumed at the fixed physics rate, rather than teleporting on pointer events.
 // Bound both the backlog and speed so quick drags remain responsive near gaps/enemies.
+function updateCharacterPose(){
+ poseTime+=1/60;
+ // Eyes lead the turn; the torso catches up without delaying the actual controls.
+ lookFacing+=(facing-lookFacing)*.45;
+ bodyFacing+=(facing-bodyFacing)*.18;
+ landingPose*=.78;
+}
 function stepWalking(){
  const usingStick=joystickPointer!==null||joystickAxis!==0;
  const desired=usingStick?joystickAxis*.04:Math.max(-.04,Math.min(.04,walkPending*.45));
@@ -849,7 +869,7 @@ function stepWalking(){
  gaitBlend+=(pace-gaitBlend)*.3;
  if(grounded)walkPhase+=Math.abs(step)*6;
 }
-function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive&&started){if(hurtFrames>0)hurtFrames--;if(attackCooldown>0){attackCooldown--;if(attackCooldown===0)refreshEquipment();}if(attackFrames>0)attackFrames--;updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();stepWalking();
+function simulateStep(){if(goalToastFrames>0){goalToastFrames--;if(goalToastFrames===0)goalToast.style.opacity='0'}if(celebrationFrames>0){celebrationFrames--;if(celebrationFrames===0)goalCelebration.classList.remove('play')}if(mode==='playing'&&alive)updateCharacterPose();if(mode==='playing'&&alive&&started){if(hurtFrames>0)hurtFrames--;if(attackCooldown>0){attackCooldown--;if(attackCooldown===0)refreshEquipment();}if(attackFrames>0)attackFrames--;updateEnemies();Fever.tick(feverState);if(frames%6===0)refreshFeverHud();stepWalking();
  const orbitDelta=norm(walkAngle+walkVelocity*1.5-cameraAngle+Math.PI)-Math.PI;
  cameraAngle=norm(cameraAngle+orbitDelta*.18);
 if(grounded&&enemyCollision())hurtByEnemy();
@@ -875,7 +895,7 @@ if(!grounded&&alive){
   if(collision==='smash'){
    p.broken=true;fragments(p);completePlatform(p,'smash');sfx('break');shake=4;break;
   }
-  grounded=p;jumping=false;ballY=p.y-contactRadius;vy=0;squash=.22;combo=0;
+  landingPose=Math.min(1,vy/14);grounded=p;jumping=false;ballY=p.y-contactRadius;vy=0;squash=.22;combo=0;
   Fever.onLanding(feverState);refreshFeverHud();comboBadge.classList.remove('on');
   break;
  }
@@ -887,7 +907,7 @@ const currentPlatformY=Math.min(levelPassed,platforms.length-1)*spacing;
 const cameraFollowY=Math.min(currentPlatformY,Math.max(0,ballY+contactRadius));
 const cameraTarget=cameraFollowY+walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;
 if(cameraTarget>cameraY)cameraY+=Math.min(cameraTarget-cameraY,Math.max(1.8,(cameraTarget-cameraY)*.19));
-}squash*=.79;shake*=.8;for(let q of particles){q.x+=q.vx*scale;q.y+=q.vy*scale;q.vy+=q.shard?.19:.12;q.life--;if(q.shard)q.spin+=q.spinSpeed}particles=particles.filter(q=>q.life>0);if(particles.length>130)particles.splice(0,particles.length-130);for(let q of breakFx){q.dx+=q.vx;q.dz+=q.vz;q.dy+=q.vy;q.vy+=.23;q.rot+=q.rv;q.life--}breakFx=breakFx.filter(q=>q.life>0);if(breakFx.length>70)breakFx.splice(0,breakFx.length-70);for(let popup of popups){popup.y-=.7*scale;popup.life--}popups=popups.filter(x=>x.life>0);for(let t of trail)t.life--;trail=trail.filter(t=>t.life>0);if(started&&alive&&vy>8&&combo>=2&&frames%2===0)trail.push({x:project(ballX,ballZ,ballY).x,y:project(ballX,ballZ,ballY).y-12*scale,life:16});frames++}
+}if(mode==='playing'&&alive)squash*=.79;shake*=.8;for(let q of particles){q.x+=q.vx*scale;q.y+=q.vy*scale;q.vy+=q.shard?.19:.12;q.life--;if(q.shard)q.spin+=q.spinSpeed}particles=particles.filter(q=>q.life>0);if(particles.length>130)particles.splice(0,particles.length-130);for(let q of breakFx){q.dx+=q.vx;q.dz+=q.vz;q.dy+=q.vy;q.vy+=.23;q.rot+=q.rv;q.life--}breakFx=breakFx.filter(q=>q.life>0);if(breakFx.length>70)breakFx.splice(0,breakFx.length-70);for(let popup of popups){popup.y-=.7*scale;popup.life--}popups=popups.filter(x=>x.life>0);for(let t of trail)t.life--;trail=trail.filter(t=>t.life>0);if(started&&alive&&vy>8&&combo>=2&&frames%2===0)trail.push({x:project(ballX,ballZ,ballY).x,y:project(ballX,ballZ,ballY).y-12*scale,life:16});frames++}
 let lastFrameTime=null,frameAccumulator=0;
 const fixedFrameMs=1000/60;
 function resetFrameClock(){lastFrameTime=null;frameAccumulator=0}
