@@ -16,8 +16,8 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
       const plan = generator.generateLevel(level, (level * 7919 + i * 104729) >>> 0);
       assert.ok(generator.validateLevel(plan), 'nível inválido: ' + level + ', seed ' + plan.seed);
       assert.ok(generator.simulateRoute(plan).ok, 'sem rota válida');
-      assert.equal(plan.platforms.length, 10 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2))));
-      assert.ok(plan.platforms.length >= 400 && plan.platforms.length <= 800);
+      assert.equal(plan.platforms.length, 5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2))));
+      assert.ok(plan.platforms.length >= 200 && plan.platforms.length <= 400);
       assert.ok(plan.platforms.every((p, j) => p.y === j * generator.SPACING));
       assert.equal(plan.platforms[0].danger, 0);
       for (let j = 1; j < plan.platforms.length; j++) {
@@ -119,7 +119,7 @@ test('tamanho das fases e progresso coincidem e a dificuldade aumentou sem usar 
  const progress=require('../www/progression.js');
  for(let level=1;level<=100;level++)assert.equal(generator.platformCount(level),progress.count(level));
  for(const level of [1,3,6,15]){
-  const plan=generator.generateLevel(level,123);assert.equal(plan.fallback,undefined);assert.equal(plan.count,10*(40+Math.min(40,6*Math.floor((level-1)/2))));
+  const plan=generator.generateLevel(level,123);assert.equal(plan.fallback,undefined);assert.equal(plan.count,5*(40+Math.min(40,6*Math.floor((level-1)/2))));
   assert.ok(plan.platforms.some(p=>p.danger>0));assert.ok(plan.platforms.reduce((n,p)=>n+p.gap,0)/plan.count<.9);
  }
 });

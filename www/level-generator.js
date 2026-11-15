@@ -82,7 +82,7 @@
     if (pattern === 'spiral' || pattern === 'zigzag') return 4 + Math.floor(rng() * 3);
     return 3 + Math.floor(rng() * 3);
   }
-  function platformCount(level) {return 10 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));}
+  function platformCount(level) {return 5 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));}
   function buildCandidate(level, seed, safeMode) {
     const rng = randomFromSeed(seed);
     const difficulty = difficultyFor(level);

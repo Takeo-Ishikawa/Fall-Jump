@@ -2,12 +2,12 @@
 const test=require('node:test'),assert=require('node:assert/strict'),p=require('../www/progression.js');
 test('progresso registra o melhor avanço sem regredir e libera fase apenas ao concluir',()=>{
  const s=p.normalize();p.record(s,1,12);p.record(s,1,5);assert.equal(s.best[1],12);assert.equal(s.unlocked,1);assert.equal(p.select(s,2),false);
- p.record(s,1,20,true);assert.equal(s.unlocked,1);p.record(s,1,400,true);assert.equal(s.unlocked,2);assert.equal(p.select(s,2),true);assert.equal(s.selected,2);
- assert.equal(p.record(s,3,400,true),false);
+ p.record(s,1,20,true);assert.equal(s.unlocked,1);p.record(s,1,200,true);assert.equal(s.unlocked,2);assert.equal(p.select(s,2),true);assert.equal(s.selected,2);
+ assert.equal(p.record(s,3,200,true),false);
 });
 test('progresso e talentos persistem; dados inválidos são limitados',()=>{
- const storage={value:null,getItem(){return this.value},setItem(k,v){this.value=v}};const s=p.normalize();p.record(s,1,400,true);p.select(s,2);s.talents.vitality=2;p.save(storage,s);assert.deepEqual(p.load(storage),s);
- storage.value='invalid';assert.equal(p.load(storage).selected,1);const bad=p.normalize({unlocked:-10,selected:400,best:{1:999},talents:{vitality:999,agility:'x'}});assert.equal(bad.selected,1);assert.equal(bad.best[1],400);assert.equal(bad.talents.vitality,3);assert.equal(bad.talents.agility,0);
+ const storage={value:null,getItem(){return this.value},setItem(k,v){this.value=v}};const s=p.normalize();p.record(s,1,200,true);p.select(s,2);s.talents.vitality=2;p.save(storage,s);assert.deepEqual(p.load(storage),s);
+ storage.value='invalid';assert.equal(p.load(storage).selected,1);const bad=p.normalize({unlocked:-10,selected:400,best:{1:999},talents:{vitality:999,agility:'x'}});assert.equal(bad.selected,1);assert.equal(bad.best[1],200);assert.equal(bad.talents.vitality,3);assert.equal(bad.talents.agility,0);
 });
 test('talentos custam moedas, têm limite e rejeitam compra sem saldo',()=>{
  const s=p.normalize(),wallet={coins:29};assert.equal(p.upgrade(s,wallet,'vitality').ok,false);assert.equal(wallet.coins,29);
@@ -18,5 +18,10 @@ test('ampliar torres preserva fases liberadas, talentos e avanço real sem conce
  const state=p.normalize({selected:2,unlocked:3,best:{1:40,2:20},completed:{1:true},talents:{vitality:2}});
  assert.equal(state.unlocked,3);assert.equal(state.selected,2);assert.equal(state.best[1],40);assert.equal(state.best[2],20);assert.equal(state.completed[1],undefined);assert.equal(state.talents.vitality,2);
  const roundtrip=p.normalize(JSON.parse(JSON.stringify(state)));assert.deepEqual(roundtrip,state);
- p.record(state,1,400,true);assert.equal(p.normalize(state).completed[1],true);
+ p.record(state,1,200,true);assert.equal(p.normalize(state).completed[1],true);
+});
+
+test('reduzir comprimento mantém desbloqueios, talentos e conclusões, limitando avanço ao novo total',()=>{
+ const s=p.normalize({layoutVersion:2,selected:2,unlocked:3,best:{1:400,2:300},completed:{1:true},talents:{vitality:2}});
+ assert.equal(s.best[1],200);assert.equal(s.best[2],200);assert.equal(s.completed[1],true);assert.equal(s.completed[2],undefined);assert.equal(s.unlocked,3);assert.equal(s.talents.vitality,2);
 });

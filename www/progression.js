@@ -8,7 +8,7 @@
   {id:'guard',name:'Fôlego protetor',description:'+0,17 s de proteção após dano por nível.',max:3,costs:[30,60,100]}
  ]);
  const integer=(n,fallback,min,max)=>Number.isSafeInteger(n)?Math.max(min,Math.min(max,n)):fallback;
- const count=level=>10*(40+Math.min(40,6*Math.floor((level-1)/2)));
+ const count=level=>5*(40+Math.min(40,6*Math.floor((level-1)/2)));
  function normalize(raw){
   const r=raw&&typeof raw==='object'?raw:{};
   const state={layoutVersion:2,selected:1,unlocked:integer(r.unlocked,1,1,MAX_LEVEL),best:{},completed:{},talents:{}};

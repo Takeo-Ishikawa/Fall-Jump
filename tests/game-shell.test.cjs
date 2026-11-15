@@ -157,7 +157,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#goalsSection').hidden,true);
   assert.equal(node('#restart').style.display,'block');
   node('#restart').onclick(); // Iniciar a partida
-  assert.equal(node('#progressCount').textContent,'0 / 400');
+  assert.equal(node('#progressCount').textContent,'0 / 200');
   assert.equal(node('#resultSummary').hidden,true);
   assert.equal(node('#help').style.display,'block');
   node('#help').onclick(); // Ajuda acessível durante a partida
@@ -203,7 +203,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.ok(node('#stageSeed').textContent.includes('FASE #'));
   assert.ok(Number(node('#score').textContent) >= 0);
   const platforms=browser.__fjTest.getPlatforms();
-  assert.equal(platforms.length,400);
+  assert.equal(platforms.length,200);
   browser.__fjTest.completePlatform(platforms[0]);
   const firstScore=node('#score').textContent;
   const firstProgress=node('#progressCount').textContent;
@@ -215,10 +215,10 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   for(const platform of platforms.slice(1))browser.__fjTest.completePlatform(platform);
   assert.equal(node('#message').textContent,'Nível 1 concluído!');
   assert.equal(node('#resultSummary').hidden,false);
-  assert.equal(node('#resultPlatforms').textContent,'400 / 400');
-  assert.equal(node('#resultCombo').textContent,'400');
-  assert.equal(node('#resultCoins').textContent,'+212');
-  assert.equal(node('#progressCount').textContent,'400 / 400');
+  assert.equal(node('#resultPlatforms').textContent,'200 / 200');
+  assert.equal(node('#resultCombo').textContent,'200');
+  assert.equal(node('#resultCoins').textContent,'+112');
+  assert.equal(node('#progressCount').textContent,'200 / 200');
   const completedWallet=node('#coinCount').textContent;
   browser.__fjTest.end(true);
   browser.__fjTest.end(false);
@@ -226,7 +226,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   assert.equal(node('#message').textContent,'Nível 1 concluído!','derrota tardia não substitui vitória');
   node('#restart').onclick(); // Próxima fase
   assert.equal(node('#level').textContent,'NÍVEL 2');
-  assert.equal(node('#progressCount').textContent,'0 / 400');
+  assert.equal(node('#progressCount').textContent,'0 / 200');
   assert.equal(node('#resultSummary').hidden,true);
   const nextProgress=node('#progressCount').textContent;
   browser.__fjTest.completePlatform(platforms[1]);
@@ -239,6 +239,6 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
   node('#restart').onclick();
   assert.equal(node('#level').textContent,'NÍVEL 2','a derrota não deve reiniciar no nível 1');
   assert.equal(node('#score').textContent,0,'nova tentativa zera apenas a pontuação');
-  assert.equal(node('#progressCount').textContent,'0 / 400');
+  assert.equal(node('#progressCount').textContent,'0 / 200');
   assert.equal(node('#resultSummary').hidden,true);
 });
