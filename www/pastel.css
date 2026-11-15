@@ -175,3 +175,6 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 .joystickGuide {position:absolute;inset:0;display:grid;place-items:center;font-size:25px;letter-spacing:9px;color:#7b8b80;pointer-events:none}
 #joystick:focus-visible {outline:3px solid #547e8c;outline-offset:3px}
 @media(max-height:500px){#joystick{width:88px;height:88px;bottom:calc(14px + env(safe-area-inset-bottom))}#joystickKnob{width:40px;height:40px}}
+
+/* The floating control is a visual overlay; the canvas owns its touch gesture. */
+#joystick {pointer-events:none}

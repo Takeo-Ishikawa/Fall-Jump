@@ -9,7 +9,7 @@ function game(storage=new Map()){
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(key){return storage.get(key)??null},setItem(key,value){storage.set(key,value)}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={stickDown:downJoystick,stickMove:moveJoystick,stickUp:upJoystick,hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,poseTime,lookFacing,bodyFacing,landingPose,stick:joystickAxis,stickPointer:joystickPointer,pending:walkPending,velocity:walkVelocity,gait:gaitBlend,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={cancelPointer:cancelCanvasPointer,stickDown:downJoystick,stickMove:moveJoystick,stickUp:upJoystick,hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,poseTime,lookFacing,bodyFacing,landingPose,stick:joystickAxis,stickPointer:joystickPointer,pending:walkPending,velocity:walkVelocity,gait:gaitBlend,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
@@ -20,7 +20,7 @@ test('caminha sobre superfície sem impulso vertical; pausa congela posição e 
  const g=game(),initial=g.state();steps(g,30);assert.equal(g.state().x,initial.x,'sem arraste não caminha');g.move({clientX:230,pointerId:1});steps(g,60);const walking=g.state();
  assert.ok(walking.x>initial.x+20);assert.equal(walking.y,initial.y);assert.equal(walking.vy,0);assert.equal(walking.passed,0);
  g.pause();const paused=g.state();steps(g,120);assert.deepEqual(g.state(),paused);
- g.move({clientX:250,pointerId:1});assert.deepEqual(g.state(),paused);g.resume();g.down({clientX:170,pointerId:1});g.move({clientX:180,pointerId:1});g.step();assert.ok(g.state().angle>paused.angle);
+ g.move({clientX:250,pointerId:1});assert.deepEqual(g.state(),paused);g.resume();g.down({clientX:170,pointerId:1});g.move({clientX:190,pointerId:1});g.step();assert.ok(g.state().angle>paused.angle);
 });
 test('alcançar abertura inicia queda; pouso na plataforma seguinte não produz salto',()=>{
  const g=game();steps(g,30);const angle=g.state().angle;
@@ -151,7 +151,7 @@ test('pausa preserva dano e reação do inimigo; reinício restaura três acerto
 
 test('arraste move o personagem e a câmera acompanha pelo caminho curto sem girar plataformas',()=>{
  const g=game(),angles=g.platforms().map(p=>p.angle);
- g.move({clientX:210,pointerId:1});steps(g,40);const target=g.state().angle;
+ g.move({clientX:210,pointerId:1});steps(g,20);g.up({clientX:210,pointerId:1});const target=g.state().angle;
  steps(g,80);assert.equal(g.state().angle,target);assert.ok(Math.abs(g.state().camera-target)<.001);
  assert.equal(g.state().rotation,0);assert.deepEqual(g.platforms().map(p=>p.angle),angles);
  g.position(.03);g.camera(Math.PI*2-.03);g.step();assert.ok(g.state().camera>Math.PI*2-.03);
@@ -180,7 +180,7 @@ test('golpe atinge apenas à frente, respeita alcance e intervalo e derrota com 
  const behind=game();behind.equip();behind.putEnemy(-.35);behind.attack();assert.equal(behind.enemies()[0].hp,3);
 });
 test('golpe segue última direção do arraste e pausa congela recarga',()=>{
- const g=game();g.equip();g.move({clientX:160,pointerId:1});assert.equal(g.state().facing,-1);
+ const g=game();g.equip();g.move({clientX:150,pointerId:1});assert.equal(g.state().facing,-1);
  g.putEnemy(-.35);g.enemies()[0].speed=0;g.attack();assert.equal(g.enemies()[0].hp,2);g.pause();const cooldown=g.state().attackCooldown;steps(g,50);assert.equal(g.state().attackCooldown,cooldown);
  g.resume();steps(g,24);assert.equal(g.state().attackCooldown,0);
 });
@@ -199,8 +199,8 @@ test('vida acompanha a próxima fase, volta a 100 em nova tentativa e zero causa
 test('arraste rápido é distribuído pelos passos físicos, desacelera e não teleporta',()=>{
  const g=game(),initial=g.state().angle;g.move({clientX:370,pointerId:1});assert.equal(g.state().angle,initial);
  let previous=initial;const deltas=[];
- for(let i=0;i<40;i++){g.step();const current=g.state().angle;const delta=current-previous;assert.ok(delta>=0&&delta<=.04001);deltas.push(delta);previous=current;}
- assert.ok(deltas[0]<deltas[1],'aceleração suave');assert.ok(deltas[8]<deltas[3],'desaceleração suave');
+ for(let i=0;i<40;i++){if(i===8)g.up({clientX:370,pointerId:1});g.step();const current=g.state().angle;const delta=current-previous;assert.ok(delta>=0&&delta<=.04001);deltas.push(delta);previous=current;}
+ assert.ok(deltas[0]<deltas[1],'aceleração suave');assert.equal(deltas[8],0,'soltar interrompe movimento');
  assert.equal(g.state().pending,0);assert.equal(g.state().velocity,0);const stopped=g.state().angle;steps(g,60);assert.equal(g.state().angle,stopped);assert.ok(g.state().gait<.001);
 });
 test('reversão de direção é limitada e pausa descarta movimento pendente',()=>{
@@ -217,9 +217,9 @@ test('joystick tem zona neutra, velocidade proporcional e movimento contínuo se
  fast.stickMove({clientX:20,clientY:50,pointerId:1});steps(fast,8);assert.equal(fast.state().facing,-1);assert.ok(fast.state().velocity<0);
 });
 test('soltar, cancelar ou pausar joystick para o personagem e esconde o controle nos menus',()=>{
- const g=game();assert.equal(g.ui('#joystick').style.display,'block');g.stickDown({clientX:80,clientY:50,pointerId:1});steps(g,5);
+ const g=game();assert.equal(g.ui('#joystick').style.display,'none');g.stickDown({clientX:80,clientY:50,pointerId:1});steps(g,5);
  g.stickUp({pointerId:9});assert.equal(g.state().stickPointer,1);g.stickUp({pointerId:1});const stopped=g.state().angle;steps(g,10);assert.equal(g.state().angle,stopped);
- g.stickDown({clientX:80,clientY:50,pointerId:1});g.pause();assert.equal(g.state().stick,0);assert.equal(g.ui('#joystick').style.display,'none');g.resume();assert.equal(g.ui('#joystick').style.display,'block');
+ g.stickDown({clientX:80,clientY:50,pointerId:1});g.pause();assert.equal(g.state().stick,0);assert.equal(g.ui('#joystick').style.display,'none');g.resume();assert.equal(g.ui('#joystick').style.display,'none');
 });
 test('segundo dedo pode saltar e golpear enquanto joystick continua pressionado',()=>{
  const g=game();g.stickDown({clientX:80,clientY:50,pointerId:1});
@@ -229,4 +229,15 @@ test('segundo dedo pode saltar e golpear enquanto joystick continua pressionado'
  }
  assert.ok(g.state().vy<0);assert.equal(g.state().stickPointer,1);assert.equal(g.state().stick,1);
  g.equip();g.attack();assert.equal(g.state().stickPointer,1);assert.equal(g.state().stick,1);g.step();assert.ok(g.state().angle>0);
+});
+
+test('joystick flutuante só aparece após intenção de arrastar e nasce no ponto inicial',()=>{
+ const g=game();assert.equal(g.ui('#joystick').style.display,'none');
+ tap(g,100,170,400);assert.equal(g.ui('#joystick').style.display,'none');
+ g.down({clientX:170,clientY:400,pointerId:1,timeStamp:300});g.move({clientX:176,clientY:400,pointerId:1});assert.equal(g.ui('#joystick').style.display,'none');
+ g.move({clientX:200,clientY:400,pointerId:1});assert.equal(g.ui('#joystick').style.display,'block');assert.equal(g.ui('#joystick').style.left,'118px');assert.equal(g.ui('#joystick').style.top,'348px');
+ g.equip();assert.equal(g.ui('#joystick').style.display,'block','atualização do equipamento preserva controle ativo');
+ g.up({clientX:200,clientY:400,pointerId:1,timeStamp:400});assert.equal(g.ui('#joystick').style.display,'none');assert.equal(g.state().stick,0);
+ g.down({clientX:80,clientY:300,pointerId:1,timeStamp:420});g.move({clientX:110,clientY:300,pointerId:1});g.cancelPointer({pointerId:1});assert.equal(g.ui('#joystick').style.display,'none');assert.equal(g.state().stick,0);
+ tap(g,500,170,400);tap(g,620,170,400);assert.ok(g.state().vy<0);assert.equal(g.ui('#joystick').style.display,'none');
 });
