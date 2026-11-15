@@ -5,11 +5,11 @@ function game(storage=new Map()){
  const source=[...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)].find(m=>!m[1])[2];
  const nodes=new Map(),gradient={addColorStop(){}};
  const ctx=new Proxy({}, {get:(_,k)=>k.startsWith('create')?()=>gradient:()=>{},set:()=>true});
- const node=id=>{if(!nodes.has(id))nodes.set(id,{style:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},addEventListener(){},setPointerCapture(){},getContext:()=>ctx});return nodes.get(id)};
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{style:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},addEventListener(){},setPointerCapture(){},getBoundingClientRect:()=>({left:0,top:0,width:100,height:100}),getContext:()=>ctx});return nodes.get(id)};
  const win={addEventListener(){},FallJumpLevelGenerator:require('../www/level-generator.js'),FallJumpFever:require('../www/fever.js'),FallJumpSkins:require('../www/skins.js'),FallJumpGoals:require('../www/goals.js')};
  const sandbox={window:win,document:{querySelector:node,documentElement:{clientWidth:390},addEventListener(){}},innerWidth:390,innerHeight:844,devicePixelRatio:1,location:{protocol:'file:',search:'?seed=123'},navigator:{},localStorage:{getItem(key){return storage.get(key)??null},setItem(key,value){storage.set(key,value)}},requestAnimationFrame(){},URLSearchParams,console};
  const hook='resize();reset();refreshBest();menu();requestAnimationFrame(update)})();';
- const expose=`window.motion={hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,pending:walkPending,velocity:walkVelocity,gait:gaitBlend,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
+ const expose=`window.motion={stickDown:downJoystick,stickMove:moveJoystick,stickUp:upJoystick,hurt:hurtByEnemy,next:()=>startGame(true),equip:toggleSword,attack:swordAttack,ui:id=>document.querySelector(id),equipment:openEquipment,menu,position:a=>{walkAngle=norm(a);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius},camera:a=>cameraAngle=a,spawnAngle:()=>norm(platforms[0].angle+platforms[0].gap/2+.3),approachEnemy:(offset,velocity)=>{const e=enemies[0];e.speed=0;walkAngle=norm(rotation+e.platform.angle+e.angle);ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=e.platform.y-2*enemyHeight-contactRadius+offset;vy=velocity;grounded=null;jumping=true},enemies:()=>enemies,makeEnemies:createEnemies,stepEnemies:updateEnemies,collides:enemyCollision,putEnemy:(offset=0)=>{const p=platforms[0],angle=norm(walkAngle-rotation-p.angle+offset);enemies=[{platform:p,min:angle-.6,max:angle+.6,angle,direction:1,speed:.007,phase:0,hp:3,hitFlash:0,defeated:false}]},down,move,up,cancel:cancelGesture,start:()=>{startGame();down({clientX:170,pointerId:1})},step:simulateStep,platforms:()=>platforms,rotate:a=>rotation=norm(a),state:()=>({x:ballX,z:ballZ,y:ballY,vy,angle:walkAngle,camera:cameraAngle,rotation,health,hurtFrames,facing,equippedSword,attackCooldown,attackFrames,phase:walkPhase,stick:joystickAxis,stickPointer:joystickPointer,pending:walkPending,velocity:walkVelocity,gait:gaitBlend,grounded:grounded?.y,passed:levelPassed,mode}),pause:()=>pauseBtn.onclick(),resume:resumeGame,fever:()=>{for(let i=0;i<5;i++)Fever.onGap(feverState)}};`;
  vm.runInNewContext(source.replace(hook,expose+hook),sandbox);
  const g=win.motion;g.start();
  for(const p of g.platforms()){p.angle=Math.PI;p.gap=.8;p.danger=0;p.special=null;}
@@ -207,4 +207,26 @@ test('reversão de direção é limitada e pausa descarta movimento pendente',()
  const g=game();g.move({clientX:200,pointerId:1});steps(g,3);const before=g.state().angle;
  g.move({clientX:140,pointerId:1});g.step();assert.ok(Math.abs(g.state().angle-before)<=.04);
  g.pause();assert.equal(g.state().pending,0);assert.equal(g.state().velocity,0);const paused=g.state().angle;g.resume();steps(g,40);assert.equal(g.state().angle,paused);
+});
+
+test('joystick tem zona neutra, velocidade proporcional e movimento contínuo sem novos eventos',()=>{
+ const center=game();center.stickDown({clientX:52,clientY:50,pointerId:1});steps(center,20);assert.equal(center.state().angle,0);
+ const slow=game();slow.stickDown({clientX:65,clientY:50,pointerId:1});steps(slow,20);
+ const fast=game();fast.stickDown({clientX:80,clientY:50,pointerId:1});steps(fast,20);assert.ok(fast.state().angle>slow.state().angle*2);
+ const previous=fast.state().angle;steps(fast,5);assert.ok(fast.state().angle>previous);
+ fast.stickMove({clientX:20,clientY:50,pointerId:1});steps(fast,8);assert.equal(fast.state().facing,-1);assert.ok(fast.state().velocity<0);
+});
+test('soltar, cancelar ou pausar joystick para o personagem e esconde o controle nos menus',()=>{
+ const g=game();assert.equal(g.ui('#joystick').style.display,'block');g.stickDown({clientX:80,clientY:50,pointerId:1});steps(g,5);
+ g.stickUp({pointerId:9});assert.equal(g.state().stickPointer,1);g.stickUp({pointerId:1});const stopped=g.state().angle;steps(g,10);assert.equal(g.state().angle,stopped);
+ g.stickDown({clientX:80,clientY:50,pointerId:1});g.pause();assert.equal(g.state().stick,0);assert.equal(g.ui('#joystick').style.display,'none');g.resume();assert.equal(g.ui('#joystick').style.display,'block');
+});
+test('segundo dedo pode saltar e golpear enquanto joystick continua pressionado',()=>{
+ const g=game();g.stickDown({clientX:80,clientY:50,pointerId:1});
+ for(const time of [100,220]){
+  g.down({clientX:240,clientY:350,pointerId:2,isPrimary:false,timeStamp:time});
+  g.up({clientX:240,clientY:350,pointerId:2,timeStamp:time+30});
+ }
+ assert.ok(g.state().vy<0);assert.equal(g.state().stickPointer,1);assert.equal(g.state().stick,1);
+ g.equip();g.attack();assert.equal(g.state().stickPointer,1);assert.equal(g.state().stick,1);g.step();assert.ok(g.state().angle>0);
 });

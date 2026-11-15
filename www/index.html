@@ -234,7 +234,7 @@
  <div id="equipmentCard"><span id="swordPortrait" aria-hidden="true">⚔</span><h3>Espada</h3><p>Uma espada leve para atacar à sua frente. Cada golpe tira um ponto de vida dos inimigos próximos.</p><button id="equipSword" type="button">Equipar espada</button></div></div>
 </div><button id="restart">Jogar novamente</button><button id="menuInstructions" class="secondary" style="display:none">Como jogar</button><button id="pauseInstructions" class="secondary" style="display:none">Como jogar</button>
 <button id="equipmentButton" class="secondary" style="display:none">Equipamentos</button><button id="skinsButton" class="secondary" style="display:none">Aparências</button><button id="goalsButton" class="secondary" style="display:none">Missões e conquistas</button>
-<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><button id="attack" type="button" aria-label="Golpear com a espada" style="display:none">Golpear</button><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
+<button id="menuButton" class="secondary" style="display:none">Menu inicial</button></div></div><div id="joystick" role="slider" tabindex="0" aria-label="Mover personagem para a esquerda ou direita" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" style="display:none"><span class="joystickGuide" aria-hidden="true">‹　›</span><span id="joystickKnob" aria-hidden="true"></span></div><button id="attack" type="button" aria-label="Golpear com a espada" style="display:none">Golpear</button><script src="level-generator.js"></script><script src="fever.js"></script><script src="skins.js"></script><script src="goals.js"></script><script>
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),levelEl=document.querySelector('#level'),overlay=document.querySelector('#overlay'),message=document.querySelector('#message'),details=document.querySelector('#details'),hint=document.querySelector('#hint');let W,H,dpr,scale,centerX,ballScreenY,platforms,ballY,vy,cameraY,rotation,score,level,alive,started,drag=false,lastX=0,frames=0,flash=0,particles=[],breakFx=[],trail=[],popups=[],squash=0,shake=0,combo=0,levelPassed=0,levelTarget=10,totalScore=0,bonusScore=0,levelFinishing=false,mode='menu',best=0,levelsCompleted=0,phaseCoins=0,phaseBestCombo=0;const comboBadge=document.querySelector("#comboBadge");
 const Goals=window.FallJumpGoals,goalsButton=document.querySelector('#goalsButton'),goalsSection=document.querySelector('#goalsSection'),goalsDay=document.querySelector('#goalsDay'),goalsCountdown=document.querySelector('#goalsCountdown'),goalToast=document.querySelector('#goalToast'),goalsOverview=document.querySelector('#goalsOverview'),goalsDailyTab=document.querySelector('#goalsDailyTab'),goalsAchievementTab=document.querySelector('#goalsAchievementTab'),goalsDailyGroup=document.querySelector('#goalsDailyGroup'),goalsAchievementGroup=document.querySelector('#goalsAchievementGroup'),goalCelebration=document.querySelector('#goalCelebration'),rewardMedalTitle=document.querySelector('#rewardMedalTitle'),rewardMedalName=document.querySelector('#rewardMedalName'),rewardMedalAmount=document.querySelector('#rewardMedalAmount');
 let goalToastFrames=0,celebrationFrames=0,goalsTab='daily';
@@ -381,6 +381,8 @@ const bestEl=document.querySelector('#bestScore'),stats=document.querySelector('
 helpBtn=document.querySelector('#help'),panelBack=document.querySelector('#panelBack'),menuInstructions=document.querySelector('#menuInstructions'),pauseInstructions=document.querySelector('#pauseInstructions'),
 resultSummary=document.querySelector('#resultSummary'),resultPlatforms=document.querySelector('#resultPlatforms'),resultCombo=document.querySelector('#resultCombo'),resultCoins=document.querySelector('#resultCoins');
 const equipmentButton=document.querySelector('#equipmentButton'),equipmentSection=document.querySelector('#equipmentSection'),equipSwordButton=document.querySelector('#equipSword'),equipmentStatus=document.querySelector('#equipmentStatus'),attackButton=document.querySelector('#attack');
+const joystick=document.querySelector('#joystick'),joystickKnob=document.querySelector('#joystickKnob');
+let joystickAxis=0,joystickPointer=null;
 const equipmentKey='fall-jump-equipment-v1';
 let health=100,hurtFrames=0;
 let equippedSword=false,facing=1,attackFacing=1,attackCooldown=0,attackFrames=0;
@@ -410,7 +412,8 @@ function refreshEquipment(){
  equipSwordButton.setAttribute('aria-pressed',String(equippedSword));
  attackButton.style.display=equippedSword&&mode==='playing'?'block':'none';
  attackButton.disabled=attackCooldown>0;
- hint.style.bottom=equippedSword?'calc(88px + env(safe-area-inset-bottom))':'';
+ hint.style.bottom='calc(144px + env(safe-area-inset-bottom))';
+ joystick.style.display=mode==='playing'?'block':'none';
  if(mode==='equipment')renderEquipmentPreview();
 }
 function toggleSword(){
@@ -425,7 +428,7 @@ function openEquipment(){
 }
 function swordAttack(){
  if(!equippedSword||mode!=='playing'||!alive||attackCooldown>0)return false;
- cancelGesture();initAudio();started=true;hint.style.opacity='0';
+ cancelGesture(false);initAudio();started=true;hint.style.opacity='0';
  attackCooldown=24;attackFrames=12;attackFacing=facing;
  tone(340,.10,'triangle',.035,-160);
  for(const e of enemies){
@@ -453,6 +456,7 @@ function showPanel(title,body,action,secondary=false){
  equipmentButton.style.display=mode==='menu'?'block':'none';
  equipmentSection.hidden=mode!=='equipment';
  attackButton.style.display='none';
+ joystick.style.display='none';
  menuInstructions.style.display=mode==='menu'?'block':'none';
  pauseInstructions.style.display=mode==='paused'?'block':'none';
  panelBack.style.display=mode==='shop'||mode==='goals'||mode==='menu-help'||mode==='equipment'?'block':'none';
@@ -523,7 +527,7 @@ function buildLevel(n){
   refreshFeverHud();
   stagePatternEl.textContent=plan.label+'  •  '+plan.count+' PLATAFORMAS';
   stageSeedEl.textContent='FASE #'+plan.seed.toString(16).toUpperCase().padStart(8,'0');
-  cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;walkPending=0;walkVelocity=0;gaitBlend=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Arraste para caminhar · dois toques para saltar'
+  cancelGesture();facing=1;attackFacing=1;attackFrames=0;attackCooldown=0;jumping=false;grounded=platforms[0];walkAngle=norm(grounded.angle+grounded.gap/2+.3);cameraAngle=walkAngle;walkPhase=0;walkPending=0;walkVelocity=0;gaitBlend=0;ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;ballY=grounded.y-contactRadius;vy=0;cameraY=walkRadius*.44/((1+walkRadius*.0012)*verticalScale)-42;rotation=0;alive=true;started=false;levelPassed=0;levelFinishing=false;combo=0;particles=[];breakFx=[];trail=[];popups=[];squash=0;shake=0;flash=0;progressFill.style.width='0%';scoreEl.textContent=totalScore;levelEl.textContent=`NÍVEL ${level}`;comboBadge.classList.remove('on');overlay.style.display='none';hint.style.opacity='1';hint.textContent='Use o joystick · dois toques no cenário para saltar'
 }function reset(){resetHealth();level=1;totalScore=0;bonusScore=0;frames=0;buildLevel(level)}function viewDepth(x,z){return x*Math.sin(cameraAngle)+z*Math.cos(cameraAngle)}function project(x,z,y){const viewX=x*Math.cos(cameraAngle)-z*Math.sin(cameraAngle);z=viewDepth(x,z);x=viewX;let depth=1+z*.0012;return{x:centerX+x*scale/depth,y:ballScreenY+(y-cameraY)*scale*verticalScale+z*scale*.44/depth}}function polygon(points,fill,seal=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let j=1;j<points.length;j++)ctx.lineTo(points[j].x,points[j].y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seal){ctx.strokeStyle=fill;ctx.lineWidth=.8*scale;ctx.stroke()}}function arcPoints(a,b,y,r,steps=14){let arr=[];for(let j=0;j<=steps;j++){let t=a+(b-a)*j/steps;arr.push(project(Math.sin(t)*r,Math.cos(t)*r,y))}return arr}function inGap(p){let theta=norm(walkAngle-rotation-p.angle);return theta<p.gap/2||theta>TAU-p.gap/2}function dangerAt(p){if(!p.danger)return false;let theta=norm(walkAngle-rotation-p.angle);let start=p.gap+.53;return theta>start&&theta<start+p.danger}// Visual materials only; platform geometry and collision rules remain unchanged.
 const platformPaint={
  normal:{top:'#e9a6b0',back:'#dda0ab',side:'#c88c99',shadow:'#b9818e',edge:'#f2c5cd'},
@@ -828,13 +832,17 @@ function completePlatform(p,cause='gap'){
 // Input is consumed at the fixed physics rate, rather than teleporting on pointer events.
 // Bound both the backlog and speed so quick drags remain responsive near gaps/enemies.
 function stepWalking(){
- const desired=Math.max(-.04,Math.min(.04,walkPending*.45));
+ const usingStick=joystickPointer!==null||joystickAxis!==0;
+ const desired=usingStick?joystickAxis*.04:Math.max(-.04,Math.min(.04,walkPending*.45));
  walkVelocity+=(desired-walkVelocity)*.5;
  let step=walkVelocity;
+ if(usingStick){walkPending=0;if(Math.abs(step)<.0003){step=0;walkVelocity=0;}}
+ else{
  if(Math.sign(step)!==Math.sign(walkPending))step=0;
  if(Math.abs(step)>Math.abs(walkPending))step=walkPending;
  walkPending-=step;
  if(Math.abs(walkPending)<.0003){step+=walkPending;walkPending=0;walkVelocity=0;}
+ }
  walkAngle=norm(walkAngle+step);
  ballX=Math.sin(walkAngle)*walkRadius;ballZ=Math.cos(walkAngle)*walkRadius;
  const pace=grounded?Math.min(1,Math.abs(step)/.04):0;
@@ -907,7 +915,41 @@ function update(timestamp){
 // Recognize taps on release, so dragging the character never triggers a jump.
 let tapCandidate=null,lastTap=null;
 const tapWindowMs=280,tapSlop=12;
-function cancelGesture(){drag=false;tapCandidate=null;lastTap=null;walkPending=0;walkVelocity=0;}
+function cancelGesture(resetStick=true){drag=false;tapCandidate=null;lastTap=null;walkPending=0;walkVelocity=0;if(resetStick)resetJoystick();}
+function resetJoystick(){
+ const pointer=joystickPointer;joystickPointer=null;joystickAxis=0;
+ joystickKnob.style.transform='translate(-50%, -50%)';
+ joystick.setAttribute('aria-valuenow','0');
+ if(pointer!==null&&joystick.hasPointerCapture?.(pointer))joystick.releasePointerCapture(pointer);
+}
+function moveJoystick(e){
+ if(e.pointerId!==joystickPointer||mode!=='playing')return;
+ const box=joystick.getBoundingClientRect(),limit=box.width*.30;
+ let x=e.clientX-box.left-box.width/2,y=e.clientY-box.top-box.height/2;
+ const length=Math.hypot(x,y);if(length>limit){x*=limit/length;y*=limit/length;}
+ const raw=x/limit;joystickAxis=Math.abs(raw)<.15?0:Math.sign(raw)*(Math.abs(raw)-.15)/.85;
+ if(joystickAxis!==0)facing=joystickAxis>0?1:-1;
+ joystickKnob.style.transform=`translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+ joystick.setAttribute('aria-valuenow',String(Math.round(joystickAxis*100)));
+ e.preventDefault?.();
+}
+function downJoystick(e){
+ if(mode!=='playing'||!alive||joystickPointer!==null||(e.button!==undefined&&e.button!==0))return;
+ cancelGesture(false);initAudio();started=true;hint.style.opacity='0';
+ joystickPointer=e.pointerId;joystick.setPointerCapture?.(e.pointerId);moveJoystick(e);
+}
+function upJoystick(e){
+ if(e.pointerId!==joystickPointer)return;
+ resetJoystick();walkPending=0;walkVelocity=0;
+}
+joystick.addEventListener('pointerdown',downJoystick);joystick.addEventListener('pointermove',moveJoystick);
+joystick.addEventListener('pointerup',upJoystick);joystick.addEventListener('pointercancel',upJoystick);joystick.addEventListener('lostpointercapture',upJoystick);
+joystick.addEventListener('keydown',e=>{
+ if(mode!=='playing'||!alive||!['ArrowLeft','ArrowRight'].includes(e.key))return;
+ e.preventDefault();started=true;hint.style.opacity='0';joystickAxis=e.key==='ArrowRight'?1:-1;facing=joystickAxis;
+});
+joystick.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){resetJoystick();walkVelocity=0;}});
+joystick.addEventListener('blur',()=>{resetJoystick();walkVelocity=0;});
 function manualJump(){
  if(mode!=='playing'||!alive||!started||!grounded)return false;
  grounded=null;jumping=true;vy=-7.6;squash=-.12;
@@ -915,7 +957,7 @@ function manualJump(){
  return true;
 }
 function down(e){
- if(e.isPrimary===false){cancelGesture();return;}
+ if(e.isPrimary===false&&joystickPointer===null){cancelGesture();return;}
  if(mode!=='playing'||!alive||(e.button!==undefined&&e.button!==0))return;
  drag=true;lastX=e.clientX;initAudio();started=true;hint.style.opacity='0';
  tapCandidate={x:e.clientX,y:e.clientY||0,time:e.timeStamp??Date.now(),id:e.pointerId};
@@ -962,11 +1004,11 @@ function askLeave(){
 }
 function openGameHelp(){
  drag=false;mode='help';pauseBtn.style.display='none';
- showPanel('Como jogar','Arraste para a esquerda ou direita para caminhar ao redor da plataforma. A câmera acompanha o personagem. Dê dois toques rápidos no cenário para saltar. Com a espada equipada, use Golpear para atacar na última direção em que caminhou. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. O personagem tem 100 de vida. Contatos laterais com inimigos tiram 5 pontos, com um segundo de proteção após cada dano, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
+ showPanel('Como jogar','Use o joystick no canto inferior esquerdo para caminhar ao redor da plataforma; quanto mais deslocar para os lados, maior a velocidade. Solte para parar. O arraste no cenário também funciona. A câmera acompanha o personagem. Dê dois toques rápidos no cenário para saltar. Com a espada equipada, use Golpear para atacar na última direção em que caminhou. Ao chegar ao vão, ele cai para a próxima plataforma; evite as partes escuras. Azuis quebram, douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. O personagem tem 100 de vida. Contatos laterais com inimigos tiram 5 pontos, com um segundo de proteção após cada dano, mesmo com Fever. Cinco aberturas sem pousar ativam Fever por 1,5 segundo, dobrando pontos e rompendo discos comuns.','Continuar',true);
 }
 function openMenuHelp(){
  mode='menu-help';
- showPanel('Como jogar','Arraste horizontalmente para mover o personagem ao redor da plataforma. A câmera gira para acompanhá-lo. Dê dois toques rápidos (ou dois cliques) no cenário para saltar; só é possível saltar quando estiver apoiado. Conduza o personagem até os vãos para descer. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. O personagem tem 100 de vida. Contatos laterais com inimigos tiram 5 pontos, com um segundo de proteção após cada dano, mesmo com Fever. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
+ showPanel('Como jogar','Use o joystick no canto inferior esquerdo para mover o personagem ao redor da plataforma. Solte para parar. Também é possível arrastar no cenário. A câmera gira para acompanhá-lo. Dê dois toques rápidos (ou dois cliques) no cenário para saltar; só é possível saltar quando estiver apoiado. Conduza o personagem até os vãos para descer. Evite as áreas escuras. Azuis quebram e douradas dão bônus. Inimigos roxos precisam de três pisões na cabeça para serem derrotados. Cada pisão faz você quicar automaticamente. O personagem tem 100 de vida. Contatos laterais com inimigos tiram 5 pontos, com um segundo de proteção após cada dano, mesmo com Fever. Cinco passagens sem pousar ativam Fever por 1,5 segundo.','Voltar ao menu');
 }
 restartBtn.onclick=()=>{
  initAudio();
@@ -986,6 +1028,7 @@ pauseInstructions.onclick=()=>openGameHelp();
 skinsButton.onclick=()=>openShop();
 goalsButton.onclick=()=>openGoals();
 equipmentButton.onclick=openEquipment;equipSwordButton.onclick=toggleSword;attackButton.onclick=swordAttack;
+attackButton.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!attackButton.disabled){e.preventDefault();swordAttack();}});
 pauseBtn.onclick=()=>{
  if(mode!=='playing')return;
  drag=false;mode='paused';pauseBtn.style.display='none';

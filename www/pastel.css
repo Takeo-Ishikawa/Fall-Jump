@@ -168,3 +168,10 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 @media(max-height:650px){#equipmentPreview{width:110px;height:110px}#equipmentHero{padding:0 0 12px}#inventoryTitle{margin-top:14px}}
 @media(prefers-reduced-motion:reduce){#healthFill{transition:none}}
 @media(max-width:360px){#hud{width:132px;padding:10px}#bestHud,#walletHud{font-size:8px}}
+
+#joystick {position:absolute;left:max(18px,env(safe-area-inset-left));bottom:calc(24px + env(safe-area-inset-bottom));width:104px;height:104px;border-radius:50%;background:#fffdf9c9;border:1px solid #d8d4ca;box-shadow:0 4px 18px #39434a12;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+#joystick:active {cursor:grabbing}
+#joystickKnob {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#b9d4c3;border:1px solid #8eaf9b;box-shadow:0 3px 7px #39434a18;pointer-events:none}
+.joystickGuide {position:absolute;inset:0;display:grid;place-items:center;font-size:25px;letter-spacing:9px;color:#7b8b80;pointer-events:none}
+#joystick:focus-visible {outline:3px solid #547e8c;outline-offset:3px}
+@media(max-height:500px){#joystick{width:88px;height:88px;bottom:calc(14px + env(safe-area-inset-bottom))}#joystickKnob{width:40px;height:40px}}
