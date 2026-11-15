@@ -35,7 +35,7 @@ test('estrutura HTML tem menus e indicadores reais, sem IDs duplicados ou divs a
 test('inicialização, controles e primeiros frames do jogo carregam sem exceções', () => {
   const html = fs.readFileSync(path.join(root, 'www/index.html'), 'utf8');
   const tags = [...html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g)];
-  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js', 'skins.js', 'goals.js']);
+  assert.deepEqual(tags.filter(x => x[1]).map(x => x[1]), ['level-generator.js', 'fever.js', 'skins.js', 'goals.js', 'progression.js']);
   const inline = tags.find(x => !x[1])?.[2];
   assert.ok(inline, 'o script principal deve estar presente');
   assert.doesNotThrow(() => new Function(inline), 'sintaxe do script principal');
@@ -79,7 +79,7 @@ test('inicialização, controles e primeiros frames do jogo carregam sem exceç�
     addEventListener(event,listener) {windowEvents[event]=listener}, FallJumpLevelGenerator: require('../www/level-generator.js'),
     FallJumpFever: require('../www/fever.js'),
     FallJumpSkins: require('../www/skins.js'),
-    FallJumpGoals: require('../www/goals.js')
+    FallJumpProgression: require('../www/progression.js'), FallJumpGoals: require('../www/goals.js')
   };
   const sandbox = {
     document: { querySelector: node, documentElement: { clientWidth: 390 }, hidden: false, addEventListener(event,listener) {documentEvents[event]=listener} },

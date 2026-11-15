@@ -211,3 +211,57 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 #panel #equipSword {margin-top:0;min-height:46px}
 @media(max-height:650px){#equipmentStage{grid-template-columns:58px minmax(0,1fr) 58px;gap:6px;padding-top:4px}#panel .gearSlot{min-height:64px;padding-top:5px;padding-bottom:5px}#equipmentPreview{max-width:160px}#panel #equipmentInventory .gearItem{min-height:108px}}
 #overlay[data-screen="equipment"] #panelBack {width:100%;background:var(--fj-surface);border:0;border-bottom:1px solid var(--fj-line);border-radius:0;box-shadow:none;margin:0 0 12px;padding:9px 0}
+/* Home shell: the four destinations stay within thumb reach. */
+#worldSection[hidden],#talentsSection[hidden] {display:none!important}
+#overlay.home-shell {padding:max(20px,env(safe-area-inset-top)) 16px calc(100px + env(safe-area-inset-bottom))}
+#homeNav {position:absolute;z-index:10;bottom:0;left:0;right:0;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:10px max(12px,env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));background:#fffdf9f5;border-top:1px solid var(--fj-line);box-shadow:0 -8px 30px #39434a08}
+#homeNav button {min-width:0;min-height:60px;padding:6px 3px;background:transparent;border-radius:16px;color:var(--fj-muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+#homeNav button>span {font-size:25px;line-height:1}
+#homeNav button>small {font-size:11px;font-weight:550}
+#homeNav button[aria-current="page"] {background:#e9efea;color:#47735b}
+#homeNav button:focus-visible {outline:3px solid #547e8c;outline-offset:-3px}
+#overlay[data-screen="menu"] #panel {width:min(460px,100%);padding:12px 6px 18px}
+#overlay[data-screen="menu"] #brandMark,#overlay[data-screen="menu"] #message,#overlay[data-screen="menu"] #details,#overlay[data-screen="menu"] #stats {display:none}
+#worldTop {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:24px}
+.homeEyebrow {font-size:10px;letter-spacing:.16em;font-weight:650;color:var(--fj-muted)}
+#homeCoins {font-size:11px;color:#806933;background:#f2ebda;border:1px solid #e9dfc5;padding:8px 11px;border-radius:20px;font-variant-numeric:tabular-nums}
+.worldHeading {text-align:center}
+#worldStageTag {font-size:10px;font-weight:650;letter-spacing:.15em;color:#725363}
+#worldTitle {font-size:28px;font-weight:550;letter-spacing:-.04em;color:var(--fj-ink);margin:7px 0}
+#panel #worldState {font-size:11px;line-height:1.4;color:var(--fj-muted);margin:0 auto;max-width:290px}
+#worldArt {height:166px;margin:6px auto 8px;max-width:280px;background:radial-gradient(ellipse at center,#e6ece2 0,transparent 68%)}
+#worldArt svg {height:100%;width:100%}
+#worldRecord {padding:14px 16px;background:#fffdf9b3;border:1px solid var(--fj-line);border-radius:18px;text-align:left}
+#worldRecord>div:first-child {display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--fj-muted)}
+#worldBest {font-size:15px;font-weight:650;color:var(--fj-ink);font-variant-numeric:tabular-nums}
+#worldTrack {position:relative;height:6px;background:#e7e3dc;margin:12px 3px 10px;border-radius:9px}
+#worldFill {height:100%;background:var(--fj-sage);border-radius:9px}
+#worldMarker {position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:#527d65;border:3px solid #fffdf9;box-shadow:0 0 0 1px #94bfa7}
+#worldRecordHint {font-size:10px;color:var(--fj-muted)}
+.stageListHeader {display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px;font-size:12px;color:var(--fj-ink)}
+#worldPageLabel {font-size:10px;color:var(--fj-muted)}
+#stageGrid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#panel .stageChoice {display:flex;align-items:center;justify-content:space-between;gap:4px;padding:12px 9px;min-height:50px;background:#f1efe9;border:1px solid var(--fj-line);border-radius:14px;color:var(--fj-muted)}
+.stageChoice strong {font-size:17px;font-weight:550}
+.stageChoice span {font-size:8px;font-weight:500;text-align:right}
+#panel .stageChoice.selected {background:#edf3eb;border:2px solid #94bfa7;padding:11px 8px;color:#47735b}
+#panel .stageChoice.completed {color:#47735b}
+#panel .stageChoice:disabled {opacity:.65;cursor:default}
+#stagePagination {display:flex;align-items:center;justify-content:space-between;margin:9px 0 18px}
+#panel #stagePagination button {width:34px;min-height:32px;padding:3px;font-size:21px;background:transparent;color:var(--fj-muted)}
+#worldUnlocked {font-size:10px;color:var(--fj-muted)}
+#overlay[data-screen="menu"] #restart {position:sticky;bottom:0;z-index:4;box-shadow:0 7px 15px #f7f5f0}
+#overlay[data-screen="menu"] #menuInstructions,#overlay[data-screen="menu"] #goalsButton {display:inline-block!important;width:calc(50% - 4px);min-height:36px;padding:9px 5px;margin:9px 0 0;border:0;background:transparent;font-size:11px;color:var(--fj-muted)}
+#talentWallet {display:inline-block;padding:10px 14px;background:#f2ebda;color:#806933;border-radius:20px;font-size:12px;font-weight:600;margin:8px 0}
+#panel .talentIntro {font-size:12px}
+.talentCard {padding:17px;margin-top:12px;background:#f1efe9;border:1px solid var(--fj-line);border-radius:18px;text-align:left}
+.talentHeading {display:flex;justify-content:space-between;align-items:center;gap:10px}
+.talentHeading h3 {font-size:15px;font-weight:650;color:var(--fj-ink);margin:0}
+.talentHeading>span {font-size:11px;color:#547e8c;white-space:nowrap}
+#panel .talentCard p {font-size:12px;line-height:1.5;margin:10px 0}
+#panel .talentCard button {font-size:12px;background:#d6c5e5;color:#493c52;min-height:44px;padding:10px}
+#panel .talentCard button:disabled {background:#e6e3db;color:var(--fj-muted);opacity:1}
+#talentFeedback {min-height:18px;font-size:12px!important;color:#47735b!important}
+@media(max-height:650px){#worldTop{margin-bottom:14px}#worldArt{height:115px}#worldTitle{font-size:24px}.stageListHeader{margin-top:14px}}
+
+#overlay[data-screen="menu"] #restart {position:static;box-shadow:none}

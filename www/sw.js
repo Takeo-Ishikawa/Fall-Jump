@@ -1,5 +1,5 @@
-const CACHE_NAME='fall-jump-v190-six-slot-inventory-1';
-const FILES=['./index.html','./pastel.css','./level-generator.js','./fever.js','./skins.js','./goals.js'];
+const CACHE_NAME='fall-jump-v190-world-talents-1';
+const FILES=['./index.html','./pastel.css','./level-generator.js','./fever.js','./skins.js','./goals.js','./progression.js'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(FILES)));
   self.skipWaiting();
