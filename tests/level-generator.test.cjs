@@ -16,8 +16,8 @@ test('fases de 1 a 100 geradas e atravessáveis em simulação conservadora', ()
       const plan = generator.generateLevel(level, (level * 7919 + i * 104729) >>> 0);
       assert.ok(generator.validateLevel(plan), 'nível inválido: ' + level + ', seed ' + plan.seed);
       assert.ok(generator.simulateRoute(plan).ok, 'sem rota válida');
-      assert.equal(plan.platforms.length, 40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));
-      assert.ok(plan.platforms.length >= 40 && plan.platforms.length <= 80);
+      assert.equal(plan.platforms.length, 10 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2))));
+      assert.ok(plan.platforms.length >= 400 && plan.platforms.length <= 800);
       assert.ok(plan.platforms.every((p, j) => p.y === j * generator.SPACING));
       assert.equal(plan.platforms[0].danger, 0);
       for (let j = 1; j < plan.platforms.length; j++) {
@@ -108,9 +108,18 @@ test('curva de dificuldade preserva o ciclo de desafio e respiro',()=>{
  }
 });
 
- test('aberturas menores mantêm largura entre 0,65 e 1,20 radianos',()=>{
+ test('aberturas menores mantêm largura entre 0,55 e 1,00 radianos',()=>{
   const generator=require('../www/level-generator.js');
   for(let level=1;level<=30;level++)for(const p of generator.generateLevel(level,12345+level).platforms){
-   assert.ok(p.gap>=.65&&p.gap<=1.20);
+   assert.ok(p.gap>=.55&&p.gap<=1.00);
   }
  });
+
+test('tamanho das fases e progresso coincidem e a dificuldade aumentou sem usar rota de emergência',()=>{
+ const progress=require('../www/progression.js');
+ for(let level=1;level<=100;level++)assert.equal(generator.platformCount(level),progress.count(level));
+ for(const level of [1,3,6,15]){
+  const plan=generator.generateLevel(level,123);assert.equal(plan.fallback,undefined);assert.equal(plan.count,10*(40+Math.min(40,6*Math.floor((level-1)/2))));
+  assert.ok(plan.platforms.some(p=>p.danger>0));assert.ok(plan.platforms.reduce((n,p)=>n+p.gap,0)/plan.count<.9);
+ }
+});

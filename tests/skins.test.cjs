@@ -59,7 +59,7 @@ test('economia de 100 fases: recompensa limitada, compras únicas e recarga segu
  const storage=memory(),state=shop.load(storage);
  let expected=0;
  for(let level=1;level<=100;level++){
-  const platforms=40+Math.min(40,6*Math.floor((level-1)/2));
+  const platforms=require('../www/level-generator.js').platformCount(level);
   for(let passed=1;passed<=platforms;passed++){
    const reward=shop.coinsForPlatform(passed);
    assert.equal(reward,passed%4===0?2:0);

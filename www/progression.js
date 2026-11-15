@@ -8,14 +8,14 @@
   {id:'guard',name:'Fôlego protetor',description:'+0,17 s de proteção após dano por nível.',max:3,costs:[30,60,100]}
  ]);
  const integer=(n,fallback,min,max)=>Number.isSafeInteger(n)?Math.max(min,Math.min(max,n)):fallback;
- const count=level=>40+Math.min(40,6*Math.floor((level-1)/2));
+ const count=level=>10*(40+Math.min(40,6*Math.floor((level-1)/2)));
  function normalize(raw){
   const r=raw&&typeof raw==='object'?raw:{};
-  const state={selected:1,unlocked:integer(r.unlocked,1,1,MAX_LEVEL),best:{},completed:{},talents:{}};
+  const state={layoutVersion:2,selected:1,unlocked:integer(r.unlocked,1,1,MAX_LEVEL),best:{},completed:{},talents:{}};
   state.selected=integer(r.selected,1,1,state.unlocked);
   for(let level=1;level<=state.unlocked;level++){
    if(r.best?.[level])state.best[level]=integer(r.best[level],0,0,count(level));
-   if(r.completed?.[level]===true){state.completed[level]=true;state.best[level]=count(level);}
+   if(r.layoutVersion===2&&r.completed?.[level]===true){state.completed[level]=true;state.best[level]=count(level);}
   }
   for(const t of TALENTS)state.talents[t.id]=integer(r.talents?.[t.id],0,0,t.max);
   return state;

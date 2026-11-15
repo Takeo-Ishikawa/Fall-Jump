@@ -14,9 +14,9 @@
   const GRAVITY = 0.32;
   const MAX_FALL_SPEED = 14;
   const CONTACT_RADIUS = 13 / 0.86;
-  // A validação presume cerca de 9 px de arrasto por frame a 60 Hz.
+  // A validação presume a velocidade angular máxima do personagem a 60 Hz.
   // Não limita o controle do usuário; apenas rejeita níveis pouco razoáveis.
-  const FAIR_TURN_PER_FRAME = 0.11;
+  const FAIR_TURN_PER_FRAME = 0.04;
   const GAP_CLEARANCE = 0.09;
   const STAGE_NAMES = ['APRENDIZADO', 'RITMO', 'TÉCNICA', 'DESAFIO', 'RESPIRO'];
   const PATTERN_NAMES = ['spiral', 'zigzag', 'plunge', 'switchback', 'rest', 'precision'];
@@ -50,15 +50,15 @@
     const n = Math.max(1, Math.floor(level) || 1);
     const phase = (n - 1) % 5;
     const tier = Math.floor((n - 1) / 5);
-    const curve = [0.15, 0.34, 0.52, 0.73, 0.37];
-    const intensity = clamp(curve[phase] + Math.min(0.18, tier * 0.023), 0, 0.91);
+    const curve = [0.25, 0.44, 0.64, 0.85, 0.49];
+    const intensity = clamp(curve[phase] + Math.min(0.12, tier * 0.025), 0, 0.97);
     return { phase, tier, intensity, label: STAGE_NAMES[phase] };
   }
   // Pesos por ciclo: cada etapa possui identidade, não apenas obstáculos
   // aleatórios com a mesma distribuição.
   const PHASE_WEIGHTS = [
-    [['plunge', 6], ['rest', 4], ['spiral', 3], ['zigzag', 1]],
-    [['plunge', 6], ['spiral', 4], ['zigzag', 3], ['switchback', 1]],
+    [['plunge', 3], ['rest', 2], ['spiral', 5], ['zigzag', 3]],
+    [['plunge', 3], ['spiral', 4], ['zigzag', 5], ['switchback', 3]],
     [['zigzag', 5], ['spiral', 4], ['switchback', 3], ['precision', 3], ['plunge', 2]],
     [['precision', 5], ['switchback', 5], ['zigzag', 4], ['spiral', 2], ['plunge', 2]],
     [['rest', 6], ['plunge', 5], ['spiral', 3], ['zigzag', 2]]
@@ -82,10 +82,11 @@
     if (pattern === 'spiral' || pattern === 'zigzag') return 4 + Math.floor(rng() * 3);
     return 3 + Math.floor(rng() * 3);
   }
+  function platformCount(level) {return 10 * (40 + Math.min(40, 6 * Math.floor((level - 1) / 2)));}
   function buildCandidate(level, seed, safeMode) {
     const rng = randomFromSeed(seed);
     const difficulty = difficultyFor(level);
-    const count = 40 + Math.min(40, 6 * Math.floor((level - 1) / 2));
+    const count = platformCount(level);
     const platforms = [];
     const segments = [];
     const intensity = safeMode ? difficulty.intensity * 0.62 : difficulty.intensity;
@@ -110,13 +111,14 @@
         else if (pattern === 'rest') change = (rng() - 0.5) * 0.20;
         else if (pattern === 'precision') change = direction * (0.48 + rng() * 0.28 + intensity * 0.08);
 
+        change = clamp(change, -0.62, 0.62);
         const angle = i === 0 ? 1.3 : signedAngle(lastAngle + change);
         lastAngle = angle;
-        const minGap = level === 1 ? 0.90 : 0.65;
-        let gap = 0.92 + rng() * 0.17 - intensity * 0.12;
-        if (pattern === 'precision' && level >= 3) gap -= 0.09;
-        if (pattern === 'rest' || pattern === 'plunge') gap += 0.10;
-        gap = clamp(gap, minGap, 1.20);
+        const minGap = level === 1 ? 0.75 : 0.55;
+        let gap = 0.80 + rng() * 0.14 - intensity * 0.12;
+        if (pattern === 'precision' && level >= 3) gap -= 0.08;
+        if (pattern === 'rest' || pattern === 'plunge') gap += 0.06;
+        gap = clamp(gap, minGap, 1.00);
 
         let special = null;
         if (i >= 2 && i < count - 1 && i - lastSpecial >= 3) {
@@ -126,11 +128,11 @@
           if (special) lastSpecial = i;
         }
         let danger = 0;
-        if (level >= 2 && i >= 3 && i < count - 1 && i - lastDanger >= 3) {
+        if (i >= (level === 1 ? 12 : 3) && i < count - 1 && i - lastDanger >= 3) {
           const chance = pattern === 'plunge' || pattern === 'rest'
-            ? 0.02 : 0.14 + intensity * 0.22 + (pattern === 'precision' ? 0.06 : 0);
+            ? 0.05 : 0.23 + intensity * 0.26 + (pattern === 'precision' ? 0.10 : 0);
           if (rng() < chance) {
-            danger = clamp(0.26 + rng() * 0.21 + intensity * 0.12, 0, 0.65);
+            danger = clamp(0.32 + rng() * 0.21 + intensity * 0.12, 0, 0.65);
             lastDanger = i;
           }
         }
@@ -156,9 +158,10 @@
   // de passagem por todas as aberturas sem depender dessas facilidades.
   function simulateRoute(plan) {
     const platforms = plan.platforms;
-    let y = -76, vy = 0, rotation = 0, index = 0;
+    let y = -76, vy = 0, rotation = -(platforms[0]?.angle||0), index = 0;
+    const maxFrames = Math.ceil((platforms.length * SPACING + 76) / MAX_FALL_SPEED) + 120;
     let worstClearance = Infinity;
-    for (let frame = 1; frame <= 1200 && index < platforms.length; frame++) {
+    for (let frame = 1; frame <= maxFrames && index < platforms.length; frame++) {
       const p = platforms[index];
       const delta = signedAngle(-p.angle - rotation);
       rotation = signedAngle(rotation + clamp(delta, -FAIR_TURN_PER_FRAME, FAIR_TURN_PER_FRAME));
@@ -178,18 +181,18 @@
     return {
       ok: index === platforms.length,
       failedAt: index === platforms.length ? -1 : index,
-      frames: index === platforms.length ? Math.ceil((y + 76) / MAX_FALL_SPEED) : 1200,
+      frames: index === platforms.length ? Math.ceil((y + 76) / MAX_FALL_SPEED) : maxFrames,
       clearance: worstClearance
     };
   }
 
   function validateLevel(plan) {
     if (!plan || !Array.isArray(plan.platforms) || plan.platforms.length !== plan.count) return false;
-    if (plan.count < 40 || plan.count > 80) return false;
+    if (plan.count !== platformCount(plan.level)) return false;
     for (let i = 0; i < plan.platforms.length; i++) {
       const p = plan.platforms[i];
       if (!Number.isFinite(p.angle) || !Number.isFinite(p.gap) ||
-          p.gap < 0.65 || p.gap > 1.20 || p.y !== i * SPACING ||
+          p.gap < 0.55 || p.gap > 1.00 || p.y !== i * SPACING ||
           p.danger < 0 || p.danger > 0.65) return false;
       if (i < 3 && p.danger !== 0) return false;
       if (i && p.danger && plan.platforms[i - 1].danger) return false;
@@ -203,7 +206,7 @@
     const plan = buildCandidate(level, seed, true);
     plan.platforms.forEach((p, i) => {
       p.angle = signedAngle(1.3 + i * 0.11);
-      p.gap = 1.06;
+      p.gap = 0.88;
       p.danger = 0;
       p.special = null;
     });
@@ -229,7 +232,7 @@
   }
 
   return {
-    generateLevel, validateLevel, simulateRoute, difficultyFor,
+    generateLevel, validateLevel, simulateRoute, difficultyFor, platformCount,
     randomSeed, signedAngle, SPACING, FAIR_TURN_PER_FRAME
   };
 });
