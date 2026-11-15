@@ -45,7 +45,7 @@ O Android exige **o mesmo applicationId e a mesma chave de assinatura**, além d
 Abra **Actions > Compilar APK e AAB atualizaveis > Run workflow**. O workflow original foi restaurado: compila `assembleRelease bundleRelease`, verifica as duas assinaturas, tenta publicar ambos em Releases e mantém cópias em Artifacts. Ele também continua sendo executado automaticamente pelos pushes em `main` nos caminhos configurados.
 
 ## Gerar somente APK para download direto
-Abra **Actions > Compilar APK direto > Run workflow**, selecione o branch que deseja compilar (para as mudanças atuais, `feat/minimal-pastel-style`) e preencha `version_code` com um inteiro maior que o da versão instalada. Esse workflow é somente manual.
+Abra **Actions > Compilar APK direto > Run workflow**, selecione o branch que deseja compilar (para as mudanças atuais, `feat/minimal-pastel-style`) e preencha `version_code` com um inteiro maior que o da versão instalada. Zero não é permitido: se o APK anterior usava o código 41, por exemplo, informe `42`. O campo é validado no início, antes de instalar dependências ou preparar a assinatura. Esse workflow é somente manual.
 
 Os contadores dos workflows são independentes. O workflow original continua usando seu `github.run_number`; o direto usa o `version_code` informado. Para alternar entre eles e instalar uma atualização, o APK escolhido precisa ter um código compatível com a instalação atual. Não altere a chave de assinatura.
 
