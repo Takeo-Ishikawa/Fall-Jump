@@ -1,0 +1,2634 @@
+[
+  {
+    "index": 0,
+    "title": "Primeiros caminhos",
+    "tip": "Joystick para os lados: contorne a torre. Para cima e para baixo: afaste ou aproxime da coluna. Alcance a saída dourada.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 7
+    },
+    "tiles": [
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 1,
+    "title": "Passagem estreita",
+    "tip": "Mantenha-se no caminho estreito. Soltar o joystick interrompe o movimento.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 10
+    },
+    "tiles": [
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 2,
+    "title": "Escolha seu caminho",
+    "tip": "Escolha a rota interna, mais segura, ou a externa, com moedas e um obstáculo para saltar.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 11
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 5,
+        "height": 20,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 3,
+    "title": "Ilhas suspensas",
+    "tip": "Dois toques para saltar entre as ilhas. Solte o controle no ar para ajustar a aterrissagem.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 15
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 12,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 13,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 14,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 15,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 4,
+    "title": "Ponte de vidro",
+    "tip": "A ponte azul cede após um instante. Atravesse sem parar ou salte sobre ela.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 11
+    },
+    "tiles": [
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 3,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 5,
+    "title": "Escadaria",
+    "tip": "Salte para subir os degraus. Desça com cuidado até a saída.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 12
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 3,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 32,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 32,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 32,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 10,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 12,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 6,
+    "title": "Caminho em zigue-zague",
+    "tip": "Mude de faixa para acompanhar as curvas do caminho.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 0,
+      "cell": 13
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 12,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 13,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": {
+      "lane": 2,
+      "from": 5,
+      "to": 7
+    }
+  },
+  {
+    "index": 7,
+    "title": "Travessia delicada",
+    "tip": "Uma conexão estreita une as duas partes. Planeje sua travessia.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 2,
+      "cell": 11
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": null
+  },
+  {
+    "index": 8,
+    "title": "Pátio da patrulha",
+    "tip": "Há espaço para desviar da patrulha. Golpes e pisões também funcionam.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 11
+    },
+    "tiles": [
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 3,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 6,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": {
+      "lane": 1,
+      "from": 4,
+      "to": 8
+    }
+  },
+  {
+    "index": 9,
+    "title": "Pedras suspensas",
+    "tip": "Alterne entre a faixa interna e a externa usando o salto.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 2,
+      "cell": 11
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 16,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 16,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": {
+      "lane": 2,
+      "from": 8,
+      "to": 9
+    }
+  },
+  {
+    "index": 10,
+    "title": "Duas rotas",
+    "tip": "As duas rotas têm desafios diferentes. Escolha seu caminho até a saída.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 1,
+      "cell": 11
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 5,
+        "height": 20,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 6,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": {
+      "lane": 2,
+      "from": 6,
+      "to": 8
+    }
+  },
+  {
+    "index": 11,
+    "title": "Última travessia",
+    "tip": "Combine movimento, saltos e travessias para completar a fase.",
+    "entry": {
+      "lane": 1,
+      "cell": 0
+    },
+    "exit": {
+      "lane": 2,
+      "cell": 15
+    },
+    "tiles": [
+      {
+        "lane": 1,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 0,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 1,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 2,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 3,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 0,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 4,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 5,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 6,
+        "height": 0,
+        "fragile": true,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 7,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 8,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 1,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 9,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 10,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 11,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 12,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 13,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 14,
+        "height": 0,
+        "fragile": false,
+        "coin": true,
+        "exit": false,
+        "collapsed": false,
+        "standFrames": 0
+      },
+      {
+        "lane": 2,
+        "cell": 15,
+        "height": 0,
+        "fragile": false,
+        "coin": false,
+        "exit": true,
+        "collapsed": false,
+        "standFrames": 0
+      }
+    ],
+    "patrol": {
+      "lane": 2,
+      "from": 11,
+      "to": 13
+    }
+  }
+]

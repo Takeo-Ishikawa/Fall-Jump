@@ -1,4 +1,6 @@
-# Fall Jump — HTML5, APK e AAB Android
+# Fall Jump — Godot 3D e versão Canvas
+
+**Migração Godot 3D:** o projeto nativo jogável está em [godot/project.godot](godot/project.godot), no branch `feat/godot-3d`. Consulte [como executar e gerar o APK Godot](godot/README.md). Ele instala ao lado do aplicativo anterior, com progresso separado. Os workflows e a versão Canvas continuam disponíveis.
 
 Jogo casual HTML5/Canvas 2D (versão 1.9.0, Ruínas Celestes em validação), empacotado para Android via Capacitor 7.
 

@@ -6,3 +6,5 @@ dist/
 .env
 local.properties
 .DS_Store
+.godot/
+.godot-tools/
