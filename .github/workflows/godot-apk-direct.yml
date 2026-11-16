@@ -1,0 +1,128 @@
+name: Godot 3D - Compilar APK direto
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: godot-apk-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  GODOT_VERSION: 4.6.3
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Obter projeto Godot do branch selecionado
+        uses: actions/checkout@v4
+
+      - name: Verificar projeto
+        run: |
+          if [ ! -f godot/project.godot ]; then
+            echo "::error::Selecione o branch feat/godot-3d no Run workflow. O projeto Godot ainda nao esta neste branch."
+            exit 1
+          fi
+
+      - name: Cache da engine e dos templates
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .godot-tools
+            ~/.local/share/godot/export_templates
+          key: godot-android-${{ runner.os }}-${{ env.GODOT_VERSION }}
+
+      - name: Instalar Godot e templates oficiais
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          mkdir -p .godot-tools "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          BASE="https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable"
+          curl --fail --location --retry 3 "$BASE/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" -o "$RUNNER_TEMP/godot.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d .godot-tools
+          mv ".godot-tools/Godot_v${GODOT_VERSION}-stable_linux.x86_64" .godot-tools/godot
+          chmod +x .godot-tools/godot
+          curl --fail --location --retry 3 "$BASE/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" -o "$RUNNER_TEMP/templates.tpz"
+          unzip -j -q "$RUNNER_TEMP/templates.tpz" templates/android_debug.apk templates/android_release.apk templates/version.txt -d "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+
+      - name: Validar scripts, fisica e regras nativas
+        env:
+          GODOT_BIN: ${{ github.workspace }}/.godot-tools/godot
+        run: bash scripts/check_godot.sh
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Preparar Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.1'
+
+      - name: Selecionar versao e configurar exportacao
+        id: version
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          git ls-remote --tags origin > "$RUNNER_TEMP/godot-tags.txt"
+          python3 - <<'PY'
+          import os, pathlib, re, subprocess
+          refs = pathlib.Path(os.environ['RUNNER_TEMP'], 'godot-tags.txt').read_text()
+          published = [int(n) for n in re.findall(r'refs/tags/godot-v0\.1\.0\.([0-9]+)(?:\^\{\})?$', refs, re.M)]
+          code = max(max(published, default=0) + 1, int(os.environ['RUN_NUMBER']))
+          subprocess.run(['python3', 'scripts/configure_godot_export.py', '--version-code', str(code), '--sdk', os.environ['ANDROID_HOME'], '--java', os.environ['JAVA_HOME']], check=True)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write(f'code={code}\n')
+          PY
+
+      - name: Exportar APK Godot sem assinatura
+        run: |
+          mkdir -p dist
+          .godot-tools/godot --headless --path godot --export-release 'Android APK' "$GITHUB_WORKSPACE/dist/godot-unsigned.apk"
+
+      - name: Assinar e verificar APK com a chave permanente
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          VERSION_CODE: ${{ steps.version.outputs.code }}
+        shell: bash
+        run: |
+          for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [[ -z "${!name}" ]]; then
+              echo "::error::Configure os quatro secrets ANDROID_* existentes antes de compilar."
+              exit 1
+            fi
+          done
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/fall-jump-godot.jks"
+          chmod 600 "$RUNNER_TEMP/fall-jump-godot.jks"
+          TOOLS="$ANDROID_HOME/build-tools/35.0.1"
+          "$TOOLS/zipalign" -f -P 16 4 dist/godot-unsigned.apk dist/godot-aligned.apk
+          "$TOOLS/apksigner" sign --ks "$RUNNER_TEMP/fall-jump-godot.jks" --ks-key-alias "$KEY_ALIAS" --ks-pass env:KEYSTORE_PASSWORD --key-pass env:KEY_PASSWORD --out "dist/Fall-Jump-Godot3D-v0.1.0.${VERSION_CODE}.apk" dist/godot-aligned.apk
+          "$TOOLS/apksigner" verify --verbose "dist/Fall-Jump-Godot3D-v0.1.0.${VERSION_CODE}.apk"
+          rm -f "$RUNNER_TEMP/fall-jump-godot.jks" dist/godot-unsigned.apk dist/godot-aligned.apk
+
+      - name: Disponibilizar APK direto para teste
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION_CODE: ${{ steps.version.outputs.code }}
+        run: |
+          TAG="godot-v0.1.0.${VERSION_CODE}"
+          APK="dist/Fall-Jump-Godot3D-v0.1.0.${VERSION_CODE}.apk"
+          gh release create "$TAG" "$APK" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Fall Jump Godot 3D 0.1.0.${VERSION_CODE}" --notes "Versao Godot nativa para comparacao. Instala como Fall Jump 3D, ao lado da versao anterior, com progresso separado. APK direto, sem ZIP."
+          URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/download/${TAG}/$(basename "$APK")"
+          {
+            echo '### Fall Jump 3D (Godot)'
+            echo
+            echo "[Baixar APK diretamente](${URL})"
+            echo
+            echo 'Instala como um aplicativo separado. O progresso da versao Canvas permanece intacto.'
+          } >> "$GITHUB_STEP_SUMMARY"
