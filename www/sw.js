@@ -1,4 +1,4 @@
-const CACHE_NAME='fall-jump-v190-exploration-course-1';
+const CACHE_NAME='fall-jump-v190-celestial-ruins-1';
 const FILES=['./course.js','./index.html','./pastel.css','./level-generator.js','./fever.js','./skins.js','./goals.js','./progression.js'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(FILES)));

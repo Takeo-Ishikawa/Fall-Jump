@@ -271,3 +271,87 @@ button {font-family:inherit;font-weight:650;color:var(--fj-ink);background:var(-
 #phaseGuide span {display:block;font-size:11px;line-height:1.45;color:var(--fj-muted)}
 @media(max-height:550px){#phaseGuide{bottom:calc(105px + env(safe-area-inset-bottom));padding:8px 12px}}
 #courseMap {position:absolute;right:14px;top:max(126px,calc(env(safe-area-inset-top) + 112px));width:92px;height:92px;background:#fffdf9e8;border:1px solid var(--fj-line);border-radius:18px;pointer-events:none;touch-action:none}
+
+/* Ruínas Celestes — vivid fantasy surfaces over the existing responsive layout. */
+:root {
+ --fj-paper:#101a34;--fj-surface:#172741;--fj-ink:#eef6ff;--fj-muted:#b0c4df;
+ --fj-pink:#ffcc55;--fj-blue:#31d6ed;--fj-gold:#ffcf58;--fj-sage:#42e6ac;
+ --fj-danger:#f2608d;--fj-line:#355074;
+}
+html,body {background:#101a34;color:var(--fj-ink)}
+button {color:#122d35;background:#43e1b0}
+#hud,#sound,#help,#pause,#hint,#phaseGuide,#courseMap {background:#10233ded;border-color:#4e749b;box-shadow:0 5px 22px #030e2d35}
+#hud small,#progressCount,#score {color:#f0f6ff}
+#score {font-weight:800}
+#hud small {color:#82f8d0}
+#healthHud {color:#7df5c7}
+#healthTrack,#progress,#feverTrack {background:#304966}
+#healthFill,#feverFill {background:linear-gradient(90deg,#1ebc97,#70f9af)}
+#progressFill {background:linear-gradient(90deg,#ff9d3e,#ffe077)}
+#sound,#help,#pause {color:#d8edff}
+#sound:active,#help:active,#pause:active {background:#294d71}
+#comboBadge {background:#14384d;color:#8fffdc;border:1px solid #399c99}
+#phaseGuide strong {color:#82f8d0}
+#phaseGuide span,#hint {color:#d3e3f5}
+#attack {color:#18253c;background:linear-gradient(140deg,#ffe482,#ffb63d);border-color:#fff0b2;box-shadow:0 4px 22px #ffc13e38}
+#joystick {background:#132d50bb;border-color:#69d8e388;box-shadow:0 0 24px #19d4d024}
+#joystickKnob {background:radial-gradient(circle at 30% 25%,#aeffdf,#33d7ba 65%,#168f9e);border-color:#b7fff1;box-shadow:0 0 14px #44ffdb44}
+.joystickGuide {color:#6ba9bf}
+#overlay {background:#060e24a8}
+#panel {background:linear-gradient(150deg,#203757,#12223b);border-color:#456388;box-shadow:0 20px 70px #02081e66;scrollbar-color:#4f7398 transparent}
+#panel h2 {font-weight:800}
+#panel #restart {background:linear-gradient(110deg,#ffe47b,#ffc440 65%,#ffa844);color:#392710;border:1px solid #fff0a3;box-shadow:0 5px 0 #a96721,0 8px 24px #ffba3d26;font-weight:800}
+#panel #restart:active {background:#ffc440;transform:translateY(2px);box-shadow:0 3px 0 #a96721}
+#panel .secondary,#panel #menuBtn,#panel #panelBack,#panel #goalTabs,#panel #shopGrid button,#panel .goalRow,.resultStat,#legend span,.talentCard,#equipmentCard {background:#213954;color:#d7e8fb;border-color:var(--fj-line)}
+#panel #goalTabs button.selected {background:#35547a;color:#a5ffe1}
+#panel #shopGrid button.equipped,#panel .goalRow.complete,#panel #goalsOverview {background:#174e4d;border-color:#379d89;color:#9bffe0}
+#goalsOverview strong,#panel #equipmentStatus,#talentFeedback {color:#9bffe0!important}
+#panel .goalRow.ready {background:#4b422b;border-color:#aa8942}
+.goalRow .goalReward,#rewardMedalTitle,#rewardMedalAmount,#goalsCountdown {color:#ffdd79}
+#panel #equipSword,#panel .claimReward.ready {background:#48e0b0;color:#102f32}
+#panel .talentCard button {background:#ac9dff;color:#211a48}
+#panel .talentCard button:disabled,#panel .claimReward:disabled {background:#2b3d56;color:#b0c4df}
+#panel #equipmentInventory .gearItem,#panel .gearSlot {background:#213954;border-color:#416288;color:#a8d0ff}
+#panel .gearSlot.equipped {background:#174b4b;border-color:#359f8d;color:#75efcb}
+#panel .gearSlot.selected,#panel #equipmentInventory .gearItem.selected {background:#244e69;border-color:#68e9df}
+#panel #equipmentInventory .gearItem.equipped>span {color:#82f8d0}
+#equipmentHero {background:radial-gradient(ellipse,#39b1a12b,transparent 70%)}
+#equipmentCard {background:#172741}
+#goalToast {background:#493b25;color:#ffe489;border:1px solid #9e8147}
+#rewardMedal {background:#172741;border-color:#ffce61}
+#shopWallet,#homeCoins,#talentWallet {background:#473c27;color:#ffe489;border-color:#9e8147}
+#overlay[data-screen="menu"] {background:radial-gradient(ellipse at 16% 24%,#424b8f77,transparent 55%),radial-gradient(ellipse at 87% 50%,#158d8455,transparent 60%),linear-gradient(170deg,#131c3c,#132f46 65%,#0d2035)}
+#overlay[data-screen="menu"] #panel {background:transparent;box-shadow:none}
+.homeEyebrow {font-size:12px;color:#e7f5ff;font-weight:850;letter-spacing:.13em}
+.homeEyebrow small {font-size:8px;color:#77e8cf;letter-spacing:.1em}
+#worldTop {margin-bottom:20px}
+#worldStageTag {display:inline-block;padding:5px 12px;border:1px solid #55c7c477;border-radius:8px;background:#1b63604d;color:#8affdc;font-size:9px;letter-spacing:.18em}
+#worldTitle {font-size:32px;font-weight:850;letter-spacing:-.045em;color:#f3f7ff;text-shadow:0 3px 16px #8bbaff22}
+#worldArt {height:194px;max-width:310px;margin:0 auto 8px;background:radial-gradient(ellipse,#25e5ca18,transparent 68%)}
+#worldArt svg {overflow:visible;filter:drop-shadow(0 14px 14px #060c2844)}
+.ruinIsland {animation:ruin-hover 5s ease-in-out infinite;transform-origin:center}
+.portalHalo {animation:portal-glow 3s ease-in-out infinite}
+.ruinSparks {animation:portal-glow 4s ease-in-out infinite}
+#worldRecord {background:#10233b9e;border-color:#385779}
+#worldTrack {background:#294460}
+#worldFill {background:linear-gradient(90deg,#2cc3ae,#82f4c2)}
+#worldMarker {background:#fff0a8;border-color:#172b46;box-shadow:0 0 0 1px #e1bd5e,0 0 10px #ffdc6755}
+#panel .stageChoice {background:#203953;border-color:#3e5a7d;color:#c9dcf4}
+.stageChoice strong {font-weight:800}
+#panel .stageChoice.selected {background:linear-gradient(135deg,#27655e,#21475c);border-color:#6ee7c1;color:#bbffe3;box-shadow:inset 0 0 20px #33eac511}
+#panel .stageChoice.completed {color:#8affdc}
+#panel .stageChoice:disabled {opacity:1;background:#182c45;color:#8ca3c1;border-color:#2e4564}
+#overlay[data-screen="menu"] #menuInstructions,#overlay[data-screen="menu"] #goalsButton {color:#b5cae4;background:transparent;border:0}
+#homeNav {background:#101f36f7;border-color:#395777;box-shadow:0 -8px 30px #030b2440}
+#homeNav button {color:#a8bedb}
+#homeNav button[aria-current="page"] {background:linear-gradient(145deg,#235b55,#193d50);color:#95ffdc;border:1px solid #43a58c}
+#homeNav button>small {font-weight:700}
+.skinThumb.melon {background:radial-gradient(circle at 30% 25%,#a2ffd2,#2bd49d 58%,#087f69)}
+.skinThumb.lemon {background:radial-gradient(circle at 30% 25%,#fff2a3,#ffc63e 58%,#a76314)}
+.skinThumb.blueberry {background:radial-gradient(circle at 30% 25%,#ccd5ff,#7c85f7 58%,#3b40a6)}
+.skinThumb.strawberry {background:radial-gradient(circle at 30% 25%,#ffc3cf,#fa5b88 58%,#a62458)}
+#panel button:focus-visible,#sound:focus-visible,#help:focus-visible,#pause:focus-visible,#attack:focus-visible {outline-color:#80ffe0}
+@keyframes ruin-hover {0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes portal-glow {0%,100%{opacity:.65}50%{opacity:1}}
+@media(max-height:650px){#worldArt{height:135px}#worldTitle{font-size:27px}#worldTop{margin-bottom:14px}}
+@media(prefers-reduced-motion:reduce){.ruinIsland,.portalHalo,.ruinSparks{animation:none}}

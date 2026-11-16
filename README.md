@@ -1,12 +1,12 @@
 # Fall Jump — HTML5, APK e AAB Android
 
-Jogo casual HTML5/Canvas 2D (versão 1.8.3, polimento visual em validação), empacotado para Android via Capacitor 7.
+Jogo casual HTML5/Canvas 2D (versão 1.9.0, Ruínas Celestes em validação), empacotado para Android via Capacitor 7.
 
 Consulte [HISTORICO_DESENVOLVIMENTO.md](HISTORICO_DESENVOLVIMENTO.md) para o registro completo das versões, correções e próximos passos.
 
 Consulte [CHECKLIST_PUBLICACAO.md](CHECKLIST_PUBLICACAO.md) para os itens ainda necessários antes de uma eventual publicação na Google Play.
 
-**Próxima etapa:** [PLANO_POLIMENTO_VISUAL_1_8.md](PLANO_POLIMENTO_VISUAL_1_8.md) — roteiro de direção visual em três entregas (HUD/menus, bola/plataformas/efeitos e ambientação), com critérios de aceite e checklist de testes em Android. **A Etapa A foi iniciada; aprovação visual em Android ainda pendente.**
+A direção visual atual é **fantasia vibrante**: a primeira fase e a tela inicial usam o tema Ruínas Celestes. O plano anterior de polimento pastel permanece como referência histórica em [PLANO_POLIMENTO_VISUAL_1_8.md](PLANO_POLIMENTO_VISUAL_1_8.md).
 
 ## Estrutura
 - `www/index.html`: código do jogo, mantido independente do Android.
@@ -74,7 +74,7 @@ Inimigos roxos patrulham trechos seguros de algumas plataformas, a partir da qua
 As fases 2 em diante continuam disponíveis com o percurso circular. O gerador valida suas rotas de queda; o equilíbrio dos controles ainda precisa de avaliação em aparelho Android.
 
 ## Primeira fase — caminhos de exploração
-A fase 1 agora tem **12 áreas desenhadas manualmente**: introdução, passagem estreita, bifurcações, ilhas suspensas, ponte de vidro, escadaria, zigue-zague, travessia delicada, pátio da patrulha, pedras suspensas, duas rotas e travessia final. O estilo pastel e a câmera ao redor da torre continuam presentes.
+A fase 1 agora tem **12 áreas desenhadas manualmente**: introdução, passagem estreita, bifurcações, ilhas suspensas, ponte de vidro, escadaria, zigue-zague, travessia delicada, pátio da patrulha, pedras suspensas, duas rotas e travessia final. A câmera continua acompanhando o personagem ao redor da torre, agora com o tema Ruínas Celestes.
 
 Nesta fase, mova o joystick para os lados para contornar a torre e para cima/baixo para se afastar/aproximar da coluna. Dois toques continuam saltando; com o joystick pressionado, use dois toques com outro dedo. Há três faixas de distância, pisos estreitos, degraus que exigem salto e intervalos entre ilhas. O minimapa mostra o personagem, os pisos e a saída dourada. As dicas e o nome da área acompanham o avanço.
 
@@ -192,3 +192,10 @@ O estado permanece salvo em `fall-jump-goals-v1` e a carteira em `fall-jump-skin
 - Adicionado teste de regressão que verifica o orçamento de criação de gradientes por quadro, evitando reintroduzir os gradientes estáticos no loop de renderização.
 - Identificadores de versão e cache offline atualizados; economia e mecânicas mantidas.
 - Revisão de progressão, persistência e equilíbrio permanece em andamento; não considerar lançamento final sem CI e testes em dispositivo.
+
+## Visual — Ruínas Celestes
+A tela inicial tem uma ilha flutuante ilustrada em SVG, portal dourado animado, cristais cianos e vegetação. A primeira fase usa pedra azul com espessura, bordas iluminadas, musgo, cristais decorativos e uma torre de alvenaria com runas. Ilhas distantes e pontos de luz compõem o fundo. As saídas mantêm a cor dourada e agora têm um portal luminoso; pontes frágeis continuam azuis com marcas de rachadura.
+
+HUD, menus, inventário, talentos e loja compartilham superfícies escuras e texto claro. O personagem tem cores mais saturadas e contorno claro; as patrulhas usam vermelho-violeta. Saltar e coletar moedas emite partículas curtas; a coleta mostra +2 e envia brilhos até o contador. A espada tem um arco luminoso durante o golpe. São efeitos visuais: trajetos, saltos, vida, dano, preços e progresso permanecem iguais.
+
+O cenário usa desenho procedural e SVG local, sem imagens ou fontes remotas. Os pontos de luz e detalhes animados do cenário usam o relógio visual da partida, que congela na pausa. A preferência de movimento reduzido desativa a flutuação da ilustração do menu, o movimento ambiente e as partículas adicionais de salto/coleta. Validado em Chromium com telas de 320, 390 e 1280 pixels, incluindo funcionamento offline; a avaliação visual e de desempenho em Android permanece necessária.
