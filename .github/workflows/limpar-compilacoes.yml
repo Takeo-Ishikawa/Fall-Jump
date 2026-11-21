@@ -1,0 +1,92 @@
+name: Limpar compilacoes antigas
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/limpar-compilacoes.yml'
+  workflow_run:
+    workflows:
+      - 'Compilar APK e AAB atualizaveis'
+    types: [completed]
+  schedule:
+    - cron: '37 4 * * *'
+
+permissions:
+  actions: write
+
+concurrency:
+  group: limpar-compilacoes
+  cancel-in-progress: false
+
+jobs:
+  limpeza:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Manter os 3 ultimos builds com todos os seus arquivos
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRIMARY_REGEX: '^Fall-Jump-Android-'
+          CLEANUP_REGEX: '^Fall-Jump-Android-'
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import urllib.error
+          import urllib.request
+
+          owner_repo = os.environ["GITHUB_REPOSITORY"]
+          root = f"https://api.github.com/repos/{owner_repo}"
+          primary = re.compile(os.environ["PRIMARY_REGEX"])
+          removable = re.compile(os.environ["CLEANUP_REGEX"])
+          headers = {
+              "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+              "User-Agent": "actions-build-retention",
+          }
+
+          def api(path, method="GET"):
+              req = urllib.request.Request(root + path, headers=headers, method=method)
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  raw = resp.read()
+                  return json.loads(raw) if raw else None
+
+          artifacts = []
+          page = 1
+          while True:
+              batch = api(f"/actions/artifacts?per_page=100&page={page}")["artifacts"]
+              artifacts.extend(batch)
+              if len(batch) < 100:
+                  break
+              page += 1
+
+          def run_id(artifact):
+              return (artifact.get("workflow_run") or {}).get("id")
+
+          active = [a for a in artifacts if not a.get("expired", False) and run_id(a)]
+          builds = [a for a in active if primary.search(a.get("name", ""))]
+          latest_by_run = {}
+          for a in builds:
+              rid = run_id(a)
+              latest_by_run[rid] = max(latest_by_run.get(rid, ""), a["created_at"])
+
+          ranked = sorted(latest_by_run, key=lambda rid: (latest_by_run[rid], rid), reverse=True)
+          keep_runs = set(ranked[:3])
+          old = [a for a in active if removable.search(a.get("name", "")) and run_id(a) not in keep_runs]
+          print(f"Repositorio: {owner_repo}; builds distintos: {len(ranked)}; preservados: {len(keep_runs)}; artefatos antigos: {len(old)}")
+          print("Execucoes preservadas: " + ", ".join(map(str, ranked[:3])))
+          removed_bytes = 0
+          for a in old:
+              try:
+                  api(f"/actions/artifacts/{a['id']}", "DELETE")
+                  removed_bytes += a.get("size_in_bytes", 0)
+                  print(f"Removido: {a['name']} (id {a['id']})")
+              except urllib.error.HTTPError as exc:
+                  if exc.code != 404:
+                      raise
+                  print(f"Ja removido: {a['id']}")
+          print(f"Espaco estimado liberado: {removed_bytes / (1024 * 1024):.2f} MiB")
+          PY
